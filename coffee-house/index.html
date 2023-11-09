@@ -3,7 +3,97 @@
   <head>
     <meta charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="src/style.css">
     <title>Resource</title>
   </head>
-  <body></body>
+  <body>
+    <body>
+      <div class="container">
+        <header>
+          <a class="menu_logo"><img class="menu_img" src="img/logo/logo2.png" alt="logo"></a>
+          <!-- <div class="humburger">
+            <span></span>
+            <span></span>
+            <span></span>
+          </div> -->         
+            <nav>
+              <ul class="menu">
+                <li class="menu_item"><a href="#coffee" class="menu_link">Favorite coffee</a></li>
+                <li class="menu_item"><a href="#about" class="menu_link">About</a></li>
+                <li class="menu_item"><a href="#mobile_app" class="menu_link">Mobile app</a></li>
+                <li class="menu_item"><a href="#contact" class="menu_link">Contact us</a></li>
+              </ul>
+            </nav>
+           
+          <a class="menu_logo">Menu <img class="menu_cup" src="img/logo/coffee-cup.svg" alt="logo"></a>
+        </header>
+        <main>
+          <section class="Enjoy">
+            <h2 class="enjoy_title"><span>Enjoy</span> premium coffee at our charming cafe</h2>
+            <p class="enjoy_subtitle">With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular destination for coffee
+            lovers and those seeking a warm and inviting space to enjoy their favorite beverage.</p>
+           <button class="enjoy_btn">Menu</button>
+          </section>
+          
+          <section class="Favourites_coffee" id="coffee">
+          <h2 class="coffee_title">Choose your <span>favorite</span> coffee</h2>
+        <div class="coffee_slider_section">
+          <button class="coffee_slider_arrow_prev">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g id="arrow-left">
+                <path id="Vector" d="M18.5 12H6M6 12L12 6M6 12L12 18" stroke="#403F3D" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </g>
+            </svg></button>
+          <div class="coffe_gallery">
+            <div class="slades">
+              <img src="img/png/coffee-slider-1.png" alt="Frappuccino">
+              <p class="slides_title">S’mores Frappuccino</p>
+              <p class="slides_subtitle">This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with oat milk.</p>
+              <div class="slides_price">$5.50 </div>  
+            </div>
+            <div class="slades2">
+              <img src="img/png/coffee-slider-2.png" alt="Frappuccino">
+              <p class="slides_title">Caramel Macchiato</p>
+              <p class="slides_subtitle">Fragrant and unique classic espresso with rich caramel-peanut syrup, with cream under whipped thick foam.</p>
+              <div class="slides_price">$5.00 </div>
+            </div>
+            <div class="slades3">
+              <img src="img/png/coffee-slider-1.png" alt="Frappuccino">
+              <p class="slides_title">Ice coffee</p>
+              <p class="slides_subtitle">A popular summer drink that tones and invigorates. Prepared from coffee, milk and ice.</p>
+              <div class="slides_price">$4.50 </div>
+            </div>
+          </div>
+          <button class="coffee_slider_arrow_next"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g id="arrow-right">
+              <path id="Vector" d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18" stroke="#403F3D" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </g>
+          </svg></button>
+          </div>
+        <div class="wrapper_circle">
+          <div class="about_wrapper_circle"><button class="about_circle"></button></div>
+          <div class="about_wrapper_circle"><button class="about_circle"></button></div>
+          <div class="about_wrapper_circle"><button class="about_circle"></button></div>
+        </div>
+
+        </section>
+          <section class="About" id="about">
+        
+          </section>
+          <section class="Mobile App" id="mobile_app">
+          
+          </section>
+        </main>
+        <footer id="contact">
+       
+       </footer>
+      </div>
+      <script src="src/script.js"></script>
+     
+  </body>
 </html>
