@@ -3,14 +3,13 @@
   <head>
     <meta charset="UTF-8" >
     <meta name="viewport" content="width=device-width, initial-scale=1.0" >
-    <link rel="icon" href="" type="image/x-icon">
+   <link rel="icon" href="img/logo/cup.svg" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="src/style.css">
     <title>Resource</title>
   </head>
-  <body>
     <body>
       <div class="container">
         <header>
@@ -37,7 +36,7 @@
             <h2 class="enjoy_title"><span>Enjoy</span> premium coffee at our charming cafe</h2>
             <p class="enjoy_subtitle">With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular destination for coffee
             lovers and those seeking a warm and inviting space to enjoy their favorite beverage.</p>
-           <button class="enjoy_btn"><a class="enjoy_menu_link" href="menu.html">Menu</a> </button>
+           <div class="enjoy_btn"><a class="enjoy_menu_link" href="menu.html">Menu</a></div>
           </section>
           
           <section class="Favourites_coffee" id="coffee">
@@ -72,15 +71,15 @@
           </div>
           <button class="coffee_slider_arrow_next"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="arrow-right">
-              <path id="Vector" d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18" stroke="#403F3D" stroke-linecap="round"
+              <path id="Vector1" d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18" stroke="#403F3D" stroke-linecap="round"
                 stroke-linejoin="round" />
             </g>
           </svg></button>
           </div>
         <div class="coffee_block_lines">
-          <div class="coffee_wrapper_line"><button class="coffee_line"></button></div>
-          <div class="coffee_wrapper_line"><button class="coffee_line"></button></div>
-          <div class="coffee_wrapper_line"><button class="coffee_line"></button></div>
+          <button class="coffee_line coffee_line_first"></button>
+          <button class="coffee_line"></button>
+          <button class="coffee_line"></button>
         </div>
 
         </section>
@@ -178,12 +177,16 @@
           <div class="footer_second">
             <h5 class="footer_second_title">Contact us</h5>
             <div class="footer_second_adress">
-              <img src="img/logo/pin-alt.svg" alt="phone"> <a href="#">8558 Green Rd., LA</a>
-          </div>
-           <div class="footer_second_phone">
-           <img src="img/logo/phone.svg" alt="phone">
-            <a href="tel:+1 (603) 555-0123">+1 (603) 555-0123</a></div>
-           
+              <img src="img/logo/pin-alt.svg" alt="address"> 
+              <a href="#">8558 Green Rd., LA</a>
+            </div>
+
+            <div class="footer_second_phone">
+              <div class="wrapper_phone">
+                <img src="img/logo/phone.svg" alt="phone">
+                <a href="tel:+1(603)555-0123">+1 (603) 555-0123</a>
+              </div>              
+            </div>           
             <div class="footer_second_time">
               <img src="img/logo/clock.svg" alt="clock">
               <p>Mon-Sat: 9:00 AM – 23:00 PM</p>
@@ -191,7 +194,6 @@
           </div>
         </footer>
       </div>
-      <script src="src/script.js"></script>
-     
+      <script src="src/script.js"></script>     
   </body>
 </html>
