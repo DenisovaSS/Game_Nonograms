@@ -159,7 +159,7 @@ header {
   padding: 100px 40px;
 }
 .coffee_title {
-  text-align: center;
+  text-align: left;
   font-size: 59px;
   font-style: normal;
   font-weight: 600;
@@ -259,7 +259,7 @@ header {
   margin-top: 40px;
   display: grid;
   grid-template-columns: 660px 660px;
-  grid-template-rows: 430px 160px 430px;
+  grid-template-rows: 430px 120px 430px;
 
   gap: 40px;
 }
@@ -406,7 +406,7 @@ footer {
   line-height: 125%; /* 30px */
 }
 .footer_second_adress {
-  display: inline-block;
+  max-width: max-content;
   margin-top: 40px;
   position: relative;
 }
