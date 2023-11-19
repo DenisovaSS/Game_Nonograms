@@ -75,6 +75,9 @@ header {
   opacity: 1;
   width: 100%;
 }
+/* .menu_cup {
+  margin-top: 4px;
+} */
 .Enjoy {
   margin: 0 40px;
   min-height: 644px;
@@ -220,6 +223,16 @@ header {
   background-color: var(--background-body);
   border-radius: 100px;
   border: 1px solid var(--border-dark, #665f55);
+  transition: all 1.7s ease;
+  cursor: pointer;
+}
+.coffee_slider_arrow_prev:hover,
+.coffee_slider_arrow_next:hover {
+  background: var(--background-container, #665f55);
+}
+.coffee_slider_arrow_prev:hover path,
+.coffee_slider_arrow_next:hover path {
+  stroke: rgba(225, 212, 201, 1);
 }
 .coffee_block_lines {
   display: flex;
@@ -228,11 +241,15 @@ header {
   align-items: center;
 }
 .coffee_line {
+  margin-top: 40px;
   width: 40px;
   height: 4px;
   border-radius: 100px;
+  border: none;
+  background: var(--border-light, #c1b6ad);
+}
+.coffee_line_first {
   background: var(--border-dark, #665f55);
-  /* background: var(--border-light, #C1B6AD); */
 }
 .about {
   min-height: 1325px;
@@ -319,6 +336,17 @@ header {
   font-style: normal;
   font-weight: 600;
 }
+.mobile_btn:hover {
+  color: var(--text-light, #e1d4c9);
+  background: var(--background-container, #665f55);
+  transition: 1.4s ease;
+}
+/* .mobile_btn path {
+  transition: 1s ease;
+} */
+.mobile_btn:hover path {
+  fill: var(--text-light);
+}
 .mobile_btn .mobile_btn_title {
   display: block;
   text-align: center;
@@ -331,6 +359,7 @@ header {
   font-size: 16px;
   line-height: 150%; /* 24px */
 }
+
 footer {
   margin: 100px 40px 40px 40px;
   padding: 100px;
@@ -360,6 +389,14 @@ footer {
   align-items: center;
   border-radius: 100px;
   border: 1px solid var(--border-light, #c1b6ad);
+  transition: all 1.7s ease;
+}
+.footer_social:hover {
+  border: 1px solid var(--background-body, #e1d4c9);
+  background: var(--background-body, #e1d4c9);
+}
+.footer_social:hover path {
+  stroke: rgba(64, 63, 61, 1);
 }
 .footer_second_title {
   color: var(--text-light, #e1d4c9);
@@ -369,7 +406,13 @@ footer {
   line-height: 125%; /* 30px */
 }
 .footer_second_adress {
+  display: inline-block;
   margin-top: 40px;
+  position: relative;
+}
+.wrapper_phone {
+  position: relative;
+  display: inline-block;
 }
 .footer_second_adress a,
 .footer_second_phone a,
@@ -384,6 +427,26 @@ footer {
   line-height: 150%; /* 24px */
   text-decoration: none;
 }
+
+.footer_second_adress::after,
+.wrapper_phone::after {
+  content: "";
+  position: absolute;
+  background: #e1d4c9;
+  left: 50%;
+  bottom: -5px;
+  width: 10%;
+  height: 2px;
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity 0.7s ease-in-out, width 500ms linear;
+}
+.footer_second_adress:hover::after,
+.wrapper_phone:hover::after {
+  opacity: 1;
+  width: 100%;
+}
+
 .footer_second_phone,
 .footer_second_time {
   margin-top: 16px;
