@@ -8,11 +8,11 @@
   --border-light: rgba(193, 182, 173, 1);
   --border-dark: rgba(102, 95, 85, 1);
 }
-* {
+/* * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
+} */
 .menu_menu_btn {
   background-color: var(--background-body);
   border: none;
@@ -47,6 +47,7 @@
 .menu_as_assortiment .coffee_title {
   width: 800px;
   margin: 0 auto;
+  text-align: center;
 }
 
 .menu_as_btns {
