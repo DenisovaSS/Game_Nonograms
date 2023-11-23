@@ -35,9 +35,10 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 40px;
+  padding: 18px 40px;
 }
 .menu {
+  margin-top: -2px;
   display: flex;
   gap: 40px;
   justify-content: flex-start;
@@ -89,7 +90,7 @@ header {
   align-items: flex-start;
   align-self: stretch; */
   border-radius: 40px;
-  background: url(../img/large/img-hero.jpg), center center/cover;
+  background: url(../img/large/img-hero.jpg) center center/cover;
 }
 .enjoy_title {
   color: var(--text-light, #e1d4c9);
@@ -156,14 +157,17 @@ header {
   opacity: 1;
 }
 .Favourites_coffee {
-  padding: 100px 40px;
+  padding: 100px 43px;
 }
 .coffee_title {
   text-align: left;
-  font-size: 59px;
+  font-size: 60px;
   font-style: normal;
   font-weight: 600;
   line-height: 125%;
+}
+.Favourites_coffee .coffee_title {
+  text-align: center;
 }
 .coffee_title span {
   color: var(--text-accent, #b0907a);
@@ -327,7 +331,7 @@ header {
   background-color: var(--background-body);
   display: flex;
   width: 200px;
-  padding: 12px 20px;
+  padding: 13px 20px;
   align-items: center;
   gap: 8px;
   border-radius: 100px;
@@ -349,7 +353,7 @@ header {
 }
 .mobile_btn .mobile_btn_title {
   display: block;
-  text-align: center;
+  text-align: left;
   font-size: 10px;
   line-height: 140%; /* 14px */
 }
@@ -418,13 +422,13 @@ footer {
 .footer_second_phone a,
 .footer_second_time p {
   display: inline;
-  margin-left: 8px;
+  margin-left: 4px;
   color: var(--text-light, #e1d4c9);
   font-family: Inter;
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
-  line-height: 150%; /* 24px */
+  line-height: 174%; /* 24px */
   text-decoration: none;
 }
 
