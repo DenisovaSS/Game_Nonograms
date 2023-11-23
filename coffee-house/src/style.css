@@ -141,7 +141,7 @@ header {
   margin-right: 0px;
   transition: margin-right 300ms linear;
 }
-.enjoy_menu_link:hover {
+.enjoy_btn:hover .enjoy_menu_link {
   margin-right: 25px;
 }
 .enjoy_btn::after {
@@ -152,14 +152,14 @@ header {
   right: 31%;
   transition: opacity 0.6s ease-in-out;
 }
-.enjoy_btn:hover::after {
+.enjoy_btn:hover.enjoy_btn::after {
   opacity: 1;
 }
 .Favourites_coffee {
   padding: 100px 40px;
 }
 .coffee_title {
-  text-align: center;
+  text-align: left;
   font-size: 59px;
   font-style: normal;
   font-weight: 600;
@@ -259,7 +259,7 @@ header {
   margin-top: 40px;
   display: grid;
   grid-template-columns: 660px 660px;
-  grid-template-rows: 430px 160px 430px;
+  grid-template-rows: 430px 120px 430px;
 
   gap: 40px;
 }
@@ -406,7 +406,7 @@ footer {
   line-height: 125%; /* 30px */
 }
 .footer_second_adress {
-  display: inline-block;
+  max-width: max-content;
   margin-top: 40px;
   position: relative;
 }
