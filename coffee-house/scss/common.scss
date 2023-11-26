@@ -10,7 +10,12 @@ html {
 .container {
   max-width: 1440px;
   margin: 0 auto;
+  @media (max-width: $tablet) {
+    max-width: $tablet;
+    padding: 0 40px;
+  }
 }
+
 body {
   background-color: $background-body;
 }
