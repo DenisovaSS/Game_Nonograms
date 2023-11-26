@@ -1,0 +1,137 @@
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 40px;
+}
+.menu {
+  margin-top: -2px;
+  display: flex;
+  gap: 40px;
+  justify-content: flex-start;
+  align-items: center;
+}
+.menu_item {
+  list-style-type: none;
+}
+.menu_img {
+  width: 100px;
+  height: 60px;
+}
+.menu_link {
+  color: $text-dark;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    background: rgba(64, 63, 61, 1);
+    left: 50%;
+    bottom: -5px;
+    width: 10%;
+    height: 2px;
+    opacity: 0;
+    transform: translateX(-50%);
+    transition: opacity 0.7s ease-in-out, width 500ms linear;
+  }
+  &:hover {
+    &::after {
+      opacity: 1;
+      width: 100%;
+    }
+  }
+}
+
+footer {
+  margin: 100px 40px 40px 40px;
+  padding: 100px;
+  border-radius: 40px;
+  background: $background-container;
+  display: flex;
+  max-width: 1360px;
+  align-items: center;
+  gap: 100px;
+}
+.footer_first {
+  max-width: 530px;
+}
+.footer_first .coffee_title {
+  color: $text-light;
+}
+.footer_social_wrapper {
+  margin-top: 40px;
+  display: flex;
+  gap: 12px;
+}
+.footer_social {
+  display: flex;
+  width: 60px;
+  height: 60px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid $border-light;
+  transition: all 1.7s ease;
+}
+.footer_social:hover {
+  border: 1px solid $background-body;
+  background: $background-body;
+}
+.footer_social:hover path {
+  stroke: rgba(64, 63, 61, 1);
+}
+.footer_second_title {
+  color: $text-light;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%; /* 30px */
+}
+.footer_second_adress {
+  max-width: max-content;
+  margin-top: 40px;
+  position: relative;
+}
+.wrapper_phone {
+  position: relative;
+  display: inline-block;
+}
+.footer_second_adress a,
+.footer_second_phone a,
+.footer_second_time p {
+  display: inline;
+  margin-left: 4px;
+  color: $text-light;
+  font-family: Inter;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 174%; /* 24px */
+  text-decoration: none;
+}
+
+.footer_second_adress::after,
+.wrapper_phone::after {
+  content: "";
+  position: absolute;
+  background: #e1d4c9;
+  left: 50%;
+  bottom: -5px;
+  width: 10%;
+  height: 2px;
+  opacity: 0;
+  transform: translateX(-50%);
+  transition: opacity 0.7s ease-in-out, width 500ms linear;
+}
+.footer_second_adress:hover::after,
+.wrapper_phone:hover::after {
+  opacity: 1;
+  width: 100%;
+}
+
+.footer_second_phone,
+.footer_second_time {
+  margin-top: 16px;
+}
