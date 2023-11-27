@@ -9,10 +9,12 @@
   padding: 100px;
   border-radius: 40px;
   background: url(../img/large/img-hero.jpg) center center/cover;
+  @media (max-width: $screen) {
+    margin: 0;
+  }
   @media (max-width: $tablet) {
     max-width: 100%;
     padding: 100px 60px;
-    margin: 0;
   }
 }
 .enjoy_title {
@@ -85,7 +87,7 @@
 }
 .Favourites_coffee {
   padding: 100px 43px;
-  @media (max-width: $tablet) {
+  @media (max-width: $screen) {
     padding: 100px 0;
   }
 }
@@ -192,7 +194,7 @@
 .about {
   min-height: 1325px;
   padding: 0 40px;
-  @media (max-width: $tablet) {
+  @media (max-width: $screen) {
     padding: 0;
   }
 }
@@ -202,6 +204,10 @@
   grid-template-columns: 660px 660px;
   grid-template-rows: 430px 120px 430px;
   gap: 40px;
+  @media (max-width: $screen) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 430px 120px 430px;
+  }
   @media (max-width: $tablet) {
     grid-template-columns: 688px;
     grid-template-rows: 590px 590px;
@@ -246,10 +252,19 @@
 }
 .foto_img {
   transition: linear 0.5s;
+  @media (max-width: $screen-small) {
+    margin-left: -3rem;
+  }
+  @media (max-width: $tablet) {
+    margin-left: 0;
+  }
 }
 .foto_img:hover {
   @media (hover: hover) {
     transform: scale(0.9);
+  }
+  @media (hover: hover) and (max-width: $tablet) {
+    transform: scale(0.95);
   }
 }
 .mobile_App {
@@ -257,14 +272,27 @@
   padding: 0 40px;
   display: flex;
   justify-content: space-between;
+  @media (max-width: $screen) {
+    padding: 0;
+  }
+  @media (max-width: $screen-small) {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
   @media (max-width: $tablet) {
     flex-direction: column;
-    padding: 0;
+    align-items: center;
   }
 }
 .mobile_text {
   max-width: 630px;
   text-align: left;
+  @media (max-width: $screen) {
+    max-width: 50%;
+  }
+  @media (max-width: $screen-small) {
+    max-width: 80%;
+  }
   @media (max-width: $tablet) {
     max-width: 100%;
   }
@@ -273,7 +301,7 @@
   text-align: left;
   font-size: 60px;
   margin-top: 144px;
-  @media (max-width: $tablet) {
+  @media (max-width: $screen-small) {
     margin-top: 0;
   }
 }
@@ -284,9 +312,19 @@
   font-weight: 400;
   line-height: 150%; /* 24px */
 }
-.mobile-screens {
+.mobile_screens {
   width: 630px;
   height: 630px;
+  @media (max-width: $screen) {
+    margin-top: 50px;
+    width: 50%;
+    height: auto;
+  }
+  @media (max-width: $screen-small) {
+    margin-top: 80px;
+    width: 630px;
+    height: 630px;
+  }
   @media (max-width: $tablet) {
     margin-top: 100px;
   }

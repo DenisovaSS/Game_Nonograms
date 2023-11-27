@@ -10,9 +10,19 @@ html {
 .container {
   max-width: 1440px;
   margin: 0 auto;
+
+  @media (max-width: $screen) {
+    max-width: $screen;
+    padding: 0 40px;
+  }
+  @media (max-width: $screen-small) {
+    max-width: $screen-small;
+  }
   @media (max-width: $tablet) {
     max-width: $tablet;
-    padding: 0 40px;
+  }
+  @media (max-width: $mobile) {
+    max-width: $mobile;
   }
 }
 
