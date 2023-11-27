@@ -23,6 +23,7 @@ html {
   }
   @media (max-width: $mobile) {
     max-width: $mobile;
+    padding: 0 16px;
   }
 }
 

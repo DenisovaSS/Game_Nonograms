@@ -16,15 +16,24 @@
     max-width: 100%;
     padding: 100px 60px;
   }
+  @media (max-width: $mobile) {
+    padding: 60px 16px;
+    min-height: auto;
+  }
 }
 .enjoy_title {
   color: $text-light;
-  font-family: Inter;
   font-size: 72px;
   font-weight: 600;
   line-height: 105%; /* 75.6px */
   width: 530px;
   align-self: stretch;
+
+  @media (max-width: $mobile) {
+    font-size: 42px;
+    line-height: 115%;
+    width: 100%;
+  }
 }
 .enjoy_title span {
   color: $text-accent;
@@ -39,6 +48,9 @@
   line-height: 150%;
   width: 530px;
   margin: 40px 0;
+  @media (max-width: $mobile) {
+    width: 100%;
+  }
 }
 .enjoy_btn {
   color: $text-dark;
@@ -57,6 +69,9 @@
   background: $background-body;
   border: none;
   position: relative;
+  @media (max-width: $mobile) {
+    margin-top: 40px;
+  }
 }
 .enjoy_menu_link {
   color: $text-dark;
@@ -66,6 +81,9 @@
   position: relative;
   margin-right: 0px;
   transition: margin-right 300ms linear;
+  @media (max-width: $tablet) {
+    margin-right: 25px;
+  }
 }
 .enjoy_btn:hover .enjoy_menu_link {
   @media (hover: hover) {
@@ -79,6 +97,9 @@
   position: absolute;
   right: 31%;
   transition: opacity 0.6s ease-in-out;
+  @media (max-width: $tablet) {
+    opacity: 1;
+  }
 }
 .enjoy_btn:hover.enjoy_btn::after {
   @media (hover: hover) {
@@ -97,6 +118,10 @@
   font-style: normal;
   font-weight: 600;
   line-height: 125%;
+  color: $text-dark;
+  @media (max-width: $mobile) {
+    font-size: 32px;
+  }
 }
 .Favourites_coffee .coffee_title {
   text-align: center;
@@ -111,11 +136,19 @@
   justify-content: space-between;
   align-items: center;
 }
+.coffe_gallery {
+  @media (max-width: $mobile) {
+    width: 100%;
+  }
+}
 .slades {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 480px;
+  @media (max-width: $mobile) {
+    width: 100%;
+  }
 }
 .slides_title {
   margin-top: 20px;
@@ -124,7 +157,7 @@
   font-size: 24px;
   font-style: normal;
   font-weight: 600;
-  line-height: 125%; /* 30px */
+  line-height: 125%;
 }
 .slides_subtitle {
   margin-top: 16px;
@@ -161,6 +194,9 @@
   border: 1px solid $border-dark;
   transition: all 1.7s ease;
   cursor: pointer;
+  @media (max-width: $mobile) {
+    display: none;
+  }
 }
 .coffee_slider_arrow_prev:hover,
 .coffee_slider_arrow_next:hover {
@@ -209,8 +245,12 @@
     grid-template-rows: 430px 120px 430px;
   }
   @media (max-width: $tablet) {
-    grid-template-columns: 688px;
+    grid-template-columns: 1fr;
     grid-template-rows: 590px 590px;
+    justify-content: center;
+  }
+  @media (max-width: $mobile) {
+    grid-template-columns: 348px;
   }
 }
 .foto {
@@ -283,6 +323,9 @@
     flex-direction: column;
     align-items: center;
   }
+  @media (max-width: $mobile) {
+    display: block;
+  }
 }
 .mobile_text {
   max-width: 630px;
@@ -303,6 +346,9 @@
   margin-top: 144px;
   @media (max-width: $screen-small) {
     margin-top: 0;
+  }
+  @media (max-width: $mobile) {
+    font-size: 32px;
   }
 }
 .mobile_subtitle {
@@ -327,12 +373,20 @@
   }
   @media (max-width: $tablet) {
     margin-top: 100px;
+    width: 100%;
+    height: auto;
+  }
+  @media (max-width: $mobile) {
+    margin-top: 40px;
   }
 }
 .mobile_btns {
   margin-top: 40px;
   display: flex;
   gap: 20px;
+  @media (max-width: $mobile) {
+    flex-direction: column;
+  }
 }
 .mobile_btn {
   background-color: $background-body;
