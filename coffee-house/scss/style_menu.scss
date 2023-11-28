@@ -1,7 +1,23 @@
 @import "./variables";
 @import "./common.scss";
 @import "./headerFooter.scss";
-
+.coffee_title {
+  text-align: left;
+  font-size: 60px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 125%;
+  color: rgb(64, 63, 61);
+}
+@media (max-width: $mobile) {
+  .coffee_title {
+    font-size: 32px;
+  }
+}
+.coffee_title span {
+  color: rgb(176, 144, 122);
+  font-style: italic;
+}
 .menu_menu_btn {
   background-color: $background-body;
   border: none;
@@ -13,6 +29,9 @@
   font-style: normal;
   font-weight: 600;
   line-height: 150%;
+  @media (max-width: $tablet) {
+    display: none;
+  }
 }
 .menu_as_wrapper_tea,
 .menu_as_wrapper_dessert {
@@ -34,6 +53,9 @@
   width: 800px;
   margin: 0 auto;
   text-align: center;
+  @media (max-width: $screen-small) {
+    width: 100%;
+  }
 }
 
 .menu_as_btns {
@@ -73,15 +95,19 @@
 }
 .menu_as_btn_tea {
   width: 90px;
+  transition: all ease-in-out 0.3s;
 }
 .menu_as_btn_dessert {
   width: 124px;
+  transition: all ease-in-out 0.3s;
 }
 .menu_as_btn_tea:hover,
 .menu_as_btn_dessert:hover {
-  color: $text-light;
-  background: $background-container;
-  cursor: pointer;
+  @media (hover: hover) {
+    color: $text-light;
+    background: $background-container;
+    cursor: pointer;
+  }
 }
 .menu_as_btn_wrap_img {
   display: inline-block;
@@ -108,7 +134,35 @@
   align-items: flex-start;
   border-radius: 40px;
   border: 1px solid $border-light;
+  &_refresh {
+    display: flex;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(225, 212, 201);
+    border-radius: 100px;
+    border: 1px solid rgb(102, 95, 85);
+    @media (max-width: $screen) {
+      display: none;
+    }
+    @media (max-width: $tablet) {
+      display: block;
+      margin: 40px auto 0;
+      &:hover {
+        @media (hover: hover) {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+  &.card_over {
+    @media (max-width: $tablet) {
+      display: none;
+    }
+  }
 }
+
 .menu_as_card_wrapper_img {
   width: 310px;
   height: 310px;
@@ -121,8 +175,15 @@
 .menu_as_card_img {
   transition: linear 0.3s;
 }
-.menu_as_card_img:hover {
-  transform: scale(0.95);
+.menu_as_card:hover {
+  @media (hover: hover) {
+    cursor: pointer;
+  }
+}
+.menu_as_card:hover .menu_as_card_img {
+  @media (hover: hover) {
+    transform: scale(0.95);
+  }
 }
 .menu_as_card_wrapper_text {
   /* margin: 0 auto; */

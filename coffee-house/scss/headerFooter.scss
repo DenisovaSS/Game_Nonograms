@@ -1,10 +1,24 @@
 header {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 18px 40px;
   @media (max-width: $screen) {
     padding: 18px 0;
+  }
+}
+.header_active {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  padding: 18px 40px;
+}
+.menu_logo {
+  @media (max-width: $tablet) {
+    position: relative;
+    z-index: 4;
   }
 }
 .menu_link_humburger {
@@ -26,17 +40,20 @@ header {
     }
   }
 }
-nav {
+.block_menu {
   @media (max-width: $tablet) {
-    padding-top: 60px;
+    padding-top: 140px;
     position: fixed;
     background: $background-body;
     width: 100%;
-    height: 924px;
-    top: 100px;
+    height: 100%;
+    top: 0;
     right: -100%;
     transition: right 0.5s ease 0s;
-    z-index: 3;
+    z-index: 2;
+    &_active {
+      right: 0;
+    }
   }
 }
 .menu {
@@ -59,6 +76,7 @@ nav {
 .humburger {
   display: none;
   @media (max-width: $tablet) {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -67,7 +85,7 @@ nav {
     border: 1px solid $border-dark;
     width: 44px;
     height: 44px;
-
+    z-index: 3;
     span {
       display: block;
       width: 20px;
@@ -94,7 +112,6 @@ nav {
       height: 1.5px;
       background-color: $text-dark;
     }
-
     span:nth-child(1) {
       transform: translateY(3px) rotate(-45deg);
     }
@@ -164,7 +181,7 @@ footer {
     align-items: flex-start;
   }
   @media (max-width: $mobile) {
-    margin: 95px 0 40px 0;
+    margin: 100px 0 40px 0;
     padding: 60px 16px;
     gap: 0;
   }
