@@ -1,3 +1,7 @@
+body.modal-open {
+  height: 100vh;
+  overflow-y: hidden;
+}
 header {
   position: relative;
   display: flex;
@@ -8,13 +12,7 @@ header {
     padding: 18px 0;
   }
 }
-.header_active {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  padding: 18px 40px;
-}
+
 .menu_logo {
   @media (max-width: $tablet) {
     position: relative;
@@ -51,6 +49,7 @@ header {
     right: -100%;
     transition: right 0.5s ease 0s;
     z-index: 2;
+
     &_active {
       right: 0;
     }
@@ -97,14 +96,6 @@ header {
 }
 .humburger_active {
   @media (max-width: $tablet) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100px;
-    border: 1px solid $border-dark;
-    width: 44px;
-    height: 44px;
     span {
       margin-bottom: 2px;
       display: block;
