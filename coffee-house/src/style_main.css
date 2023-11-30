@@ -147,6 +147,8 @@ header {
     height: 2px;
     margin: 2px;
     background-color: rgb(64, 63, 61);
+    transition: all 0.3s ease 0s;
+    border-radius: 30%;
   }
 }
 
@@ -159,11 +161,11 @@ header {
     background-color: rgb(64, 63, 61);
   }
   .humburger_active span:nth-child(1) {
-    transform: translateY(3px) rotate(-45deg);
+    transform: rotate(-45deg);
   }
   .humburger_active span:nth-child(2) {
-    margin-top: -2px;
-    transform: translateY(2px) rotate(45deg);
+    margin-top: -4px;
+    transform: rotate(45deg);
   }
 }
 
@@ -537,6 +539,18 @@ footer {
   align-items: center;
 }
 
+.coffe_gallery_wrapper {
+  width: 480px;
+  overflow: hidden;
+}
+
+.coffe_gallery {
+  display: flex;
+  width: 9999px;
+  transition: margin-left 250ms;
+  margin: 0;
+  padding: 0;
+}
 @media (max-width: 600px) {
   .coffe_gallery {
     width: 100%;
@@ -583,11 +597,6 @@ footer {
   font-style: normal;
   font-weight: 600;
   line-height: 125%;
-}
-
-.slades2,
-.slades3 {
-  display: none;
 }
 
 .coffee_slider_arrow_prev,
@@ -638,10 +647,21 @@ footer {
   border-radius: 100px;
   border: none;
   background: rgb(193, 182, 173);
+  position: relative;
+  overflow: hidden;
 }
 
-.coffee_line_first {
+.coffe_progress_bg {
+  width: 100%;
+}
+
+.coffe_progress {
   background: rgb(102, 95, 85);
+  position: absolute;
+  text-align: center;
+  left: 0;
+  top: 0;
+  bottom: 0;
 }
 
 .about {
