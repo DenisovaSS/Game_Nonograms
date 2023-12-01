@@ -23,12 +23,12 @@ function menuRemove() {
 menuItem.forEach((item) => {
   item.onclick = menuRemove;
 });
-menuItemHuburger.onclick = menuRemove;
-/// carousel
+
+///
 const carousel = document.querySelector(".coffee_slider_section"),
   list = carousel.querySelector(".coffe_gallery"),
   listElems = carousel.querySelectorAll(".slades"),
-  lines = document.querySelectorAll(".coffee_line"),
+  lines = document.querySelectorAll(".coffe_progress"),
   arrowNext = document.querySelector(".coffee_slider_arrow_next"),
   arrowPrev = document.querySelector(".coffee_slider_arrow_prev");
 
@@ -37,15 +37,32 @@ let dotIndex = 0;
 let width = 480; // width picture
 let position = 0; // position ленты прокрутки
 let posTouchX1 = null;
+let widthProg = 0;
 // count variables
 // for count slides
 const thisSlide = (index) => {
   for (let line of lines) {
-    line.classList.remove("coffee_line_active");
+    line.classList.remove("coffe_progress_active");
   }
-  lines[index].classList.add("coffee_line_active");
+  lines[index].classList.add("coffe_progress_active");
+  progress(lines[index]);
 };
+menuItemHuburger.onclick = menuRemove;
 
+///progress-bar
+function progress(element) {
+  let id = setInterval(progressStatus, 200);
+  function progressStatus() {
+    if (widthProg >= 40) {
+      clearInterval(id);
+      element.style.width = "";
+      widthProg = 0;
+    } else {
+      widthProg = widthProg++;
+      element.style.width = widthProg + "px";
+    }
+  }
+}
 //if use arrows
 arrowNext.addEventListener("click", moveRight);
 arrowPrev.addEventListener("click", moveLeft);
@@ -93,18 +110,43 @@ function touchMove(event) {
   posX2 = null;
   posTouchX1 = null;
 }
-///progress-bar
-let elem = document.getElementById("coffe_progress"),
-  widthProg = 0;
-function progress() {
-  let id = setInterval(progressStatus, 50);
+///
+//
+window.onload = function () {
+  showSlides(dotIndex);
+};
+
+function showSlides(index) {
+  for (let line of lines) {
+    line.classList.remove("coffe_progress_active");
+  }
+  lines[index].classList.add("coffe_progress_active");
+  progress2(lines[index]);
+}
+function progress2(element) {
+  let id = setInterval(progressStatus, 400);
   function progressStatus() {
-    if (widthProg >= 100) {
+    if (widthProg >= 40) {
       clearInterval(id);
+      setTimeout(() => {
+        if (position > -width * (listElems.length - 1)) {
+          position -= width;
+          dotIndex++;
+          console.log(dotIndex);
+        } else {
+          dotIndex = 0;
+          position = 0;
+        }
+        list.style.marginLeft = position + "px";
+        element.style.width = "";
+        widthProg = 0;
+        setTimeout(() => {
+          showSlides(dotIndex);
+        }, 300);
+      }, 400);
     } else {
-      widthProg++;
-      elem.style.width = widthProg + "%";
+      widthProg = widthProg + 3;
+      element.style.width = widthProg + "px";
     }
   }
 }
-progress();

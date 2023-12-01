@@ -232,16 +232,15 @@
   position: relative;
   overflow: hidden;
 }
-.coffe_progress_bg {
-  width: 100%;
-}
 .coffe_progress {
-  background: $border-dark;
   position: absolute;
   text-align: center;
   left: 0;
   top: 0;
   bottom: 0;
+}
+.coffe_progress_active {
+  background: $border-dark;
 }
 .about {
   min-height: 1325px;

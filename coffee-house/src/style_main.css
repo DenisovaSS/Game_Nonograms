@@ -651,17 +651,16 @@ footer {
   overflow: hidden;
 }
 
-.coffe_progress_bg {
-  width: 100%;
-}
-
 .coffe_progress {
-  background: rgb(102, 95, 85);
   position: absolute;
   text-align: center;
   left: 0;
   top: 0;
   bottom: 0;
+}
+
+.coffe_progress_active {
+  background: rgb(102, 95, 85);
 }
 
 .about {
