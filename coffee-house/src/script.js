@@ -24,6 +24,7 @@ menuItem.forEach((item) => {
   item.onclick = menuRemove;
 });
 
+menuItemHuburger.onclick = menuRemove;
 ///
 const carousel = document.querySelector(".coffee_slider_section"),
   list = carousel.querySelector(".coffe_gallery"),
@@ -34,84 +35,86 @@ const carousel = document.querySelector(".coffee_slider_section"),
 
 //variables
 let dotIndex = 0;
+// console.log(dotIndex);
 let width = 480; // width picture
 let position = 0; // position ленты прокрутки
 let posTouchX1 = null;
 let widthProg = 0;
 // count variables
 // for count slides
-const thisSlide = (index) => {
-  for (let line of lines) {
-    line.classList.remove("coffe_progress_active");
-  }
-  lines[index].classList.add("coffe_progress_active");
-  progress(lines[index]);
-};
-menuItemHuburger.onclick = menuRemove;
+// const thisSlide = (index) => {
+//   for (let line of lines) {
+//     line.classList.remove("coffe_progress_active");
+//   }
+//   lines[index].classList.add("coffe_progress_active");
+//   progress(lines[index]);
+// };
 
 ///progress-bar
-function progress(element) {
-  let id = setInterval(progressStatus, 200);
-  function progressStatus() {
-    if (widthProg >= 40) {
-      clearInterval(id);
-      element.style.width = "";
-      widthProg = 0;
-    } else {
-      widthProg = widthProg++;
-      element.style.width = widthProg + "px";
-    }
-  }
-}
-//if use arrows
-arrowNext.addEventListener("click", moveRight);
-arrowPrev.addEventListener("click", moveLeft);
-//for touch in mobile (touchmove, touchend, touchstart)
-carousel.addEventListener("touchstart", touchStart);
-carousel.addEventListener("touchmove", touchMove);
+// function progress(element) {
+//   let id = setInterval(progressStatus, 200);
+//   function progressStatus() {
+//     if (widthProg >= 40) {
+//       clearInterval(id);
 
-function moveRight() {
-  if (position > -width * (listElems.length - 1)) {
-    position -= width;
-    dotIndex++;
-  } else {
-    dotIndex = 0;
-    position = 0;
-  }
-  list.style.marginLeft = position + "px";
-  thisSlide(dotIndex);
-}
-function moveLeft() {
-  if (position < 0) {
-    position += width;
-    dotIndex--;
-  } else {
-    position = -width * (listElems.length - 1);
-    dotIndex = listElems.length - 1;
-  }
-  list.style.marginLeft = position + "px";
-  thisSlide(dotIndex);
-}
-function touchStart(event) {
-  posTouchX1 = event.touches[0].clientX;
-}
-function touchMove(event) {
-  if (!posTouchX1) {
-    return false;
-  }
-  let posX2 = event.touches[0].clientX;
+//       showSlides(dotIndex);
+//       element.style.width = "";
+//       widthProg = 0;
+//     } else {
+//       widthProg = widthProg++;
+//       element.style.width = widthProg + "px";
+//     }
+//   }
+// }
+// //if use arrows
+// arrowNext.addEventListener("click", moveRight);
+// arrowPrev.addEventListener("click", moveLeft);
+// //for touch in mobile (touchmove, touchend, touchstart)
+// carousel.addEventListener("touchstart", touchStart);
+// carousel.addEventListener("touchmove", touchMove);
 
-  let diff = posX2 - posTouchX1;
-  if (diff > 0) {
-    moveRight();
-  } else {
-    moveLeft();
-  }
-  posX2 = null;
-  posTouchX1 = null;
-}
-///
-//
+// function moveRight() {
+//   if (position > -width * (listElems.length - 1)) {
+//     position -= width;
+//     dotIndex++;
+//   } else {
+//     dotIndex = 0;
+//     position = 0;
+//   }
+//   list.style.marginLeft = position + "px";
+//   thisSlide(dotIndex);
+// }
+// function moveLeft() {
+//   if (position < 0) {
+//     position += width;
+//     dotIndex--;
+//   } else {
+//     position = -width * (listElems.length - 1);
+//     dotIndex = listElems.length - 1;
+//   }
+//   list.style.marginLeft = position + "px";
+//   thisSlide(dotIndex);
+// }
+// function touchStart(event) {
+//   posTouchX1 = event.touches[0].clientX;
+// }
+// function touchMove(event) {
+//   if (!posTouchX1) {
+//     return false;
+//   }
+//   let posX2 = event.touches[0].clientX;
+
+//   let diff = posX2 - posTouchX1;
+//   if (diff > 0) {
+//     moveRight();
+//   } else {
+//     moveLeft();
+//   }
+//   posX2 = null;
+//   posTouchX1 = null;
+// }
+// //
+
 window.onload = function () {
   showSlides(dotIndex);
 };
@@ -123,8 +126,9 @@ function showSlides(index) {
   lines[index].classList.add("coffe_progress_active");
   progress2(lines[index]);
 }
+let id;
 function progress2(element) {
-  let id = setInterval(progressStatus, 400);
+  id = setInterval(() => progressStatus(), 400);
   function progressStatus() {
     if (widthProg >= 40) {
       clearInterval(id);
@@ -132,7 +136,6 @@ function progress2(element) {
         if (position > -width * (listElems.length - 1)) {
           position -= width;
           dotIndex++;
-          console.log(dotIndex);
         } else {
           dotIndex = 0;
           position = 0;
@@ -150,3 +153,24 @@ function progress2(element) {
     }
   }
 }
+function stopAutoplay() {
+  clearInterval(id);
+}
+function startAutoplay() {
+  showSlides(dotIndex);
+}
+
+arrowPrev.addEventListener("click", startAutoplay);
+listElems.forEach((item) => {
+  item.addEventListener("mouseover", stopAutoplay);
+});
+listElems.forEach((item) => {
+  item.addEventListener("mousedown", stopAutoplay);
+});
+
+listElems.forEach((item) => {
+  item.addEventListener("mouseleave", startAutoplay);
+});
+listElems.forEach((item) => {
+  item.addEventListener("mouseup", startAutoplay);
+});
