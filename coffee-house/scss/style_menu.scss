@@ -33,11 +33,12 @@
     display: none;
   }
 }
+.menu_as_wrapper_coffe,
 .menu_as_wrapper_tea,
 .menu_as_wrapper_dessert {
   display: none;
 }
-.menu_as_wrapper_coffe {
+.menu_as_wrapper_active {
   display: flex;
   flex-direction: row;
   gap: 40px;
@@ -88,10 +89,14 @@
   font-weight: 600;
   line-height: 150%; /* 24px */
 }
-.menu_as_btn_coffe {
+.menu_as_btn_active {
   color: $text-light;
-  width: 115px;
   background: $background-container;
+  pointer-events: none;
+}
+.menu_as_btn_coffe {
+  width: 115px;
+  transition: all ease-in-out 0.3s;
 }
 .menu_as_btn_tea {
   width: 90px;
@@ -101,6 +106,7 @@
   width: 124px;
   transition: all ease-in-out 0.3s;
 }
+.menu_as_btn_coffe:hover,
 .menu_as_btn_tea:hover,
 .menu_as_btn_dessert:hover {
   @media (hover: hover) {
@@ -135,16 +141,17 @@
   border-radius: 40px;
   border: 1px solid $border-light;
   &_refresh {
-    display: flex;
-    width: 60px;
-    height: 60px;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(225, 212, 201);
-    border-radius: 100px;
-    border: 1px solid rgb(102, 95, 85);
-    @media (max-width: $screen) {
-      display: none;
+    display: none;
+
+    @media (max-width: $tablet) {
+      display: flex;
+      width: 60px;
+      height: 60px;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(225, 212, 201);
+      border-radius: 100px;
+      border: 1px solid rgb(102, 95, 85);
     }
     @media (max-width: $tablet) {
       display: block;
