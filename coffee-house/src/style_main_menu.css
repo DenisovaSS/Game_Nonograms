@@ -523,18 +523,18 @@ footer {
   border: 1px solid rgb(193, 182, 173);
 }
 .menu_as_card_refresh {
-  display: flex;
-  width: 60px;
-  height: 60px;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(225, 212, 201);
-  border-radius: 100px;
-  border: 1px solid rgb(102, 95, 85);
+  display: none;
 }
-@media (max-width: 1439px) {
+@media (max-width: 768px) {
   .menu_as_card_refresh {
-    display: none;
+    display: flex;
+    width: 60px;
+    height: 60px;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(225, 212, 201);
+    border-radius: 100px;
+    border: 1px solid rgb(102, 95, 85);
   }
 }
 @media (max-width: 768px) {
