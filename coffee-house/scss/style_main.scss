@@ -83,6 +83,7 @@
   transition: margin-right 300ms linear;
   @media (max-width: $tablet) {
     margin-right: 25px;
+    z-index: 1;
   }
 }
 .enjoy_btn:hover .enjoy_menu_link {
