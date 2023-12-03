@@ -23,9 +23,8 @@ function menuRemove() {
 menuItem.forEach((item) => {
   item.onclick = menuRemove;
 });
-
 menuItemHuburger.onclick = menuRemove;
-///
+///carousel
 const carousel = document.querySelector(".coffee_slider_section"),
   list = carousel.querySelector(".coffe_gallery"),
   listElems = carousel.querySelectorAll(".slades"),
@@ -33,144 +32,82 @@ const carousel = document.querySelector(".coffee_slider_section"),
   arrowNext = document.querySelector(".coffee_slider_arrow_next"),
   arrowPrev = document.querySelector(".coffee_slider_arrow_prev");
 
-//variables
 let dotIndex = 0;
-// console.log(dotIndex);
 let width = 480; // width picture
 let position = 0; // position ленты прокрутки
 let posTouchX1 = null;
 let widthProg = 0;
-// count variables
+
 // for count slides
-// const thisSlide = (index) => {
-//   for (let line of lines) {
-//     line.classList.remove("coffe_progress_active");
-//   }
-//   lines[index].classList.add("coffe_progress_active");
-//   progress(lines[index]);
-// };
-
-///progress-bar
-// function progress(element) {
-//   let id = setInterval(progressStatus, 200);
-//   function progressStatus() {
-//     if (widthProg >= 40) {
-//       clearInterval(id);
-
-//       showSlides(dotIndex);
-//       element.style.width = "";
-//       widthProg = 0;
-//     } else {
-//       widthProg = widthProg++;
-//       element.style.width = widthProg + "px";
-//     }
-//   }
-// }
-// //if use arrows
-// arrowNext.addEventListener("click", moveRight);
-// arrowPrev.addEventListener("click", moveLeft);
-// //for touch in mobile (touchmove, touchend, touchstart)
-// carousel.addEventListener("touchstart", touchStart);
-// carousel.addEventListener("touchmove", touchMove);
-
-// function moveRight() {
-//   if (position > -width * (listElems.length - 1)) {
-//     position -= width;
-//     dotIndex++;
-//   } else {
-//     dotIndex = 0;
-//     position = 0;
-//   }
-//   list.style.marginLeft = position + "px";
-//   thisSlide(dotIndex);
-// }
-// function moveLeft() {
-//   if (position < 0) {
-//     position += width;
-//     dotIndex--;
-//   } else {
-//     position = -width * (listElems.length - 1);
-//     dotIndex = listElems.length - 1;
-//   }
-//   list.style.marginLeft = position + "px";
-//   thisSlide(dotIndex);
-// }
-// function touchStart(event) {
-//   posTouchX1 = event.touches[0].clientX;
-// }
-// function touchMove(event) {
-//   if (!posTouchX1) {
-//     return false;
-//   }
-//   let posX2 = event.touches[0].clientX;
-
-//   let diff = posX2 - posTouchX1;
-//   if (diff > 0) {
-//     moveRight();
-//   } else {
-//     moveLeft();
-//   }
-//   posX2 = null;
-//   posTouchX1 = null;
-// }
-// //
-
-window.onload = function () {
-  showSlides(dotIndex);
-};
-
-function showSlides(index) {
+const thisSlide = (index) => {
   for (let line of lines) {
     line.classList.remove("coffe_progress_active");
   }
   lines[index].classList.add("coffe_progress_active");
-  progress2(lines[index]);
-}
-let id;
-function progress2(element) {
-  id = setInterval(() => progressStatus(), 400);
+  progress(lines[index]);
+};
+//progress-bar
+function progress(element) {
+  let id = setInterval(progressStatus, 200);
   function progressStatus() {
     if (widthProg >= 40) {
       clearInterval(id);
-      setTimeout(() => {
-        if (position > -width * (listElems.length - 1)) {
-          position -= width;
-          dotIndex++;
-        } else {
-          dotIndex = 0;
-          position = 0;
-        }
-        list.style.marginLeft = position + "px";
-        element.style.width = "";
-        widthProg = 0;
-        setTimeout(() => {
-          showSlides(dotIndex);
-        }, 300);
-      }, 400);
+      element.style.width = "";
+      widthProg = 0;
     } else {
       widthProg = widthProg + 3;
       element.style.width = widthProg + "px";
     }
   }
 }
-function stopAutoplay() {
-  clearInterval(id);
+//if use arrows
+arrowNext.addEventListener("click", moveRight);
+arrowPrev.addEventListener("click", moveLeft);
+
+function moveRight() {
+  if (position > -width * (listElems.length - 1)) {
+    position -= width;
+    dotIndex++;
+  } else {
+    dotIndex = 0;
+    position = 0;
+  }
+  list.style.marginLeft = position + "px";
+  thisSlide(dotIndex);
 }
-function startAutoplay() {
-  showSlides(dotIndex);
+function moveLeft() {
+  if (position < 0) {
+    position += width;
+    dotIndex--;
+  } else {
+    position = -width * (listElems.length - 1);
+    dotIndex = listElems.length - 1;
+  }
+  list.style.marginLeft = position + "px";
+  thisSlide(dotIndex);
 }
 
-arrowPrev.addEventListener("click", startAutoplay);
-listElems.forEach((item) => {
-  item.addEventListener("mouseover", stopAutoplay);
-});
-listElems.forEach((item) => {
-  item.addEventListener("mousedown", stopAutoplay);
-});
+//if use touch in mobile
+//touchmove, touchend, touchstart
+carousel.addEventListener("touchstart", touchStart);
+carousel.addEventListener("touchmove", touchMove);
 
-listElems.forEach((item) => {
-  item.addEventListener("mouseleave", startAutoplay);
-});
-listElems.forEach((item) => {
-  item.addEventListener("mouseup", startAutoplay);
-});
+let posX1 = null;
+function touchStart(event) {
+  posX1 = event.touches[0].clientX;
+}
+function touchMove(event) {
+  if (!posX1) {
+    return false;
+  }
+  let posX2 = event.touches[0].clientX;
+
+  let diff = posX2 - posX1;
+  if (diff > 0) {
+    moveLeft();
+  } else {
+    moveRight();
+  }
+  posX2 = null;
+  posX1 = null;
+}
