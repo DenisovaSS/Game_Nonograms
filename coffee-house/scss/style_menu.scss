@@ -140,6 +140,10 @@
   align-items: flex-start;
   border-radius: 40px;
   border: 1px solid $border-light;
+  @media (max-width: $tablet) {
+    display: none;
+  }
+
   &_refresh {
     display: none;
 
@@ -163,13 +167,15 @@
       }
     }
   }
-  &.card_over {
-    @media (max-width: $tablet) {
-      display: none;
-    }
+}
+.d-none {
+  display: none;
+}
+.visible {
+  @media (max-width: $tablet) {
+    display: flex;
   }
 }
-
 .menu_as_card_wrapper_img {
   width: 310px;
   height: 310px;

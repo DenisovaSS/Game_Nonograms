@@ -531,6 +531,11 @@ footer {
   border-radius: 40px;
   border: 1px solid rgb(193, 182, 173);
 }
+@media (max-width: 768px) {
+  .menu_as_card {
+    display: none;
+  }
+}
 .menu_as_card_refresh {
   display: none;
 }
@@ -557,9 +562,14 @@ footer {
     cursor: pointer;
   }
 }
+
+.d-none {
+  display: none;
+}
+
 @media (max-width: 768px) {
-  .menu_as_card.card_over {
-    display: none;
+  .visible {
+    display: flex;
   }
 }
 
