@@ -226,16 +226,27 @@
   line-height: 125%;
 }
 /* modals */
+
 .modals {
   display: none;
-  background-color: #403f3d;
-  padding: 20px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  &.modals_active {
+    display: block;
+  }
 }
 .modal_cofee,
 .modal_tea,
 .modal_dessert {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   margin-top: 10px;
-  display: flex;
+  display: none;
   width: 800px;
   height: 504px;
   padding: 16px;
@@ -246,7 +257,11 @@
   background: $background-body;
   gap: 20px;
 }
-.modal_img {
+.modal_cofee {
+  display: flex;
+}
+.modal_img,
+.modal_img1 {
   width: 310px;
   height: 310px;
   border-radius: 40px;
@@ -281,14 +296,15 @@
 .modal_subtitle {
   margin-top: 12px;
 }
-.modal_btns {
+.modal_btns_size,
+.modal_btns_additives {
   margin-top: 8px;
-}
-.modal_btns {
   display: flex;
   gap: 8px;
 }
-.modal_btn {
+
+.modal_btn_size,
+.modal_btn_additives {
   display: flex;
   flex-direction: row;
   gap: 8px;
@@ -300,14 +316,29 @@
   background-color: $background-body;
   font-family: Inter;
   font-size: 16px;
-  font-style: normal;
   font-weight: 600;
   line-height: 150%;
   border: 1px solid $border-light;
+  &.modal_btn_active {
+    color: $text-light;
+    background: $background-container;
+    cursor: pointer;
+    & .modal_circle {
+      color: $text-dark;
+    }
+  }
+  &:hover {
+    @media (hover: hover) {
+      color: $text-light;
+      background: $background-container;
+      cursor: pointer;
+      & .modal_circle {
+        color: $text-dark;
+      }
+    }
+  }
 }
-.modal_s,
-.modal_m,
-.modal_l {
+.modal_circle {
   width: 30px;
   height: 30px;
   border-radius: 100px;
@@ -362,4 +393,11 @@
   font-weight: 600;
   line-height: 150%;
   background-color: $background-body;
+  &:hover {
+    @media (hover: hover) {
+      color: $text-light;
+      background: $background-container;
+      cursor: pointer;
+    }
+  }
 }
