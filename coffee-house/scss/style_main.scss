@@ -155,6 +155,9 @@
 .coffe_gallery_wrapper {
   width: 480px;
   overflow: hidden;
+  @media (max-width: $mobile) {
+    width: 348px;
+  }
 }
 .coffe_gallery {
   display: flex;
@@ -172,7 +175,7 @@
   justify-content: center;
   width: 480px;
   @media (max-width: $mobile) {
-    width: 100%;
+    width: 348px;
   }
 }
 .slides_title {
@@ -257,9 +260,9 @@
   top: 0;
   bottom: 0;
 }
-.coffe_progress_active {
-  background: $border-dark;
-}
+// .coffe_progress_active {
+//   background: $border-dark;
+// }
 .about {
   min-height: 1325px;
   padding: 0 40px;
@@ -460,4 +463,20 @@
   text-align: center;
   font-size: 16px;
   line-height: 150%; /* 24px */
+}
+.coffe_progress_active {
+  // animation-timing-function: linear;
+  animation-duration: 5s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    width: 5%;
+    background: $border-dark;
+  }
+  to {
+    width: 100%;
+    background: $border-dark;
+  }
 }

@@ -556,6 +556,11 @@ footer {
   width: 480px;
   overflow: hidden;
 }
+@media (max-width: 600px) {
+  .coffe_gallery_wrapper {
+    width: 348px;
+  }
+}
 
 .coffe_gallery {
   display: flex;
@@ -578,7 +583,7 @@ footer {
 }
 @media (max-width: 600px) {
   .slades {
-    width: 100%;
+    width: 348px;
   }
 }
 
@@ -676,10 +681,6 @@ footer {
   left: 0;
   top: 0;
   bottom: 0;
-}
-
-.coffe_progress_active {
-  background: rgb(102, 95, 85);
 }
 
 .about {
@@ -951,6 +952,22 @@ footer {
   text-align: center;
   font-size: 16px;
   line-height: 150%; /* 24px */
+}
+
+.coffe_progress_active {
+  animation-duration: 5s;
+  animation-name: slidein;
+}
+
+@keyframes slidein {
+  from {
+    width: 5%;
+    background: rgb(102, 95, 85);
+  }
+  to {
+    width: 100%;
+    background: rgb(102, 95, 85);
+  }
 }
 
 /*# sourceMappingURL=style_main.css.map */

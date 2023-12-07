@@ -238,15 +238,13 @@
     display: block;
   }
 }
-.modal_cofee,
-.modal_tea,
-.modal_dessert {
+.modal_cofee {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   margin-top: 10px;
-  display: none;
+  display: flex;
   width: 800px;
   height: 504px;
   padding: 16px;
@@ -256,21 +254,44 @@
   border-radius: 40px;
   background: $background-body;
   gap: 20px;
+  @media (max-width: $screen-small) {
+    width: 750px;
+    height: auto;
+  }
+  @media (max-width: $tablet) {
+    max-width: 94%;
+  }
+  @media (max-width: $mobile) {
+    width: 342px;
+  }
 }
-.modal_cofee {
-  display: flex;
-}
+
 .modal_img,
 .modal_img1 {
   width: 310px;
   height: 310px;
   border-radius: 40px;
   overflow: hidden;
+  @media (max-width: $mobile) {
+    display: none;
+  }
+}
+.modal_img1 img {
+  @media (max-width: $tablet) {
+    width: 310px;
+    height: 310px;
+  }
 }
 .modal_text {
   display: flex;
   flex-direction: column;
-  width: 458px;
+  width: 438px;
+  @media (max-width: $tablet) {
+    width: 326px;
+  }
+  @media (max-width: $mobile) {
+    width: 310px;
+  }
 }
 .modal_title {
   color: $text-dark;
@@ -301,11 +322,13 @@
   margin-top: 8px;
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .modal_btn_size,
 .modal_btn_additives {
   display: flex;
+  height: 46px;
   flex-direction: row;
   gap: 8px;
   padding: 8px;
@@ -322,7 +345,9 @@
   &.modal_btn_active {
     color: $text-light;
     background: $background-container;
-    cursor: pointer;
+    &:hover {
+      cursor: default;
+    }
     & .modal_circle {
       color: $text-dark;
     }
@@ -365,12 +390,9 @@
   font-weight: 600;
   line-height: 125%;
 }
-.modal_line {
-  width: 438px;
-  height: 1px;
-  background-color: $border-light;
-}
+
 .modal_note {
+  border-top: 1px solid var(--border-light, #c1b6ad);
   padding: 12px 8px;
   color: $text-dark;
   font-family: Inter;
@@ -399,5 +421,11 @@
       background: $background-container;
       cursor: pointer;
     }
+  }
+  @media (max-width: $tablet) {
+    width: 326px;
+  }
+  @media (max-width: $tablet) {
+    width: 310px;
   }
 }

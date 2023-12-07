@@ -643,15 +643,13 @@ footer {
   display: block;
 }
 
-.modal_cofee,
-.modal_tea,
-.modal_dessert {
+.modal_cofee {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   margin-top: 10px;
-  display: none;
+  display: flex;
   width: 800px;
   height: 504px;
   padding: 16px;
@@ -662,9 +660,21 @@ footer {
   background: rgb(225, 212, 201);
   gap: 20px;
 }
-
-.modal_cofee {
-  display: flex;
+@media (max-width: 900px) {
+  .modal_cofee {
+    width: 750px;
+    height: auto;
+  }
+}
+@media (max-width: 768px) {
+  .modal_cofee {
+    max-width: 94%;
+  }
+}
+@media (max-width: 600px) {
+  .modal_cofee {
+    width: 342px;
+  }
 }
 
 .modal_img,
@@ -674,11 +684,34 @@ footer {
   border-radius: 40px;
   overflow: hidden;
 }
+@media (max-width: 600px) {
+  .modal_img,
+  .modal_img1 {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal_img1 img {
+    width: 310px;
+    height: 310px;
+  }
+}
 
 .modal_text {
   display: flex;
   flex-direction: column;
-  width: 458px;
+  width: 438px;
+}
+@media (max-width: 768px) {
+  .modal_text {
+    width: 326px;
+  }
+}
+@media (max-width: 600px) {
+  .modal_text {
+    width: 310px;
+  }
 }
 
 .modal_title {
@@ -713,11 +746,13 @@ footer {
   margin-top: 8px;
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 .modal_btn_size,
 .modal_btn_additives {
   display: flex;
+  height: 46px;
   flex-direction: row;
   gap: 8px;
   padding: 8px;
@@ -736,7 +771,10 @@ footer {
 .modal_btn_additives.modal_btn_active {
   color: rgb(225, 212, 201);
   background: rgb(102, 95, 85);
-  cursor: pointer;
+}
+.modal_btn_size.modal_btn_active:hover,
+.modal_btn_additives.modal_btn_active:hover {
+  cursor: default;
 }
 .modal_btn_size.modal_btn_active .modal_circle,
 .modal_btn_additives.modal_btn_active .modal_circle {
@@ -784,13 +822,8 @@ footer {
   line-height: 125%;
 }
 
-.modal_line {
-  width: 438px;
-  height: 1px;
-  background-color: rgb(193, 182, 173);
-}
-
 .modal_note {
+  border-top: 1px solid var(--border-light, #c1b6ad);
   padding: 12px 8px;
   color: rgb(64, 63, 61);
   font-family: Inter;
@@ -820,6 +853,16 @@ footer {
     color: rgb(225, 212, 201);
     background: rgb(102, 95, 85);
     cursor: pointer;
+  }
+}
+@media (max-width: 768px) {
+  .modal_close {
+    width: 326px;
+  }
+}
+@media (max-width: 768px) {
+  .modal_close {
+    width: 310px;
   }
 }
 
