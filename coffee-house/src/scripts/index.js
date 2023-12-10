@@ -7,14 +7,12 @@ const carousel = document.querySelector(".coffee_slider_section"),
 
 //variables
 let dotIndex = 0;
-let width = document.querySelector(".coffe_gallery_wrapper").offsetWidth;
+let width = carousel.querySelector(".slades").offsetWidth;
 let position = 0; // position ленты прокрутки
 let posTouchX1 = null;
 let widthProg = 0;
 let id;
 let slideshowTimeout;
-console.log(position);
-console.log(dotIndex);
 
 window.onload = function autoSlides() {
   showSlides(dotIndex);
@@ -46,8 +44,17 @@ function progress2(index) {
 function stopAutoplay() {
   clearTimeout(slideshowTimeout);
 }
+function stopAutoplayProgress() {
+  document.querySelector(".coffe_progress_active").style.animationPlayState =
+    "paused";
+  clearTimeout(slideshowTimeout);
+}
 function startAutoplay() {
-  console.log(dotIndex);
+  showSlides(dotIndex);
+}
+function startAutoplayProgress() {
+  document.querySelector(".coffe_progress_active").style.animationPlayState =
+    "running";
   showSlides(dotIndex);
 }
 
@@ -65,7 +72,6 @@ function moveRight() {
 }
 function moveLeft() {
   stopAutoplay();
-  console.log(dotIndex);
   if (position < 0) {
     position += width;
     dotIndex--;
@@ -74,35 +80,31 @@ function moveLeft() {
     dotIndex = listElems.length - 1;
   }
   list.style.marginLeft = position + "px";
-  console.log(dotIndex);
   startAutoplay(dotIndex);
 }
 //
 arrowNext.addEventListener("click", moveRight);
 arrowPrev.addEventListener("click", moveLeft);
 ///events stopAutoplay
-// listElems.forEach((item) => {
-//   item.addEventListener("mouseover", stopAutoplay);
-// });
-// listElems.forEach((item) => {
-//   item.addEventListener("mousedown", stopAutoplay);
-// });
-// //events startAutoplay
+listElems.forEach((item) => {
+  item.addEventListener("mouseover", stopAutoplayProgress);
+});
+//events startAutoplay
+listElems.forEach((item) => {
+  item.addEventListener("mouseout", startAutoplayProgress);
+});
 
-// listElems.forEach((item) => {
-//   item.addEventListener("mouseleave", startAutoplay);
-// });
-// listElems.forEach((item) => {
-//   item.addEventListener("mouseup", startAutoplay);
-// });
-//
 // //for touch in mobile (touchmove, touchend, touchstart)
 carousel.addEventListener("touchstart", touchStart);
 carousel.addEventListener("touchmove", touchMove);
+// carousel.addEventListener("touchend", touchMove);
 function touchStart(event) {
+  stopAutoplayProgress();
   posTouchX1 = event.touches[0].clientX;
 }
 function touchMove(event) {
+  document.querySelector(".coffe_progress_active").style.animationPlayState =
+    "running";
   if (!posTouchX1) {
     return false;
   }
@@ -117,3 +119,11 @@ function touchMove(event) {
   posX2 = null;
   posTouchX1 = null;
 }
+addEventListener("resize", () => {
+  clearTimeout(slideshowTimeout);
+  position = 0;
+  dotIndex = 0;
+  width = document.querySelector(".slades").offsetWidth;
+  list.style.marginLeft = position + "px";
+  startAutoplay(dotIndex);
+});

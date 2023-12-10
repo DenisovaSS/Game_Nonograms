@@ -2,6 +2,7 @@
 //1. Humburger menu
 const blockMenu = document.querySelector(".block_menu"),
   menuItem = document.querySelectorAll(".menu_item"),
+  menuItemA = document.querySelectorAll(".menu_item a"),
   menuItemHuburger = document.querySelector(".menu_link_humburger"),
   body = document.querySelector("body"),
   humburger = document.querySelector(".humburger");
@@ -20,7 +21,23 @@ function menuRemove() {
   body.classList.remove("modal-open");
 }
 
-menuItem.forEach((item) => {
-  item.onclick = menuRemove;
+menuItemA.forEach((item) => {
+  item.addEventListener("click", (event) => {
+    event.preventDefault();
+    menuRemove();
+    setTimeout(() => {
+      onclicky(item);
+    }, 300);
+  });
 });
-menuItemHuburger.onclick = menuRemove;
+
+menuItemHuburger.addEventListener("click", (event) => {
+  event.preventDefault();
+  setTimeout(() => {
+    onclicky(menuItemHuburger);
+  }, 300);
+  menuRemove();
+});
+function onclicky(link) {
+  window.location = link.href;
+}
