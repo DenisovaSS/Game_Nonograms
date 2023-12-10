@@ -97,7 +97,7 @@ listElems.forEach((item) => {
 // //for touch in mobile (touchmove, touchend, touchstart)
 carousel.addEventListener("touchstart", touchStart);
 carousel.addEventListener("touchmove", touchMove);
-// carousel.addEventListener("touchend", () => {});
+// carousel.addEventListener("touchend", touchMove);
 function touchStart(event) {
   stopAutoplayProgress();
   posTouchX1 = event.touches[0].clientX;
