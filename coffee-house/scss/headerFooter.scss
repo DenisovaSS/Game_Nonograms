@@ -91,6 +91,8 @@ header {
       height: 2px;
       margin: 2px;
       background-color: $text-dark;
+      transition: all 0.3s ease 0s;
+      border-radius: 30%;
     }
   }
 }
@@ -104,11 +106,11 @@ header {
       background-color: $text-dark;
     }
     span:nth-child(1) {
-      transform: translateY(3px) rotate(-45deg);
+      transform: rotate(-45deg);
     }
     span:nth-child(2) {
-      margin-top: -2px;
-      transform: translateY(2px) rotate(45deg);
+      margin-top: -4px;
+      transform: rotate(45deg);
     }
   }
 }
@@ -123,6 +125,7 @@ header {
   font-weight: 600;
   text-decoration: none;
   position: relative;
+  // transition: 0.5s ease;
   &::after {
     content: "";
     position: absolute;
@@ -153,7 +156,7 @@ header {
 }
 
 footer {
-  margin: 100px 0 40px 0;
+  margin: 100px 40px 40px 40px;
   padding: 100px;
   border-radius: 40px;
   background: $background-container;

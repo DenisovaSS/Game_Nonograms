@@ -33,11 +33,12 @@
     display: none;
   }
 }
+.menu_as_wrapper_coffe,
 .menu_as_wrapper_tea,
 .menu_as_wrapper_dessert {
   display: none;
 }
-.menu_as_wrapper_coffe {
+.menu_as_wrapper_active {
   display: flex;
   flex-direction: row;
   gap: 40px;
@@ -88,10 +89,14 @@
   font-weight: 600;
   line-height: 150%; /* 24px */
 }
-.menu_as_btn_coffe {
+.menu_as_btn_active {
   color: $text-light;
-  width: 115px;
   background: $background-container;
+  pointer-events: none;
+}
+.menu_as_btn_coffe {
+  width: 115px;
+  transition: all ease-in-out 0.3s;
 }
 .menu_as_btn_tea {
   width: 90px;
@@ -101,6 +106,7 @@
   width: 124px;
   transition: all ease-in-out 0.3s;
 }
+.menu_as_btn_coffe:hover,
 .menu_as_btn_tea:hover,
 .menu_as_btn_dessert:hover {
   @media (hover: hover) {
@@ -134,6 +140,10 @@
   align-items: flex-start;
   border-radius: 40px;
   border: 1px solid $border-light;
+  @media (max-width: $tablet) {
+    display: none;
+  }
+
   &_refresh {
     display: none;
 
@@ -157,13 +167,15 @@
       }
     }
   }
-  &.card_over {
-    @media (max-width: $tablet) {
-      display: none;
-    }
+}
+.d-none {
+  display: none;
+}
+.visible {
+  @media (max-width: $tablet) {
+    display: flex;
   }
 }
-
 .menu_as_card_wrapper_img {
   width: 310px;
   height: 310px;
@@ -214,14 +226,23 @@
   line-height: 125%;
 }
 /* modals */
+
 .modals {
   display: none;
-  background-color: #403f3d;
-  padding: 20px;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  top: 0;
+  &.modals_active {
+    display: block;
+  }
 }
-.modal_cofee,
-.modal_tea,
-.modal_dessert {
+.modal_cofee {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   margin-top: 10px;
   display: flex;
   width: 800px;
@@ -233,17 +254,44 @@
   border-radius: 40px;
   background: $background-body;
   gap: 20px;
+  @media (max-width: $screen-small) {
+    width: 750px;
+    height: auto;
+  }
+  @media (max-width: $tablet) {
+    max-width: 94%;
+  }
+  @media (max-width: $mobile) {
+    width: 342px;
+  }
 }
-.modal_img {
+
+.modal_img,
+.modal_img1 {
   width: 310px;
   height: 310px;
   border-radius: 40px;
   overflow: hidden;
+  @media (max-width: $mobile) {
+    display: none;
+  }
+}
+.modal_img1 img {
+  @media (max-width: $tablet) {
+    width: 310px;
+    height: 310px;
+  }
 }
 .modal_text {
   display: flex;
   flex-direction: column;
-  width: 458px;
+  width: 438px;
+  @media (max-width: $tablet) {
+    width: 326px;
+  }
+  @media (max-width: $mobile) {
+    width: 310px;
+  }
 }
 .modal_title {
   color: $text-dark;
@@ -269,15 +317,18 @@
 .modal_subtitle {
   margin-top: 12px;
 }
-.modal_btns {
+.modal_btns_size,
+.modal_btns_additives {
   margin-top: 8px;
-}
-.modal_btns {
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
-.modal_btn {
+
+.modal_btn_size,
+.modal_btn_additives {
   display: flex;
+  height: 46px;
   flex-direction: row;
   gap: 8px;
   padding: 8px;
@@ -288,14 +339,31 @@
   background-color: $background-body;
   font-family: Inter;
   font-size: 16px;
-  font-style: normal;
   font-weight: 600;
   line-height: 150%;
   border: 1px solid $border-light;
+  &.modal_btn_active {
+    color: $text-light;
+    background: $background-container;
+    &:hover {
+      cursor: default;
+    }
+    & .modal_circle {
+      color: $text-dark;
+    }
+  }
+  &:hover {
+    @media (hover: hover) {
+      color: $text-light;
+      background: $background-container;
+      cursor: pointer;
+      & .modal_circle {
+        color: $text-dark;
+      }
+    }
+  }
 }
-.modal_s,
-.modal_m,
-.modal_l {
+.modal_circle {
   width: 30px;
   height: 30px;
   border-radius: 100px;
@@ -322,12 +390,9 @@
   font-weight: 600;
   line-height: 125%;
 }
-.modal_line {
-  width: 438px;
-  height: 1px;
-  background-color: $border-light;
-}
+
 .modal_note {
+  border-top: 1px solid var(--border-light, #c1b6ad);
   padding: 12px 8px;
   color: $text-dark;
   font-family: Inter;
@@ -350,4 +415,17 @@
   font-weight: 600;
   line-height: 150%;
   background-color: $background-body;
+  &:hover {
+    @media (hover: hover) {
+      color: $text-light;
+      background: $background-container;
+      cursor: pointer;
+    }
+  }
+  @media (max-width: $tablet) {
+    width: 326px;
+  }
+  @media (max-width: $tablet) {
+    width: 310px;
+  }
 }

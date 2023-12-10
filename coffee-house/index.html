@@ -14,7 +14,6 @@
       <div class="container">
         <header>
           <a class="menu_logo"><img class="menu_img" src="img/logo/logo2.png" alt="logo"></a>
-            
             <nav class="block_menu">
               <ul class="menu">
                 <li class="menu_item"><a href="#coffee" class="menu_link">Favorite coffee</a></li>
@@ -24,53 +23,53 @@
               </ul>
               <a class="menu_link_humburger" href="menu.html"> Menu <img class="menu_cup_humburger" src="img/logo/coffee-cup.svg"
                   alt="logo"></a>
-                  
             </nav>
           <div class="humburger">
                       <span></span>
-                      <span></span>                      
+                      <span></span>
           </div>
           <a class="menu_link menu_link_desk" href="menu.html" >  Menu <img class="menu_cup" src="img/logo/coffee-cup.svg" alt="logo"></a>
         </header>
         <main>
           <section class="Enjoy">
-            
+            <video src="img/cafe.mp4" muted  loop autoplay></video>
             <h1 class="enjoy_title"><span>Enjoy</span> premium coffee at our charming cafe</h1>
             <p class="enjoy_subtitle">With its inviting atmosphere and delicious coffee options, the Coffee House Resource is a popular destination for coffee
             lovers and those seeking a warm and inviting space to enjoy their favorite beverage.</p>
            <div class="enjoy_btn"><a class="enjoy_menu_link" href="menu.html">Menu</a></div>
           </section>
-          
           <section class="Favourites_coffee" id="coffee">
           <h2 class="coffee_title">Choose your <span>favorite</span> coffee</h2>
         <div class="coffee_slider_section">
-          <button class="coffee_slider_arrow_prev">
+          <button class="coffee_slider_arrow_prev" >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
               <g id="arrow-left">
                 <path id="Vector" d="M18.5 12H6M6 12L12 6M6 12L12 18" stroke="#403F3D" stroke-linecap="round"
                   stroke-linejoin="round" />
               </g>
             </svg></button>
-          <div class="coffe_gallery">
-            <div class="slades">
-              <img src="img/png/coffee-slider-1.png" alt="Frappuccino">
-              <p class="slides_title">S’mores Frappuccino</p>
-              <p class="slides_subtitle">This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with oat milk.</p>
-              <div class="slides_price">$5.50 </div>  
+            <div class="coffe_gallery_wrapper">
+              <div class="coffe_gallery">
+                <div class="slades">
+                  <img src="img/png/coffee-slider-1.png" alt="Frappuccino">
+                  <p class="slides_title">0 <br> S’mores Frappuccino</p>
+                  <p class="slides_subtitle">This new drink takes an espresso and mixes it with brown sugar and cinnamon before being topped with oat milk.</p>
+                  <div div class="slides_price">$5.50 </div>  
+                </div>
+                <div class="slades">
+                  <img src="img/png/coffee-slider-2.png" alt="Frappuccino">
+                  <p class="slides_title">1<br> Caramel Macchiato</p>
+                  <p class="slides_subtitle">Fragrant and unique classic espresso with rich caramel-peanut syrup, with cream under whipped thick foam.</p>
+                  <div class="slides_price">$5.00 </div>
+                </div>
+                <div class="slades">
+                  <img src="img/png/coffee-slider-3.png" alt="Frappuccino">
+                  <p class="slides_title">2 <br> Ice coffee</p>
+                  <p class="slides_subtitle">A popular summer drink that tones and invigorates. Prepared from coffee, milk and ice.</p>
+                  <div class="slides_price">$4.50 </div>
+                </div>
+              </div>
             </div>
-            <div class="slades2">
-              <img src="img/png/coffee-slider-2.png" alt="Frappuccino">
-              <p class="slides_title">Caramel Macchiato</p>
-              <p class="slides_subtitle">Fragrant and unique classic espresso with rich caramel-peanut syrup, with cream under whipped thick foam.</p>
-              <div class="slides_price">$5.00 </div>
-            </div>
-            <div class="slades3">
-              <img src="img/png/coffee-slider-1.png" alt="Frappuccino">
-              <p class="slides_title">Ice coffee</p>
-              <p class="slides_subtitle">A popular summer drink that tones and invigorates. Prepared from coffee, milk and ice.</p>
-              <div class="slides_price">$4.50 </div>
-            </div>
-          </div>
           <button class="coffee_slider_arrow_next"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g id="arrow-right">
               <path id="Vector1" d="M6 12H18.5M18.5 12L12.5 6M18.5 12L12.5 18" stroke="#403F3D" stroke-linecap="round"
@@ -79,11 +78,22 @@
           </svg></button>
           </div>
         <div class="coffee_block_lines">
-          <button class="coffee_line coffee_line_first"></button>
-          <button class="coffee_line"></button>
-          <button class="coffee_line"></button>
+            <div class="coffee_line">
+              <div class="coffe_progress coffe_progress_active"></div>
+            </div>
+            <div class="coffee_line">
+              <div class="coffe_progress"></div>
+            </div>
+            <div class="coffee_line">
+                <div class="coffe_progress"></div>
+            </div>
         </div>
-
+      
+      <!-- <p class="r">
+        The Caterpillar and Alice looked at each other for some time in silence: at
+        last the Caterpillar took the hookah out of its mouth, and addressed her in a
+        languid, sleepy voice.
+      </p> -->
         </section>
           <section class="about" id="about">
             <h2 class="coffee_title">Resource is <span>the perfect and cozy place</span>  where you can enjoy a variety of hot beverages, relax, catch up with friends, or
@@ -100,8 +110,8 @@
               </div>
               <div class="foto foto4">
                 <img class="foto_img" src="img/large/about4.jpg" alt="woman and man">
-              </div>              
-            </div>        
+              </div>
+            </div>
           </section>
           <section class="mobile_App" id="mobile_app">
             <div class="mobile_text">
@@ -196,6 +206,7 @@
           </div>
         </footer>
       </div>
-      <script src="src/script.js"></script>     
+      <script src="src/scripts/script.js" defer></script>
+      <script src="src/scripts/index.js" defer></script>
   </body>
 </html>
