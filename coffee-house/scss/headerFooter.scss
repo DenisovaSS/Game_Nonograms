@@ -1,3 +1,7 @@
+body.modal-open {
+  height: 100vh;
+  overflow-y: hidden;
+}
 header {
   position: relative;
   display: flex;
@@ -8,13 +12,7 @@ header {
     padding: 18px 0;
   }
 }
-.header_active {
-  position: fixed;
-  width: 100%;
-  top: 0;
-  left: 0;
-  padding: 18px 40px;
-}
+
 .menu_logo {
   @media (max-width: $tablet) {
     position: relative;
@@ -51,6 +49,7 @@ header {
     right: -100%;
     transition: right 0.5s ease 0s;
     z-index: 2;
+
     &_active {
       right: 0;
     }
@@ -92,19 +91,13 @@ header {
       height: 2px;
       margin: 2px;
       background-color: $text-dark;
+      transition: all 0.3s ease 0s;
+      border-radius: 30%;
     }
   }
 }
 .humburger_active {
   @media (max-width: $tablet) {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 100px;
-    border: 1px solid $border-dark;
-    width: 44px;
-    height: 44px;
     span {
       margin-bottom: 2px;
       display: block;
@@ -113,11 +106,11 @@ header {
       background-color: $text-dark;
     }
     span:nth-child(1) {
-      transform: translateY(3px) rotate(-45deg);
+      transform: rotate(-45deg);
     }
     span:nth-child(2) {
-      margin-top: -2px;
-      transform: translateY(2px) rotate(45deg);
+      margin-top: -4px;
+      transform: rotate(45deg);
     }
   }
 }
@@ -132,6 +125,7 @@ header {
   font-weight: 600;
   text-decoration: none;
   position: relative;
+  // transition: 0.5s ease;
   &::after {
     content: "";
     position: absolute;
@@ -162,7 +156,7 @@ header {
 }
 
 footer {
-  margin: 100px 0 40px 0;
+  margin: 100px 40px 40px 40px;
   padding: 100px;
   border-radius: 40px;
   background: $background-container;
