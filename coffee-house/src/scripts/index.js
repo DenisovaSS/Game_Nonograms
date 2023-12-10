@@ -97,15 +97,14 @@ listElems.forEach((item) => {
 // //for touch in mobile (touchmove, touchend, touchstart)
 carousel.addEventListener("touchstart", touchStart);
 carousel.addEventListener("touchmove", touchMove);
-carousel.addEventListener("touchend", () => {
-  document.querySelector(".coffe_progress_active").style.animationPlayState =
-    "running";
-});
+// carousel.addEventListener("touchend", () => {});
 function touchStart(event) {
   stopAutoplayProgress();
   posTouchX1 = event.touches[0].clientX;
 }
 function touchMove(event) {
+  document.querySelector(".coffe_progress_active").style.animationPlayState =
+    "running";
   if (!posTouchX1) {
     return false;
   }
