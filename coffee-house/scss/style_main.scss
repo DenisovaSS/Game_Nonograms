@@ -156,6 +156,7 @@
   width: 480px;
   overflow: hidden;
   @media (max-width: $mobile) {
+    margin: 0 auto;
     width: 348px;
   }
 }
@@ -468,6 +469,7 @@
   // animation-timing-function: linear;
   animation-duration: 5s;
   animation-name: slidein;
+  animation-play-state: running;
 }
 
 @keyframes slidein {
@@ -480,3 +482,6 @@
     background: $border-dark;
   }
 }
+// .coffe_progress_active {
+//   background: $border-dark;
+// }

@@ -558,6 +558,7 @@ footer {
 }
 @media (max-width: 600px) {
   .coffe_gallery_wrapper {
+    margin: 0 auto;
     width: 348px;
   }
 }
@@ -957,6 +958,7 @@ footer {
 .coffe_progress_active {
   animation-duration: 5s;
   animation-name: slidein;
+  animation-play-state: running;
 }
 
 @keyframes slidein {

@@ -70,7 +70,7 @@ function createBtns(item) {
               <button class="modal_btn_additives modal_btn_3"><span class="modal_circle">3</span>${item.additives[2].name}</button>
   `;
 }
-console.log(price);
+// console.log(price);
 function listenBtn(item) {
   const modalBtn1 = document.querySelector(".modal_btn_1"),
     modalBtn2 = document.querySelector(".modal_btn_2"),
