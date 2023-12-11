@@ -29,12 +29,12 @@ header {
     font-weight: 600;
     line-height: 125%;
     text-decoration: none;
-    margin-top: 100px;
+    margin-top: 79px;
 
     .menu_cup_humburger {
       width: 40px;
       height: 40px;
-      margin-top: 10px;
+      margin-top: 15px;
     }
   }
 }
@@ -67,6 +67,9 @@ header {
 }
 .menu_item {
   list-style-type: none;
+  @media (max-width: $tablet) {
+    margin-top: 20px;
+  }
 }
 .menu_img {
   width: 100px;
