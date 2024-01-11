@@ -73,6 +73,10 @@ h1 {
   letter-spacing: 2px;
   text-align: center;
 }
+.guesses span {
+  color: rgb(255, 0, 0);
+  font-size: 35px;
+}
 .keyboard {
   display: flex;
   justify-content: center;
@@ -101,40 +105,56 @@ button:hover {
   background: rgb(255, 0, 0);
   cursor: pointer;
 }
+button.press {
+  color: black;
+  border-radius: 15px;
+  border: 1px solid rgb(255, 0, 0);
+  background: rgb(255, 0, 0);
+  cursor: pointer;
+}
 .men {
   position: absolute;
   left: 140px;
-  top: 148px;
+  top: 140px;
   width: 300px;
   height: 400px;
 }
-.man-head {
+.man-0 {
   position: absolute;
   left: 114px;
+  display: none;
   top: -2px;
 }
-.man-hand-one {
+.man-2 {
+  display: none;
   position: absolute;
   left: 95px;
   top: 94px;
 }
-.man-hand-two {
+.man-3 {
+  display: none;
   position: absolute;
   left: 158px;
   top: 94px;
 }
-.man-body {
+.man-1 {
   position: absolute;
   left: 158px;
   top: 94px;
+  display: none;
 }
-.man-leg-one {
+.man-4 {
+  display: none;
   position: absolute;
   left: 95px;
   top: 219px;
 }
-.man-leg-two {
+.man-5 {
+  display: none;
   position: absolute;
   left: 159px;
   top: 219px;
+}
+.active {
+  display: block;
 }
