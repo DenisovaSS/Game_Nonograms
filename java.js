@@ -2,18 +2,7 @@ let ourAnswer;
 let currentWord = [];
 let incorrectCount = 0;
 const maxCount = 6;
-// create buttons
-const createAlphabet = () => {
-  let start = "a";
-  let end = "z";
-  for (let i = start.charCodeAt(); i <= end.charCodeAt(); i++) {
-    let buttonLetter = document.createElement("button");
-    buttonLetter.textContent = String.fromCharCode(i);
-    document.querySelector(".keyboard").append(buttonLetter);
-    buttonLetter.addEventListener("click", activeBtnL);
-  }
-};
-//looking for word and hint in wordList
+
 const randomWord = () => {
   const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
   let parag = document.createElement("p");
@@ -24,7 +13,7 @@ const randomWord = () => {
   console.log(word);
   answerWord(word);
 };
-//create answer in game
+
 function answerWord(word) {
   for (let i of word) {
     let letter = document.createElement("li");
@@ -34,13 +23,23 @@ function answerWord(word) {
     // currentWord.push("_");
   }
 }
+const createAlphabet = () => {
+  let start = "a";
+  let end = "z";
+  for (let i = start.charCodeAt(); i <= end.charCodeAt(); i++) {
+    let buttonLetter = document.createElement("button");
+    buttonLetter.textContent = String.fromCharCode(i);
+    document.querySelector(".keyboard").append(buttonLetter);
+    buttonLetter.addEventListener("click", activeBtnL);
+  }
+};
 
 function activeBtnL(event) {
   event.target.classList.add("press");
   event.target.style.pointerEvents = "none";
   event.target.disabled = true;
   let currentLetter = event.target.textContent;
-  // console.log(event.target.textContent);
+  console.log(event.target.textContent);
   updateGame(currentLetter);
 }
 function updateGame(currentLetter) {
@@ -129,7 +128,6 @@ function startAgain() {
   ).textContent = `${incorrectCount}/${maxCount}`;
   randomWord();
 }
-///start game create all start elements
 function createNewElements() {
   ///create elements
   const divContainer = document.createElement("div");
@@ -182,17 +180,24 @@ function createNewElements() {
   createAlphabet();
 }
 createNewElements();
-//Event listener for keyboard
 document.addEventListener("keydown", activeBtnLKey);
 function activeBtnLKey(event) {
   let buttonLetterLs = document.querySelectorAll("button");
+  // console.log(buttonLetterLs);
   buttonLetterLs.forEach((element) => {
-    let beforeElem = element.classList.contains("press");
-    if (element.innerText === event.key.toUpperCase() && !beforeElem) {
+    // let beforeElem = element.classList.contains("press");
+    // console.log(beforeElem);
+
+    if (
+      element.innerText === event.key.toUpperCase() &&
+      !element.classList.contains("press")
+    ) {
+      console.log();
+      console.log(event.key.toUpperCase());
       element.classList.add("press");
       element.style.pointerEvents = "none";
       element.disabled = true;
-      updateGame(event.key.toUpperCase());
+      updateGame(event.key);
     }
   });
 }
