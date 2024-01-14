@@ -39,7 +39,7 @@ function activeBtnL(event) {
   event.target.style.pointerEvents = "none";
   event.target.disabled = true;
   let currentLetter = event.target.textContent;
-  console.log(event.target.textContent);
+  // console.log(event.target.textContent);
   updateGame(currentLetter);
 }
 function updateGame(currentLetter) {
@@ -108,8 +108,8 @@ function startAgain() {
   const modals = document.querySelector(".modals");
   modals.classList.remove("active");
   document.querySelector(".modal-pop").remove();
-  let mans = document.querySelectorAll(`.man`);
-  mans.forEach((man) => {
+  let men = document.querySelectorAll(`.man`);
+  men.forEach((man) => {
     man.classList.remove("active");
   });
   let beforeWord = document.querySelectorAll(".letter");
@@ -140,7 +140,7 @@ function createNewElements() {
   picturePart.className = "picture-part";
   gamePart.className = "game-part";
   ///inner for blocks
-  picturePart.innerHTML = `<img src="img/gallows.png" alt="gallows" />
+  picturePart.innerHTML = `<img class="gallow" src="img/gallows.png" alt="gallows" />
         <div class="men">
           <svg
             class="man man-0"
@@ -183,17 +183,11 @@ createNewElements();
 document.addEventListener("keydown", activeBtnLKey);
 function activeBtnLKey(event) {
   let buttonLetterLs = document.querySelectorAll("button");
-  // console.log(buttonLetterLs);
   buttonLetterLs.forEach((element) => {
-    // let beforeElem = element.classList.contains("press");
-    // console.log(beforeElem);
-
     if (
       element.innerText === event.key.toUpperCase() &&
       !element.classList.contains("press")
     ) {
-      console.log();
-      console.log(event.key.toUpperCase());
       element.classList.add("press");
       element.style.pointerEvents = "none";
       element.disabled = true;
