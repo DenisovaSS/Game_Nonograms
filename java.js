@@ -1,17 +1,23 @@
 let ourAnswer;
 let currentWord = [];
 let incorrectCount = 0;
+let beforeWord;
 const maxCount = 6;
 
 const randomWord = () => {
   const { word, hint } = wordList[Math.floor(Math.random() * wordList.length)];
-  let parag = document.createElement("p");
-  parag.className = "hint";
-  parag.textContent = `${hint}`;
-  document.getElementById("title").after(parag);
-  ourAnswer = word;
-  console.log(word);
-  answerWord(word);
+
+  if (beforeWord === word) {
+    randomWord();
+  } else {
+    let parag = document.createElement("p");
+    parag.className = "hint";
+    parag.textContent = `${hint}`;
+    document.getElementById("title").after(parag);
+    ourAnswer = word;
+    console.log(word);
+    answerWord(word);
+  }
 };
 
 function answerWord(word) {
@@ -50,13 +56,17 @@ function updateGame(currentLetter) {
         letterPoint.textContent = currentLetter;
         currentWord.push(currentLetter);
         //   currentWord[i] = currentLetter;
-      }
-      if (ourAnswer.length === currentWord.length) {
-        gameOver(false);
+        if (ourAnswer.length === currentWord.length) {
+          gameOver(false);
+        }
       }
     }
   } else {
-    if (incorrectCount === maxCount) {
+    if (incorrectCount === maxCount - 1) {
+      document.querySelector(`.man-${incorrectCount}`).classList.add("active");
+      document.querySelector(".guesses span").textContent = `${
+        incorrectCount + 1
+      }/${maxCount}`;
       gameOver(true);
     } else {
       document.querySelector(`.man-${incorrectCount}`).classList.add("active");
@@ -102,6 +112,7 @@ function gameOver(isLose) {
   modalBtn.addEventListener("click", startAgain);
 }
 function startAgain() {
+  beforeWord = ourAnswer;
   ourAnswer = "";
   currentWord = [];
   incorrectCount = 0;
@@ -112,8 +123,8 @@ function startAgain() {
   men.forEach((man) => {
     man.classList.remove("active");
   });
-  let beforeWord = document.querySelectorAll(".letter");
-  beforeWord.forEach((lett) => {
+  let beforeLetter = document.querySelectorAll(".letter");
+  beforeLetter.forEach((lett) => {
     lett.remove();
   });
   let buttonLetterLs = document.querySelectorAll("button");
