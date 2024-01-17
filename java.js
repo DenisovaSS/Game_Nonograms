@@ -80,6 +80,8 @@ function updateGame(currentLetter) {
   }
 }
 function gameOver(isLose) {
+  document.removeEventListener("keydown", activeBtnLKey);
+
   const modals = document.querySelector(".modals");
   modals.classList.add("active");
   const divModalLose = document.createElement("div");
@@ -101,7 +103,7 @@ function gameOver(isLose) {
   pModalTitle.textContent = isLose
     ? "You killed him!"
     : "Thanks for saving him!";
-  pModalAnswer.textContent = isLose ? `${ourAnswer}` : "You win!";
+  pModalAnswer.textContent = isLose ? `${ourAnswer}` : `${ourAnswer}`;
   modalBtn.textContent = isLose ? "Try again" : "Next";
   // appending
   modals.append(divModalLose);
@@ -112,6 +114,7 @@ function gameOver(isLose) {
   modalBtn.addEventListener("click", startAgain);
 }
 function startAgain() {
+  document.addEventListener("keydown", activeBtnLKey);
   beforeWord = ourAnswer;
   ourAnswer = "";
   currentWord = [];
@@ -202,7 +205,7 @@ function activeBtnLKey(event) {
       element.classList.add("press");
       element.style.pointerEvents = "none";
       element.disabled = true;
-      updateGame(event.key);
+      updateGame(event.key.toLowerCase());
     }
   });
 }
