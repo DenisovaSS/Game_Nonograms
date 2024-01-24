@@ -1,0 +1,18 @@
+:root {
+  --dark-color: rgb(65, 65, 65);
+  --letter-color: rgb(253, 254, 220);
+  --stroke-color: #4400ff;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: var(--letter-color);
+}
+canvas {
+  display: block;
+  margin: 0 auto;
+  border: 1px solid var(--dark-color);
+}
