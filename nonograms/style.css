@@ -1,7 +1,8 @@
 :root {
-  --dark-color: rgb(65, 65, 65);
+  --color-field: #c7c9c6;
   --letter-color: rgb(253, 254, 220);
-  --stroke-color: #4400ff;
+  --stroke-color: #9fa194;
+  --fill-qub: #cccccc;
 }
 * {
   box-sizing: border-box;
@@ -9,10 +10,28 @@
   padding: 0;
 }
 body {
-  background-color: var(--letter-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: var(--color-field);
 }
 canvas {
   display: block;
   margin: 0 auto;
-  border: 1px solid var(--dark-color);
+  border: 1px solid var(--stroke-color);
+}
+.container {
+  padding: 20px;
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  border-radius: 10px;
+}
+.rect {
+  width: 40px;
+  height: 40px;
+  background-color: var(--stroke-color);
 }
