@@ -1,7 +1,7 @@
-const answer = normal.crab;
+const answer = hard.deer;
 let customerAnswer = buildField();
 console.log(customerAnswer);
-let cell_size = 20;
+let cell_size = 40;
 let font_size = cell_size === 20 ? 20 : 30;
 let screen_width = answer[0].length * cell_size;
 let screen_height = answer.length * cell_size;
@@ -24,11 +24,19 @@ divContainer.prepend(managePart);
 // console.log(window.innerWidth);
 //create canvas
 const canvas = document.createElement("canvas");
+const canvas2 = document.createElement("canvas");
 canvas.id = "game";
-canvas.width = screen_width + 100;
-canvas.height = screen_height + 100;
+canvas2.id = "game2";
+canvas.width = screen_width + startGameField;
+canvas.height = screen_height + startGameField;
+canvas2.width = screen_width;
+canvas2.height = screen_height;
+canvas2.style.left = startGameField + "px";
+canvas2.style.top = startGameField + "px";
 gamePart.append(canvas);
+gamePart.append(canvas2);
 const ctx = canvas.getContext("2d");
+const ctx2 = canvas2.getContext("2d");
 //create active field
 function buildField() {
   let field = [];
@@ -103,7 +111,17 @@ let maxWidthClueColumn = maxWidth(matrixClueColumn);
 //////
 /////
 //drow this array-answer
-function drawLine(startx, starty, endx, endy, color, line_width) {
+function startGame() {
+  //fill active field
+  ctx2.fillStyle = "#ffffff";
+  ctx2.fillRect(0, 0, screen_width, screen_height);
+  fillColor(ctx, answer, startGameField);
+  fillColor(ctx2, customerAnswer, 0);
+  fillFiled();
+  fillFiledActive();
+  fillText();
+}
+function drawLine(startx, starty, endx, endy, color, line_width, ctx) {
   ctx.strokeStyle = color;
   ctx.lineWidth = line_width;
   ctx.beginPath();
@@ -111,41 +129,9 @@ function drawLine(startx, starty, endx, endy, color, line_width) {
   ctx.lineTo(endx, endy);
   ctx.stroke();
 }
+
 // console.log(matrixClueColumn.length);
-//fill active field
-ctx.fillStyle = "#ffffff";
-ctx.fillRect(startGameField, startGameField, screen_width, screen_height);
-///fill another color
-for (let i = 0; i < customerAnswer.length; i++) {
-  for (let j = 0; j < customerAnswer[i].length; j++) {
-    if (customerAnswer[i][j] === 1) {
-      ctx.fillStyle = "#c4915e";
-      ctx.fillRect(
-        cell_size * j + startGameField,
-        cell_size * i + startGameField,
-        cell_size,
-        cell_size,
-      );
-    } else if (customerAnswer[i][j] === 2) {
-      drawLine(
-        cell_size * j + startGameField,
-        cell_size * i + startGameField,
-        cell_size * (j + 1) + startGameField,
-        cell_size * (i + 1) + startGameField,
-        "#76420c",
-        2,
-      );
-      drawLine(
-        cell_size * (j + 1) + startGameField,
-        cell_size * i + startGameField,
-        cell_size * j + startGameField,
-        cell_size * (i + 1) + startGameField,
-        "#76420c",
-        2,
-      );
-    }
-  }
-}
+
 ///drow line in filed
 function fillFiled() {
   //row
@@ -157,6 +143,7 @@ function fillFiled() {
       i * cell_size + startGameField,
       "#443927",
       1,
+      ctx,
     );
     if (i % 5 === 0) {
       drawLine(
@@ -166,6 +153,7 @@ function fillFiled() {
         i * cell_size,
         "#15100A",
         3,
+        ctx,
       );
     }
   }
@@ -178,6 +166,7 @@ function fillFiled() {
       screen_height + startGameField,
       "#443927",
       1,
+      ctx,
     );
     if (i % 5 === 0) {
       drawLine(
@@ -187,41 +176,125 @@ function fillFiled() {
         screen_height + startGameField,
         "#15100A",
         3,
+        ctx,
       );
     }
   }
 }
-fillFiled();
-ctx.font = `${font_size}px Times New Roman`;
-ctx.textBaseline = "ideographic";
-ctx.textAlign = "right";
-ctx.fillStyle = "#4400ff";
-// Line hints
-for (let i = 0; i < matrixClueRow.length; i++) {
-  let string = " ";
-  for (let j = 0; j < matrixClueRow[i].length; j++) {
-    string += matrixClueRow[i][j] + "  ";
-  }
-  if (string == " ") {
-    string = " ";
-  }
-  ctx.fillText(string, startGameField, cell_size * (i + 1) + startGameField);
-}
-ctx.fillStyle = "#BA5809";
-ctx.textAlign = "end";
-// Column
-for (let i = 0; i < matrixClueColumn.length; i++) {
-  let part = " ";
-  for (let j = matrixClueColumn[i].length - 1; j >= 0; j--) {
-    part = matrixClueColumn[i][j];
-    if (part == " ") {
-      part = 0;
+
+function fillFiledActive() {
+  //row
+  for (let i = 0; i < customerAnswer.length; i++) {
+    drawLine(0, i * cell_size, screen_width, i * cell_size, "#443927", 1, ctx2);
+    if (i % 5 === 0) {
+      drawLine(
+        0,
+        i * cell_size,
+        screen_width,
+        i * cell_size,
+        "#15100A",
+        3,
+        ctx2,
+      );
     }
-    ctx.fillText(
-      part,
-      startGameField + cell_size * i + 10,
-      cell_size * (5 - j),
+  }
+  ///column
+  for (let i = 0; i < answer[0].length + 6; i++) {
+    drawLine(
+      i * cell_size,
+      0,
+      i * cell_size,
+      screen_height,
+      "#443927",
+      1,
+      ctx2,
     );
+    if (i % 5 === 0) {
+      drawLine(
+        i * cell_size,
+        0,
+        i * cell_size,
+        screen_height,
+        "#15100A",
+        3,
+        ctx2,
+      );
+    }
   }
 }
+function fillText() {
+  ctx.font = `${font_size}px Times New Roman`;
+  ctx.textBaseline = "ideographic";
+  ctx.textAlign = "right";
+  ctx.fillStyle = "#4400ff";
+  // Line hints
+  for (let i = 0; i < matrixClueRow.length; i++) {
+    let string = " ";
+    for (let j = 0; j < matrixClueRow[i].length; j++) {
+      string += matrixClueRow[i][j] + "  ";
+    }
+    if (string == " ") {
+      string = " ";
+    }
+    ctx.fillText(string, startGameField, cell_size * (i + 1) + startGameField);
+  }
+  ctx.fillStyle = "#BA5809";
+  ctx.textAlign = "start";
+  // Column
+  for (let i = 0; i < matrixClueColumn.length; i++) {
+    let part = " ";
+    for (let j = matrixClueColumn[i].length - 1; j >= 0; j--) {
+      part = matrixClueColumn[i][j];
+      if (part == " ") {
+        part = 0;
+      }
+      ctx.fillText(
+        part,
+        startGameField + cell_size * i + 10,
+        cell_size * (5 - j),
+      );
+    }
+  }
+}
+function fillColor(ctx, matirix, start) {
+  ///fill another color
+  for (let i = 0; i < matirix.length; i++) {
+    for (let j = 0; j < matirix[i].length; j++) {
+      if (matirix[i][j] === 1) {
+        ctx.fillStyle = "#c4915e";
+        ctx.fillRect(
+          cell_size * j + start,
+          cell_size * i + start,
+          cell_size,
+          cell_size,
+        );
+      } else if (matirix[i][j] === 2) {
+        drawLine(
+          cell_size * j + start,
+          cell_size * i + start,
+          cell_size * (j + 1) + start,
+          cell_size * (i + 1) + start,
+          "#76420c",
+          3,
+          ctx,
+        );
+        drawLine(
+          cell_size * (j + 1) + start,
+          cell_size * i + start,
+          cell_size * j + start,
+          cell_size * (i + 1) + start,
+          "#76420c",
+          3,
+          ctx,
+        );
+      }
+    }
+  }
+}
+
 // size active field (xstart, ystart,xend,yend) = startGameField ,startGameField ,screen_width,screen_height
+
+document.addEventListener("mouseup", (e) => {
+  console.log(e.button);
+});
+startGame();

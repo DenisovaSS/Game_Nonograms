@@ -16,12 +16,16 @@ body {
   min-height: 100vh;
 }
 .game-part {
+  position: relative;
   background-color: var(--color-field);
 }
-canvas {
+#game {
   display: block;
   margin: 0 auto;
   border: 1px solid var(--stroke-color);
+}
+#game2 {
+  position: absolute;
 }
 .container {
   padding: 20px;
