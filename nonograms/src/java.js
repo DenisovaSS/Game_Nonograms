@@ -1,11 +1,15 @@
-const answer = hard.deer;
+const answer = hard.alien;
 let customerAnswer = buildField();
-console.log(customerAnswer);
+// console.log(customerAnswer);
 let cell_size = 40;
 let font_size = cell_size === 20 ? 20 : 30;
 let screen_width = answer[0].length * cell_size;
 let screen_height = answer.length * cell_size;
 const startGameField = cell_size * 5;
+// const mainElem = document.documentElement;
+// console.log(mainElem.clientWidth);
+// console.log(window.innerWidth);
+//create elements
 const divContainer = document.createElement("div");
 const managePart = document.createElement("div");
 const gamePart = document.createElement("div");
@@ -19,10 +23,6 @@ document.body.prepend(divContainer);
 document.body.prepend(divModals);
 divContainer.append(gamePart);
 divContainer.prepend(managePart);
-// const mainElem = document.documentElement;
-// console.log(mainElem.clientWidth);
-// console.log(window.innerWidth);
-//create canvas
 const canvas = document.createElement("canvas");
 const canvas2 = document.createElement("canvas");
 canvas.id = "game";
@@ -99,17 +99,15 @@ function countCluesColumn(matrix) {
 }
 let matrixClueColumn = countCluesColumn(answer);
 // console.log("matrixClueColumn", matrixClueColumn);
-function maxWidth(matrix) {
-  let newMatr = [];
-  for (let i = 0; i < matrix.length; i++) {
-    newMatr.push(matrix[i].length);
-  }
-  return Math.max(...newMatr);
-}
-let maxWidthClueRow = maxWidth(matrixClueRow);
-let maxWidthClueColumn = maxWidth(matrixClueColumn);
-//////
-/////
+// function maxWidth(matrix) {
+//   let newMatr = [];
+//   for (let i = 0; i < matrix.length; i++) {
+//     newMatr.push(matrix[i].length);
+//   }
+//   return Math.max(...newMatr);
+// }
+// let maxWidthClueRow = maxWidth(matrixClueRow);
+// let maxWidthClueColumn = maxWidth(matrixClueColumn);
 //drow this array-answer
 function startGame() {
   //fill active field
@@ -129,9 +127,7 @@ function drawLine(startx, starty, endx, endy, color, line_width, ctx) {
   ctx.lineTo(endx, endy);
   ctx.stroke();
 }
-
 // console.log(matrixClueColumn.length);
-
 ///drow line in filed
 function fillFiled() {
   //row
@@ -181,7 +177,6 @@ function fillFiled() {
     }
   }
 }
-
 function fillFiledActive() {
   //row
   for (let i = 0; i < customerAnswer.length; i++) {
@@ -292,9 +287,80 @@ function fillColor(ctx, matirix, start) {
   }
 }
 
-// size active field (xstart, ystart,xend,yend) = startGameField ,startGameField ,screen_width,screen_height
+// size active field (xstart, ystart,xend,yend) = 0 ,0 ,screen_width,screen_height(13/27)(8/22)
+function compareMatrix() {
+  for (let i = 0; i < customerAnswer.length; i++) {
+    for (let j = 0; j < customerAnswer[0].length; j++) {
+      const value1 = customerAnswer[i][j];
+      const value2 = answer[i][j];
+      if ((value1 === 0 || value1 === 2) && (value2 === 0 || value2 === 2)) {
+        continue;
+      }
+      if (value1 !== value2) {
+        return console.log(false);
+      }
+    }
+  }
+  return alert("you win");
+}
+function clickLeft(row, col) {
+  if (customerAnswer[row][col] !== 1) {
+    customerAnswer[row][col] = 1;
+  } else {
+    customerAnswer[row][col] = 0;
+  }
+  compareMatrix();
+  // let r = customerAnswer.every((v, i) =>
+  //   customerAnswer[i].every((v, j) => v === answer[i][j]),
+  // );
+  // if (r) {
+  //   alert("you win");
+  // }
+}
 
-document.addEventListener("mouseup", (e) => {
-  console.log(e.button);
+function clickRight(row, col) {
+  if (customerAnswer[row][col] !== 2) {
+    customerAnswer[row][col] = 2;
+  } else {
+    customerAnswer[row][col] = 0;
+  }
+}
+canvas2.addEventListener("mousedown", (e) => {
+  let col = Math.floor(e.offsetX / cell_size);
+  let row = Math.floor(e.offsetY / cell_size);
+  // console.log(e.buttons);
+  switch (e.buttons) {
+    case 1:
+      clickLeft(row, col);
+      break;
+    case 2:
+      clickRight(row, col);
+      break;
+    default:
+      clickLeft(row, col);
+  }
+  // console.log(e.buttons);
+
+  // console.log(col, row);
+
+  // console.log(customerAnswer);
+
+  // console.log(r);
+  // return customerAnswer[row][col] === 1;
+
+  // console.log(e.offsetX);
+  // console.log(e.x);
 });
-startGame();
+// startGame();
+
+//  switch (event.buttons) {
+//    case 2:
+//      this.clickContextCellHandler(row, column);
+//      break;
+//    case 4:
+//      this.clickWheelCellHandler(row, column);
+//      break;
+//    default:
+//      this.clickMouseCellHandler(row, column);
+//  }
+let game = setInterval(startGame, 300);

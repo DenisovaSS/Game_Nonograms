@@ -25,6 +25,7 @@ body {
   border: 1px solid var(--stroke-color);
 }
 #game2 {
+  display: none;
   position: absolute;
 }
 .container {
