@@ -11,18 +11,14 @@ const startGameField = cell_size * 5;
 // console.log(window.innerWidth);
 //create elements
 const divContainer = document.createElement("div");
-const managePart = document.createElement("div");
 const gamePart = document.createElement("div");
 const divModals = document.createElement("div");
-const divRect = document.createElement("div");
 divModals.className = "modals";
 divContainer.className = "container";
-managePart.className = "manage-part";
 gamePart.className = "game-part";
 document.body.prepend(divContainer);
 document.body.prepend(divModals);
 divContainer.append(gamePart);
-divContainer.prepend(managePart);
 const canvas = document.createElement("canvas");
 const canvas2 = document.createElement("canvas");
 canvas.id = "game";

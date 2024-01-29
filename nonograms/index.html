@@ -7,8 +7,128 @@
     <title>NonoGame</title>
     <link rel="stylesheet" href="style.css" />
   </head>
-  <body oncontextmenu="return false;">
+  <body>
+    <!-- <body oncontextmenu="return false;"> -->
+    <div class="modals">
+      <div class="modal_menu">
+        <div class="cover_first">
+          <div class="cover_second">
+            <div class="inner_container">
+              <div class="list first_list">
+                <div>
+                  <h2>themes</h2>
+                  <div class="random_wrap">
+                    <button class="themes_btn"></button>
+                  </div>
+                </div>
+                <div>
+                  <h2>best results</h2>
+                  <div class="random_wrap">
+                    <button class="table_btn"></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="containerList">
+                <div class="list">
+                  <h2>easy</h2>
+                  <ul>
+                    <li><span>Lorem</span></li>
+                    <li><span>Consectetur</span></li>
+                    <li><span>labore</span></li>
+                    <li><span>enim</span></li>
+                    <li><span>Quis</span></li>
+                  </ul>
+                </div>
+                <div class="list">
+                  <h2>medium</h2>
+                  <ul>
+                    <li><span>Lorem</span></li>
+                    <li><span>Consectetur</span></li>
+                    <li><span>labore</span></li>
+                    <li><span>enim</span></li>
+                    <li><span>Quis</span></li>
+                  </ul>
+                </div>
+                <div class="list">
+                  <h2>hard</h2>
+                  <ul>
+                    <li><span>Lorem</span></li>
+                    <li><span>Consectetur</span></li>
+                    <li><span>labore</span></li>
+                    <li><span>enim</span></li>
+                    <li><span>Quis</span></li>
+                  </ul>
+                </div>
+                <div class="list last_list">
+                  <h2>random</h2>
+                  <div class="random_wrap">
+                    <button class="random_btn"></button>
+                  </div>
+                  <h2>saved game</h2>
+                  <div class="random_wrap">
+                    <button class="lastGame_btn"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="modal_close"></button>
+      </div>
+      <div class="modal_win">
+        <div class="cover_first">
+          <div class="cover_second">
+            <div class="inner_container_win">
+              <h3 class="win_title">Great! You have solved the nonogram</h3>
+              <img class="win_img" src="/img/dog_smile_50.png" alt="dog" />
+            </div>
+          </div>
+        </div>
+        <button class="modal_close"></button>
+      </div>
+
+      <div class="modal_table">
+        <div class="cover_first">
+          <div class="cover_second">
+            <div class="inner_container_table">
+              <ul class="best_game">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <button class="modal_close"></button>
+      </div>
+    </div>
+    <div class="container">
+      <div class="cover_first">
+        <div class="cover_second">
+          <div class="header">
+            <div class="time_wrapp">
+              <img class="time_img" src="img/time.png" alt="time" />
+              <div class="header_timer">24:67</div>
+            </div>
+            <div class="buttons_wrap">
+              <button class="save_btn">save</button
+              ><button class="decision_btn">solution</button
+              ><button class="reset_btn">reset</button>
+              <button class="settings_btn">
+                <!-- <img src="img/menu.png" alt="settings" /> -->
+              </button>
+            </div>
+          </div>
+          <div class="game-part">
+            <canvas id="game" width="800" height="800"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="src/answer.js" defer></script>
-    <script src="src/java.js" defer></script>
+    <!-- <script src="src/java.js" defer></script> -->
   </body>
 </html>
