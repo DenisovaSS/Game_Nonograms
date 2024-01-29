@@ -25,28 +25,39 @@ body {
   justify-content: space-around; */
 }
 .cover_first {
-  border: 10px solid var(--ligth-brawn);
+  border: 8px solid var(--ligth-brawn);
   background-color: var(--ligth-brawn);
   border-radius: 20px;
 }
 .cover_second {
-  padding: 20px;
+  padding: 12px;
   background-color: var(--brith-color);
   border-radius: 20px;
 }
-.header {
-  border-radius: 10px;
-  padding: 10px;
+.cover_three {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  /* column-gap: 20px; */
-  margin-bottom: 12px;
-  color: #000000;
+  flex-direction: row;
+  border-radius: 20px;
   background-color: var(--color-field);
 }
+.header {
+  max-width: 1000px;
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  column-gap: 20px;
+  margin-bottom: 7px;
+  color: #000000;
+}
+
+.main {
+  padding: 10px;
+}
 .game-part {
+  margin: 0 auto;
   position: relative;
   background-color: var(--color-field);
   border-radius: 10px;
@@ -58,7 +69,7 @@ body {
   border: 1px solid var(--stroke-color);
 }
 #game2 {
-  display: none;
+  display: block;
   position: absolute;
 }
 .time_wrapp {
@@ -68,16 +79,17 @@ body {
   align-items: center;
 }
 .time_img {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
 }
 .header_timer {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 50px;
+  font-size: 40px;
   color: var(--dark-brawn);
 }
 .buttons_wrap {
   display: flex;
+  flex-direction: column;
   gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
@@ -86,14 +98,14 @@ body {
 .decision_btn,
 .reset_btn,
 .save_btn {
-  width: 150px;
+  width: 120px;
   height: 80px;
   border-radius: 20px;
   background-color: #71bbd6;
   padding: 2px;
   cursor: pointer;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  font-size: 35px;
+  font-size: 26px;
   font-weight: bold;
   color: var(--dark-brawn);
   transition: all 0.3s ease;
@@ -101,12 +113,12 @@ body {
 }
 .save_btn,
 .reset_btn {
-  font-size: 45px;
+  font-size: 35px;
 }
 
 .settings_btn {
-  width: 80px;
-  height: 80px;
+  width: 100px;
+  height: 100px;
   cursor: pointer;
   transition: all 0.3s ease;
   border: 4px solid var(--dark-brawn);
@@ -154,10 +166,13 @@ body {
   transform: translate(-50%, -50%);
   border-radius: 20px;
 }
-/* .modal_menu {
+.modal_menu {
   display: none;
-} */
+}
 .modal_win {
+  display: none;
+}
+.modal_table {
   display: none;
 }
 .inner_container_win {
@@ -178,9 +193,7 @@ body {
   width: 200px;
   height: 200px;
 }
-.modal_table {
-  display: none;
-}
+
 .inner_container_table {
   padding: 10px;
   width: 200px;
@@ -367,4 +380,75 @@ body {
   border: 4px solid var(--dark-brawn);
   color: var(--dark-brawn);
   background-image: url(img/close_b.png);
+}
+@media (max-width: 850px) {
+  .time_img {
+    display: none;
+  }
+  .settings_btn {
+    width: 80px;
+    height: 80px;
+  }
+  .decision_btn,
+  .reset_btn,
+  .save_btn {
+    width: 90px;
+    height: 70px;
+    padding: 2px;
+    font-size: 20px;
+  }
+}
+@media (max-width: 750px) {
+  .cover_three {
+    flex-direction: column;
+  }
+  .buttons_wrap {
+    flex-direction: row;
+  }
+  .header {
+    flex-direction: row;
+  }
+  .settings_btn {
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--dark-brawn);
+    background-image: url(img/l_menu_b.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #71bbd6;
+    border-radius: 20px;
+  }
+  .settings_btn:hover {
+    border: 4px solid var(--ligth-brawn);
+    color: var(--ligth-brawn);
+    background-image: url(img/l_menu_l.png);
+  }
+  .decision_btn,
+  .reset_btn,
+  .save_btn {
+    width: 80px;
+    height: 50px;
+    padding: 2px;
+    font-size: 18px;
+    border: 2px solid var(--dark-brawn);
+  }
+  .decision_btn:hover,
+  .reset_btn:hover,
+  .save_btn:hover {
+    border: 4px solid var(--ligth-brawn);
+    color: var(--ligth-brawn);
+  }
+  .time_img {
+    width: 50px;
+    height: 50px;
+    display: block;
+  }
+  .header_timer {
+    font-size: 30px;
+  }
+}
+@media (max-width: 850px) {
+  .time_img {
+    display: none;
+  }
 }

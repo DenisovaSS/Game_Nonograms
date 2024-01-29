@@ -92,13 +92,7 @@
         <div class="cover_first">
           <div class="cover_second">
             <div class="inner_container_table">
-              <ul class="best_game">
-                <li>1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
-              </ul>
+              <ul class="best_game"></ul>
             </div>
           </div>
         </div>
@@ -108,27 +102,31 @@
     <div class="container">
       <div class="cover_first">
         <div class="cover_second">
-          <div class="header">
-            <div class="time_wrapp">
-              <img class="time_img" src="img/time.png" alt="time" />
-              <div class="header_timer">24:67</div>
+          <div class="cover_three">
+            <div class="header">
+              <div class="time_wrapp">
+                <img class="time_img" src="img/time.png" alt="time" />
+                <div class="header_timer">24:67</div>
+              </div>
+              <div class="buttons_wrap">
+                <button class="save_btn">save</button
+                ><button class="decision_btn">solution</button
+                ><button class="reset_btn">reset</button>
+                <button class="settings_btn">
+                  <!-- <img src="img/menu.png" alt="settings" /> -->
+                </button>
+              </div>
             </div>
-            <div class="buttons_wrap">
-              <button class="save_btn">save</button
-              ><button class="decision_btn">solution</button
-              ><button class="reset_btn">reset</button>
-              <button class="settings_btn">
-                <!-- <img src="img/menu.png" alt="settings" /> -->
-              </button>
+            <div class="main">
+              <div class="game-part">
+                <!-- <canvas id="game" width="800" height="800"></canvas> -->
+              </div>
             </div>
-          </div>
-          <div class="game-part">
-            <canvas id="game" width="800" height="800"></canvas>
           </div>
         </div>
       </div>
     </div>
     <script src="src/answer.js" defer></script>
-    <!-- <script src="src/java.js" defer></script> -->
+    <script src="src/java.js" defer></script>
   </body>
 </html>
