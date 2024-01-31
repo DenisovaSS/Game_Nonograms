@@ -1,16 +1,96 @@
-const answer = easy.checkers;
-let customerAnswer = buildField();
+const answer = hard.Iny;
+
+// let customerAnswer = buildField();
 // console.log(customerAnswer);
 let cell_size = 30;
-let font_size = cell_size === 20 ? 22 : 28;
+let font_size = cell_size === 20 ? 20 : 28;
 let screen_width = answer[0].length * cell_size;
 let screen_height = answer.length * cell_size;
 const startGameField = cell_size * 5;
-console.log(startGameField);
-// const mainElem = document.documentElement;
-// console.log(mainElem.clientWidth);
-// console.log(window.innerWidth);
 //create elements
+class BuildPage {
+  constructor() {}
+  createElement(tag, classes = "", innerText = "") {
+    const element = document.createElement(tag);
+    element.classList.add(...classes);
+    if (innerText) element.innerText = innerText;
+    return element;
+  }
+  createModalMenu() {
+    const modalMenu = this.createElement("div", ["modal_menu"]);
+    const coverFirst = this.createElement("div", ["cover_first"]);
+    const coverSecond = this.createElement("div", ["cover_second"]);
+    const innerContainer = this.createElement("div", ["inner_container"]);
+    const firstList = this.createElement("div", ["list", "first_list"]);
+    //create first list
+    const div1 = this.createElement("div", ["div_1"]);
+    const div2 = this.createElement("div", ["div_2"]);
+    const themesBtn = this.createElement("button", ["themes_btn"]);
+    const tableBtn = this.createElement("button", ["table_btn"]);
+    const randomBtn = this.createElement("button", ["random_btn"]);
+    const lastGameBtn = this.createElement("button", ["lastGame_btn"]);
+    const randomWrap1 = this.createElement("div", ["random_wrap"]);
+    const randomWrap2 = this.createElement("div", ["random_wrap"]);
+    const randomWrap3 = this.createElement("div", ["random_wrap"]);
+    const randomWrap4 = this.createElement("div", ["random_wrap"]);
+    const h2First_1 = this.createElement("h2", "", "themes");
+    const h2First_2 = this.createElement("h2", "", "best results");
+    const h2Last_1 = this.createElement("h2", "", "random");
+    const h2Last_2 = this.createElement("h2", "", "saved game");
+    //create containerList
+    const containerList = this.createElement("div", ["containerList"]);
+    const list1 = this.createListToContainer(easy, "easy");
+    const list2 = this.createListToContainer(normal, "normal");
+    const list3 = this.createListToContainer(hard, "hard");
+    const list4 = this.createElement("div", ["list", "last_list"]);
+    list4.append(h2Last_1, randomWrap3, h2Last_2, randomWrap4);
+    randomWrap3.append(randomBtn);
+    randomWrap4.append(lastGameBtn);
+    //
+    containerList.append(list1, list2, list3, list4);
+    randomWrap1.append(themesBtn);
+    randomWrap2.append(tableBtn);
+    div1.append(h2First_1, randomWrap1);
+    div2.append(h2First_2, randomWrap2);
+    firstList.append(div1, div2);
+    //
+    coverFirst.append(coverSecond);
+    coverSecond.append(innerContainer);
+    innerContainer.append(firstList, containerList);
+
+    modalMenu.append(coverFirst);
+    return modalMenu;
+  }
+  createListToContainer(per, string) {
+    const list = this.createElement("div", ["list"]);
+    const h2_H = this.createElement("h2", "", string);
+    const ul = this.createElement("ul");
+    const span = Object.keys(per).forEach((key) => {
+      const oneLi = this.createElement("span", "", key);
+      const li = this.createElement("li");
+      li.append(oneLi);
+      ul.append(li);
+    });
+    list.append(h2_H, ul);
+    return list;
+  }
+  createModals() {
+    const modals = this.createElement("div", ["modals"]);
+    const modalMenu = this.createModalMenu();
+    const modalWin = this.createElement("div", ["modal_win"]);
+    const modalTable = this.createElement("div", ["modal_table"]);
+    modals.append(modalMenu, modalWin, modalTable);
+    return modals;
+  }
+  createPage() {
+    const modals = this.createModals();
+    const container = this.createElement("div", ["container"]);
+    document.body.append(modals, container);
+  }
+}
+const builder = new BuildPage();
+builder.createPage();
+/*
 const divContainer = document.createElement("div");
 // const gamePart = document.createElement("div");
 const gamePart = document.querySelector(".game-part");
@@ -18,10 +98,6 @@ console.log(gamePart);
 const divModals = document.createElement("div");
 divModals.className = "modals";
 divContainer.className = "container";
-// gamePart.className = "game-part";
-// document.body.prepend(divContainer);
-// document.body.prepend(divModals);
-// divContainer.append(gamePart);
 
 const canvas = document.createElement("canvas");
 const canvas2 = document.createElement("canvas");
@@ -236,7 +312,8 @@ function fillText() {
     ctx.fillText(string, startGameField, cell_size * (i + 1) + startGameField);
   }
   ctx.fillStyle = "#BA5809";
-  ctx.textAlign = "start";
+  ctx.textAlign = "center";
+
   // Column
   for (let i = 0; i < matrixClueColumn.length; i++) {
     let part = " ";
@@ -248,7 +325,7 @@ function fillText() {
       ctx.fillText(
         part,
         startGameField + cell_size * i + 10,
-        cell_size * (5 - j),
+        (cell_size - 1) * (5 - j),
       );
     }
   }
@@ -341,28 +418,6 @@ canvas2.addEventListener("mousedown", (e) => {
     default:
       clickLeft(row, col);
   }
-  // console.log(e.buttons);
-
-  // console.log(col, row);
-
-  // console.log(customerAnswer);
-
-  // console.log(r);
-  // return customerAnswer[row][col] === 1;
-
-  // console.log(e.offsetX);
-  // console.log(e.x);
-});
+  });
 // startGame();
-
-//  switch (event.buttons) {
-//    case 2:
-//      this.clickContextCellHandler(row, column);
-//      break;
-//    case 4:
-//      this.clickWheelCellHandler(row, column);
-//      break;
-//    default:
-//      this.clickMouseCellHandler(row, column);
-//  }
-let game = setInterval(startGame, 300);
+let game = setInterval(startGame, 300);*/
