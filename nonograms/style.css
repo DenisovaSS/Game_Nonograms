@@ -54,10 +54,10 @@ body {
 }
 
 .main {
-  padding: 10px;
+  padding: 20px;
   position: relative;
 }
-.game-part {
+.game_part {
   background-color: var(--color-field);
   position: relative;
   top: 50%;
@@ -149,7 +149,7 @@ body {
   border-radius: 10px;
 } */
 .modals {
-  display: block;
+  display: none;
   position: fixed;
   width: 100%;
   height: 100%;
@@ -172,9 +172,9 @@ body {
 .modal_menu {
   display: none;
 }
-/* .modal_win {
+.modal_win {
   display: none;
-} */
+}
 .modal_table {
   display: none;
 }
@@ -426,7 +426,7 @@ body {
     color: var(--ligth-brawn);
     background-image: url(img/l_menu_l.png);
   }
-  .game-part {
+  .game_part {
     margin: 0 auto;
     position: relative;
     background-color: var(--color-field);

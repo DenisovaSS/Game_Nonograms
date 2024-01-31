@@ -1,6 +1,6 @@
-const answer = hard.Iny;
+const answer = easy.test;
 
-// let customerAnswer = buildField();
+let customerAnswer = buildField();
 // console.log(customerAnswer);
 let cell_size = 30;
 let font_size = cell_size === 20 ? 20 : 28;
@@ -18,6 +18,7 @@ class BuildPage {
   }
   createModalMenu() {
     const modalMenu = this.createElement("div", ["modal_menu"]);
+    const buttonClose = this.createElement("button", ["modal_close"]);
     const coverFirst = this.createElement("div", ["cover_first"]);
     const coverSecond = this.createElement("div", ["cover_second"]);
     const innerContainer = this.createElement("div", ["inner_container"]);
@@ -46,7 +47,6 @@ class BuildPage {
     list4.append(h2Last_1, randomWrap3, h2Last_2, randomWrap4);
     randomWrap3.append(randomBtn);
     randomWrap4.append(lastGameBtn);
-    //
     containerList.append(list1, list2, list3, list4);
     randomWrap1.append(themesBtn);
     randomWrap2.append(tableBtn);
@@ -58,7 +58,7 @@ class BuildPage {
     coverSecond.append(innerContainer);
     innerContainer.append(firstList, containerList);
 
-    modalMenu.append(coverFirst);
+    modalMenu.append(coverFirst, buttonClose);
     return modalMenu;
   }
   createListToContainer(per, string) {
@@ -74,31 +74,99 @@ class BuildPage {
     list.append(h2_H, ul);
     return list;
   }
+  createModalWin() {
+    const modalWin = this.createElement("div", ["modal_win"]);
+    const buttonClose = this.createElement("button", ["modal_close"]);
+    const coverFirst = this.createElement("div", ["cover_first"]);
+    const coverSecond = this.createElement("div", ["cover_second"]);
+    const innerContainer = this.createElement("div", ["inner_container_win"]);
+    const h3ModalWin = this.createElement(
+      "h3",
+      ["win_title"],
+      "Great! You have solved the nonogram",
+    );
+    const imgModalWin = document.createElement("img");
+    imgModalWin.className = "win_img";
+    imgModalWin.src = "/img/dog_smile_50.png";
+    imgModalWin.alt = "dog";
+    coverFirst.append(coverSecond);
+    coverSecond.append(innerContainer);
+    innerContainer.append(h3ModalWin, imgModalWin);
+    modalWin.append(coverFirst, buttonClose);
+    return modalWin;
+  }
+  createModalTable() {
+    const modalTable = this.createElement("div", ["modal_table"]);
+    const buttonClose = this.createElement("button", ["modal_close"]);
+    const coverFirst = this.createElement("div", ["cover_first"]);
+    const coverSecond = this.createElement("div", ["cover_second"]);
+    const innerContainer = this.createElement("div", ["inner_container_table"]);
+    const ulModalTAble = this.createElement("ul", "best_game", "Best game");
+    coverFirst.append(coverSecond);
+    coverSecond.append(innerContainer);
+    innerContainer.append(ulModalTAble);
+    modalTable.append(coverFirst, buttonClose);
+    return modalTable;
+  }
   createModals() {
     const modals = this.createElement("div", ["modals"]);
     const modalMenu = this.createModalMenu();
-    const modalWin = this.createElement("div", ["modal_win"]);
-    const modalTable = this.createElement("div", ["modal_table"]);
+    const modalWin = this.createModalWin();
+    const modalTable = this.createModalTable();
     modals.append(modalMenu, modalWin, modalTable);
     return modals;
   }
+  createHeader() {
+    const header = this.createElement("div", ["header"]);
+    const timeWrapp = this.createElement("div", ["time_wrapp"]);
+    const buttonsWrap = this.createElement("div", ["buttons_wrap"]);
+    const headerTimer = this.createElement("div", ["header_timer"], "24:66");
+    const imgHeader = document.createElement("img");
+    const saveBtn = this.createElement("button", ["save_btn"], "save");
+    const decisionBtn = this.createElement(
+      "button",
+      ["decision_btn"],
+      "solution",
+    );
+    const resetBtn = this.createElement("button", ["reset_btn"], "reset");
+    const settingsBtn = this.createElement("button", ["settings_btn"]);
+    imgHeader.className = "time_img";
+    imgHeader.src = "img/time.png";
+    imgHeader.alt = "time";
+    buttonsWrap.append(saveBtn, decisionBtn, resetBtn, settingsBtn);
+    timeWrapp.append(headerTimer, imgHeader);
+    header.append(timeWrapp, buttonsWrap);
+    return header;
+  }
+  createContainer() {
+    const container = this.createElement("div", ["container"]);
+    const coverFirst = this.createElement("div", ["cover_first"]);
+    const coverSecond = this.createElement("div", ["cover_second"]);
+    const coverThree = this.createElement("div", ["cover_three"]);
+    const main = this.createElement("div", ["main"]);
+    const header = this.createHeader();
+    const gamePart = this.createElement("div", ["game_part"]);
+    gamePart.oncontextmenu = function () {
+      return false;
+    };
+
+    coverFirst.append(coverSecond);
+    coverSecond.append(coverThree);
+    coverThree.append(header, main);
+    main.append(gamePart);
+    container.append(coverFirst);
+    return container;
+  }
   createPage() {
     const modals = this.createModals();
-    const container = this.createElement("div", ["container"]);
+    const container = this.createContainer();
     document.body.append(modals, container);
   }
 }
 const builder = new BuildPage();
 builder.createPage();
-/*
-const divContainer = document.createElement("div");
-// const gamePart = document.createElement("div");
-const gamePart = document.querySelector(".game-part");
+const gamePart = document.querySelector(".game_part");
 console.log(gamePart);
-const divModals = document.createElement("div");
-divModals.className = "modals";
-divContainer.className = "container";
-
 const canvas = document.createElement("canvas");
 const canvas2 = document.createElement("canvas");
 canvas.id = "game";
@@ -177,15 +245,6 @@ function countCluesColumn(matrix) {
 }
 let matrixClueColumn = countCluesColumn(answer);
 // console.log("matrixClueColumn", matrixClueColumn);
-// function maxWidth(matrix) {
-//   let newMatr = [];
-//   for (let i = 0; i < matrix.length; i++) {
-//     newMatr.push(matrix[i].length);
-//   }
-//   return Math.max(...newMatr);
-// }
-// let maxWidthClueRow = maxWidth(matrixClueRow);
-// let maxWidthClueColumn = maxWidth(matrixClueColumn);
 //drow this array-answer
 function startGame() {
   //fill active field
@@ -366,7 +425,6 @@ function fillColor(ctx, matirix, start) {
   }
 }
 
-// size active field (xstart, ystart,xend,yend) = 0 ,0 ,screen_width,screen_height(13/27)(8/22)
 function compareMatrix() {
   for (let i = 0; i < customerAnswer.length; i++) {
     for (let j = 0; j < customerAnswer[0].length; j++) {
@@ -389,12 +447,6 @@ function clickLeft(row, col) {
     customerAnswer[row][col] = 0;
   }
   compareMatrix();
-  // let r = customerAnswer.every((v, i) =>
-  //   customerAnswer[i].every((v, j) => v === answer[i][j]),
-  // );
-  // if (r) {
-  //   alert("you win");
-  // }
 }
 
 function clickRight(row, col) {
@@ -418,6 +470,6 @@ canvas2.addEventListener("mousedown", (e) => {
     default:
       clickLeft(row, col);
   }
-  });
+});
 // startGame();
-let game = setInterval(startGame, 300);*/
+let game = setInterval(startGame, 300);
