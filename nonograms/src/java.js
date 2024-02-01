@@ -1,6 +1,11 @@
-const answer = easy.test;
-
+const onlyEasy = Object.values(easy);
+let random = Math.floor(Math.random() * onlyEasy.length);
+let key = onlyEasy[random];
+//fill active field
+let answer = key;
 let customerAnswer = buildField();
+console.log(customerAnswer);
+const showAnswer = false;
 // console.log(customerAnswer);
 let cell_size = 30;
 let font_size = cell_size === 20 ? 20 : 28;
@@ -128,28 +133,40 @@ class BuildPage {
       ["decision_btn"],
       "solution",
     );
+    decisionBtn.addEventListener("click", this.showAnswer);
     const resetBtn = this.createElement("button", ["reset_btn"], "reset");
+    resetBtn.addEventListener("click", this.resetGame);
     const settingsBtn = this.createElement("button", ["settings_btn"]);
+    settingsBtn.addEventListener("click", this.showMenu);
     imgHeader.className = "time_img";
     imgHeader.src = "img/time.png";
     imgHeader.alt = "time";
     buttonsWrap.append(saveBtn, decisionBtn, resetBtn, settingsBtn);
-    timeWrapp.append(headerTimer, imgHeader);
+    timeWrapp.append(imgHeader, headerTimer);
     header.append(timeWrapp, buttonsWrap);
     return header;
+  }
+  showAnswer() {
+    canvas2.style.display = "none";
+  }
+  resetGame() {
+    customerAnswer = buildField();
+  }
+  showMenu() {
+    console.log(this.modals);
   }
   createContainer() {
     const container = this.createElement("div", ["container"]);
     const coverFirst = this.createElement("div", ["cover_first"]);
     const coverSecond = this.createElement("div", ["cover_second"]);
     const coverThree = this.createElement("div", ["cover_three"]);
+
     const main = this.createElement("div", ["main"]);
     const header = this.createHeader();
     const gamePart = this.createElement("div", ["game_part"]);
     gamePart.oncontextmenu = function () {
       return false;
     };
-
     coverFirst.append(coverSecond);
     coverSecond.append(coverThree);
     coverThree.append(header, main);
@@ -166,7 +183,6 @@ class BuildPage {
 const builder = new BuildPage();
 builder.createPage();
 const gamePart = document.querySelector(".game_part");
-console.log(gamePart);
 const canvas = document.createElement("canvas");
 const canvas2 = document.createElement("canvas");
 canvas.id = "game";
@@ -195,7 +211,7 @@ function buildField() {
   }
   return field;
 }
-buildField();
+
 //count clues in answer
 function countCluesRow(matrix) {
   let matrixClueRow = [];
@@ -246,8 +262,8 @@ function countCluesColumn(matrix) {
 let matrixClueColumn = countCluesColumn(answer);
 // console.log("matrixClueColumn", matrixClueColumn);
 //drow this array-answer
-function startGame() {
-  //fill active field
+function startDrow() {
+  buildField();
   ctx2.fillStyle = "#ffffff";
   ctx2.fillRect(0, 0, screen_width, screen_height);
   fillColor(ctx, answer, startGameField);
@@ -358,7 +374,7 @@ function fillText() {
   ctx.font = `${font_size}px Times New Roman`;
   ctx.textBaseline = "ideographic";
   ctx.textAlign = "right";
-  ctx.fillStyle = "#4400ff";
+  ctx.fillStyle = "#9b643b";
   // Line hints
   for (let i = 0; i < matrixClueRow.length; i++) {
     let string = " ";
@@ -370,7 +386,7 @@ function fillText() {
     }
     ctx.fillText(string, startGameField, cell_size * (i + 1) + startGameField);
   }
-  ctx.fillStyle = "#BA5809";
+  ctx.fillStyle = "#9b643b";
   ctx.textAlign = "center";
 
   // Column
@@ -459,6 +475,7 @@ function clickRight(row, col) {
 canvas2.addEventListener("mousedown", (e) => {
   let col = Math.floor(e.offsetX / cell_size);
   let row = Math.floor(e.offsetY / cell_size);
+  // console.log(col, row);
   // console.log(e.buttons);
   switch (e.buttons) {
     case 1:
@@ -471,5 +488,26 @@ canvas2.addEventListener("mousedown", (e) => {
       clickLeft(row, col);
   }
 });
-// startGame();
-let game = setInterval(startGame, 300);
+function startGame() {
+  random = Math.floor(Math.random() * onlyEasy.length);
+  key = onlyEasy[random];
+  answer = key;
+  console.log(key);
+  customerAnswer = buildField();
+  game = setInterval(startDrow, 300);
+}
+function endGame() {
+  // if (showAnswer) {
+  //   canvas2.style.display = "block";
+  //   showAnswer = false;
+  // }
+  clearInterval(game);
+}
+let game = setInterval(startDrow, 300);
+///
+// const showTimeInMinutes = (secCount) =>
+//   secCount < 0
+//     ? "--:--"
+//     : `${Math.floor(secCount / 60)} : ${(secCount % 60)
+//         .toString()
+//         .padStart(2, "0")}`;
