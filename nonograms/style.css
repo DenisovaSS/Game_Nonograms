@@ -159,9 +159,7 @@ body {
   top: 0;
   z-index: 2;
 }
-/* .avtive {
-  display: block;
-} */
+
 .modal_win,
 .modal_table,
 .modal_menu {
@@ -179,6 +177,9 @@ body {
 }
 .modal_table {
   display: none;
+}
+.active {
+  display: block;
 }
 .inner_container_win {
   padding: 10px;

@@ -1,10 +1,12 @@
 const onlyEasy = Object.values(easy);
 let random = Math.floor(Math.random() * onlyEasy.length);
 let key = onlyEasy[random];
+const allObjects = [easy, normal, hard];
 //fill active field
 let answer = key;
+// console.log(answer);
 let customerAnswer = buildField();
-console.log(customerAnswer);
+// console.log(customerAnswer);
 const showAnswer = false;
 // console.log(customerAnswer);
 let cell_size = 30;
@@ -137,7 +139,6 @@ class BuildPage {
     const resetBtn = this.createElement("button", ["reset_btn"], "reset");
     resetBtn.addEventListener("click", this.resetGame);
     const settingsBtn = this.createElement("button", ["settings_btn"]);
-    settingsBtn.addEventListener("click", this.showMenu);
     imgHeader.className = "time_img";
     imgHeader.src = "img/time.png";
     imgHeader.alt = "time";
@@ -151,9 +152,7 @@ class BuildPage {
   }
   resetGame() {
     customerAnswer = buildField();
-  }
-  showMenu() {
-    console.log(this.modals);
+    // console.log(customerAnswer);
   }
   createContainer() {
     const container = this.createElement("div", ["container"]);
@@ -263,11 +262,26 @@ let matrixClueColumn = countCluesColumn(answer);
 // console.log("matrixClueColumn", matrixClueColumn);
 //drow this array-answer
 function startDrow() {
+  matrixClueRow = countCluesRow(answer);
+  matrixClueColumn = countCluesColumn(answer);
+  screen_width = answer[0].length * cell_size;
+  screen_height = answer.length * cell_size;
+  gamePart.style.width = screen_width + startGameField + "px";
+  gamePart.style.height = screen_height + startGameField + "px";
+  canvas.width = screen_width + startGameField;
+  canvas.height = screen_height + startGameField;
+  canvas2.width = screen_width;
+  canvas2.height = screen_height;
+  gamePart.style.width = screen_width + startGameField + "px";
+  gamePart.style.height = screen_height + startGameField + "px";
+  canvas2.style.left = startGameField + "px";
+  canvas2.style.top = startGameField + "px";
   buildField();
   ctx2.fillStyle = "#ffffff";
   ctx2.fillRect(0, 0, screen_width, screen_height);
   fillColor(ctx, answer, startGameField);
   fillColor(ctx2, customerAnswer, 0);
+  // console.log(answer);
   fillFiled();
   fillFiledActive();
   fillText();
@@ -437,6 +451,15 @@ function fillColor(ctx, matirix, start) {
           ctx,
         );
       }
+      // } else {
+      //   ctx.fillStyle = "#c7c9c6";
+      //   ctx.fillRect(
+      //     cell_size * j + start,
+      //     cell_size * i + start,
+      //     cell_size,
+      //     cell_size,
+      //   );
+      // }
     }
   }
 }
@@ -456,6 +479,15 @@ function compareMatrix() {
   }
   return alert("you win");
 }
+
+//Events listener
+const modals = document.querySelector(".modals");
+const tableBtn = document.querySelector(".table_btn");
+const modalMenu = document.querySelector(".modal_menu");
+const settingsBtn = document.querySelector(".settings_btn");
+const buttonsClose = document.querySelectorAll(".modal_close");
+const modalTable = document.querySelector(".modal_table");
+const randomBtn = document.querySelector(".random_btn");
 function clickLeft(row, col) {
   if (customerAnswer[row][col] !== 1) {
     customerAnswer[row][col] = 1;
@@ -464,7 +496,6 @@ function clickLeft(row, col) {
   }
   compareMatrix();
 }
-
 function clickRight(row, col) {
   if (customerAnswer[row][col] !== 2) {
     customerAnswer[row][col] = 2;
@@ -488,20 +519,74 @@ canvas2.addEventListener("mousedown", (e) => {
       clickLeft(row, col);
   }
 });
-function startGame() {
-  random = Math.floor(Math.random() * onlyEasy.length);
-  key = onlyEasy[random];
-  answer = key;
-  console.log(key);
+settingsBtn.addEventListener("click", clickSetting);
+buttonsClose.forEach((button) => {
+  button.addEventListener("click", clickClose);
+});
+tableBtn.addEventListener("click", clickBestGAme);
+randomBtn.addEventListener("click", startNewRandomGAme);
+function startNewRandomGAme() {
+  endGame();
+  if (game) {
+    clearInterval(game);
+  }
+  let ramdomObj = randomObject();
+  answer = Object.values(ramdomObj);
   customerAnswer = buildField();
+  // startDrow();
+  game = setInterval(startDrow, 300);
+  clickClose();
+  // console.log(ramdomObj);
+}
+function randomObject() {
+  const selectedObject =
+    allObjects[Math.floor(Math.random() * allObjects.length)];
+  const objectKeys = Object.keys(selectedObject);
+  const selectedKey = objectKeys[Math.floor(Math.random() * objectKeys.length)];
+  return selectedObject[selectedKey];
+}
+function clickBestGAme() {
+  closeAllModals();
+  modalTable.classList.add("active");
+}
+function clickSetting() {
+  modals.classList.add("active");
+  modalMenu.classList.add("active");
+}
+function closeAllModals() {
+  let modelChildern = modals.children;
+  for (const child of modelChildern) {
+    if (child.classList.contains("active")) {
+      child.classList.remove("active");
+    }
+  }
+}
+function clickClose() {
+  modals.classList.remove("active");
+  closeAllModals();
+}
+
+function startGame() {
+  if (game) {
+    clearInterval(game);
+  }
+  const random = Math.floor(Math.random() * onlyEasy.length);
+  const keyNew = onlyEasy[random];
+  answer = keyNew;
+  // console.log(keyNew);
+  customerAnswer = buildField();
+  // console.log(customerAnswer);
   game = setInterval(startDrow, 300);
 }
 function endGame() {
-  // if (showAnswer) {
-  //   canvas2.style.display = "block";
-  //   showAnswer = false;
-  // }
-  clearInterval(game);
+  // answer = buildField();
+  // fillColor(ctx, answer, startGameField);
+  ctx.fillStyle = "#c7c9c6";
+  ctx.fillRect(startGameField, startGameField, screen_width, screen_height);
+  if (showAnswer) {
+    canvas2.style.display = "block";
+    showAnswer = false;
+  }
 }
 let game = setInterval(startDrow, 300);
 ///
