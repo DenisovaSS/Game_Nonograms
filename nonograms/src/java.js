@@ -7,7 +7,7 @@ let answer = key;
 // console.log(answer);
 let customerAnswer = buildField();
 // console.log(customerAnswer);
-const showAnswer = false;
+let showAnswer = false;
 // console.log(customerAnswer);
 let cell_size = 30;
 let font_size = cell_size === 20 ? 20 : 28;
@@ -148,9 +148,16 @@ class BuildPage {
     return header;
   }
   showAnswer() {
+    soundlose();
     canvas2.style.display = "none";
+    showAnswer = true;
   }
   resetGame() {
+    console.log(showAnswer);
+    if (showAnswer) {
+      canvas2.style.display = "block";
+      showAnswer = false;
+    }
     customerAnswer = buildField();
     // console.log(customerAnswer);
   }
@@ -451,15 +458,6 @@ function fillColor(ctx, matirix, start) {
           ctx,
         );
       }
-      // } else {
-      //   ctx.fillStyle = "#c7c9c6";
-      //   ctx.fillRect(
-      //     cell_size * j + start,
-      //     cell_size * i + start,
-      //     cell_size,
-      //     cell_size,
-      //   );
-      // }
     }
   }
 }
@@ -477,7 +475,7 @@ function compareMatrix() {
       }
     }
   }
-  return alert("you win");
+  return youWin();
 }
 
 //Events listener
@@ -488,6 +486,22 @@ const settingsBtn = document.querySelector(".settings_btn");
 const buttonsClose = document.querySelectorAll(".modal_close");
 const modalTable = document.querySelector(".modal_table");
 const randomBtn = document.querySelector(".random_btn");
+const modalWin = document.querySelector(".modal_win");
+let lose = new Audio("muz/lose.mp3");
+function soundlose() {
+  lose.play();
+  lose.volume = 0.3;
+}
+let win = new Audio("muz/win.mp3");
+function soundWin() {
+  win.play();
+  win.volume = 0.3;
+}
+function youWin() {
+  soundWin();
+  modals.classList.add("active");
+  modalWin.classList.add("active");
+}
 function clickLeft(row, col) {
   if (customerAnswer[row][col] !== 1) {
     customerAnswer[row][col] = 1;
@@ -506,19 +520,30 @@ function clickRight(row, col) {
 canvas2.addEventListener("mousedown", (e) => {
   let col = Math.floor(e.offsetX / cell_size);
   let row = Math.floor(e.offsetY / cell_size);
-  // console.log(col, row);
-  // console.log(e.buttons);
   switch (e.buttons) {
     case 1:
       clickLeft(row, col);
+      soundLeft();
       break;
     case 2:
+      soundRigth();
       clickRight(row, col);
       break;
     default:
       clickLeft(row, col);
+      soundLeft();
   }
 });
+let chest = new Audio("muz/chest.mp3");
+function soundLeft() {
+  chest.play();
+  chest.volume = 0.3;
+}
+let cross = new Audio("muz/cross.mp3");
+function soundRigth() {
+  cross.play();
+  cross.volume = 0.3;
+}
 settingsBtn.addEventListener("click", clickSetting);
 buttonsClose.forEach((button) => {
   button.addEventListener("click", clickClose);
@@ -589,6 +614,7 @@ function endGame() {
   }
 }
 let game = setInterval(startDrow, 300);
+
 ///
 // const showTimeInMinutes = (secCount) =>
 //   secCount < 0
@@ -596,3 +622,9 @@ let game = setInterval(startDrow, 300);
 //     : `${Math.floor(secCount / 60)} : ${(secCount % 60)
 //         .toString()
 //         .padStart(2, "0")}`;
+function getTime(num) {
+  //128
+  let seconds = parseInt(num);
+  let minutes = Math.floor(seconds / 60);
+  return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
+}
