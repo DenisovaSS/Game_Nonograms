@@ -104,7 +104,7 @@ class BuildPage {
     const h3ModalWin = this.createElement(
       "h3",
       ["win_title"],
-      `Great! You have solved the nonogram in ${saveTime} seconds!" `,
+      `Great! You have solved the nonogram in 0 seconds!" `,
     );
     const imgModalWin = document.createElement("img");
     imgModalWin.className = "win_img";
@@ -122,8 +122,7 @@ class BuildPage {
     const coverFirst = this.createElement("div", ["cover_first"]);
     const coverSecond = this.createElement("div", ["cover_second"]);
     const innerContainer = this.createElement("div", ["inner_container_table"]);
-    const ulModalTAble = this.createElement("ul", "best_game", "Best game");
-
+    const ulModalTAble = this.createElement("ul", ["best_game"], "Best game");
     coverFirst.append(coverSecond);
     coverSecond.append(innerContainer);
     innerContainer.append(ulModalTAble);
@@ -510,6 +509,7 @@ const listHard = document.querySelector(".list_hard");
 const saveBtn = document.querySelector(".save_btn");
 const muzBtn = document.querySelector(".muz_btn");
 const h3ModalWin = document.querySelector(".win_title");
+const ulModalTAble = document.querySelector(".best_game");
 muzBtn.addEventListener("click", clickMuz);
 
 //isMuted
@@ -683,15 +683,22 @@ function getTime(num) {
   timeStart++;
   return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
 }
-
-// for (let i = 0; i < radioButtons.length; i++) {
-//   if (radioButtons[i].checked) {
-//     boxes[i].classList.add("section_favorites_book_shelf_checked");
-//   }
-//   radioButtons[i].addEventListener("change", () => {
-//     boxes.forEach((el) =>
-//       el.classList.remove("section_favorites_book_shelf_checked"),
-//     );
-//     boxes[i].classList.add("section_favorites_book_shelf_checked");
-//   });
-// }
+let info = { time: 11, level: "hard", gameName: "horse" };
+let info2 = { time: 12, level: "normal", gameName: "blow" };
+let info3 = { time: 5, level: "easy", gameName: "sky" };
+let arry = JSON.parse(localStorage.getItem(myKey)) || [];
+arry.push(info);
+arry.push(info2);
+localStorage.setItem(myKey, JSON.stringify(arry));
+let arraSave = JSON.parse(localStorage.getItem(myKey));
+arraSave.push(info3);
+localStorage.setItem(myKey, JSON.stringify(arraSave));
+let lastArray = JSON.parse(localStorage.getItem(myKey));
+lastArray.sort((a, b) => (a.time > b.time ? 1 : -1));
+lastArray = lastArray.slice(0, 5);
+lastArray.forEach((oneObJ) => {
+  const list = `
+        <li class = "bestOfYheBest"> "${oneObJ.gameName}" - level ${oneObJ.level} in ${oneObJ.time} sec</li>  
+`;
+  ulModalTAble.insertAdjacentHTML("beforeend", list);
+});
