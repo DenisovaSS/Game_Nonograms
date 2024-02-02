@@ -2,6 +2,9 @@ const onlyEasy = Object.values(easy);
 let random = Math.floor(Math.random() * onlyEasy.length);
 let key = onlyEasy[random];
 const allObjects = [easy, normal, hard];
+// const objectKeys = Object.keys(allObjects);
+// const selectedKey = objectKeys[0];
+// console.log(objectKeys);
 //fill active field
 let answer = key;
 // console.log(answer);
@@ -71,7 +74,7 @@ class BuildPage {
   createListToContainer(per, string) {
     const list = this.createElement("div", ["list"]);
     const h2_H = this.createElement("h2", "", string);
-    const ul = this.createElement("ul");
+    const ul = this.createElement("ul", [`list_${string}`]);
     const span = Object.keys(per).forEach((key) => {
       const oneLi = this.createElement("span", "", key);
       const li = this.createElement("li");
@@ -109,6 +112,7 @@ class BuildPage {
     const coverSecond = this.createElement("div", ["cover_second"]);
     const innerContainer = this.createElement("div", ["inner_container_table"]);
     const ulModalTAble = this.createElement("ul", "best_game", "Best game");
+
     coverFirst.append(coverSecond);
     coverSecond.append(innerContainer);
     innerContainer.append(ulModalTAble);
@@ -153,7 +157,7 @@ class BuildPage {
     showAnswer = true;
   }
   resetGame() {
-    console.log(showAnswer);
+    // console.log(showAnswer);
     if (showAnswer) {
       canvas2.style.display = "block";
       showAnswer = false;
@@ -487,6 +491,20 @@ const buttonsClose = document.querySelectorAll(".modal_close");
 const modalTable = document.querySelector(".modal_table");
 const randomBtn = document.querySelector(".random_btn");
 const modalWin = document.querySelector(".modal_win");
+const headerTimer = document.querySelector(".header_timer");
+const listEasy = document.querySelector(".list_easy");
+const listNormal = document.querySelector(".list_normal");
+const listHard = document.querySelector(".list_hard");
+let chest = new Audio("muz/chest.mp3");
+function soundLeft() {
+  chest.play();
+  chest.volume = 0.3;
+}
+let cross = new Audio("muz/cross.mp3");
+function soundRigth() {
+  cross.play();
+  cross.volume = 0.3;
+}
 let lose = new Audio("muz/lose.mp3");
 function soundlose() {
   lose.play();
@@ -534,16 +552,15 @@ canvas2.addEventListener("mousedown", (e) => {
       soundLeft();
   }
 });
-let chest = new Audio("muz/chest.mp3");
-function soundLeft() {
-  chest.play();
-  chest.volume = 0.3;
-}
-let cross = new Audio("muz/cross.mp3");
-function soundRigth() {
-  cross.play();
-  cross.volume = 0.3;
-}
+listEasy.addEventListener("click", function (e) {
+  clickEasy(e, easy);
+});
+listNormal.addEventListener("click", function (e) {
+  clickEasy(e, normal);
+});
+listHard.addEventListener("click", function (e) {
+  clickEasy(e, hard);
+});
 settingsBtn.addEventListener("click", clickSetting);
 buttonsClose.forEach((button) => {
   button.addEventListener("click", clickClose);
@@ -562,6 +579,37 @@ function startNewRandomGAme() {
   game = setInterval(startDrow, 300);
   clickClose();
   // console.log(ramdomObj);
+}
+function clickEasy(e, object) {
+  endGame();
+  if (game) {
+    clearInterval(game);
+  }
+  let ramdomObj = randomObject();
+  whichAnswer(e, object);
+  customerAnswer = buildField();
+  // startDrow();
+  game = setInterval(startDrow, 300);
+  clickClose();
+  // console.log(ramdomObj);
+}
+function whichAnswer(e, object) {
+  const cyrrentObjFirstKey = Object.keys(object)[0];
+  let keyTarget = null;
+  if (e.target.tagName === "SPAN") {
+    keyTarget = e.target.innerText;
+  } else {
+    const spanElement = e.target.querySelector("span");
+    if (spanElement) {
+      keyTarget = spanElement.innerText;
+    }
+  }
+  if (keyTarget) {
+    // console.log(easy.test);
+    return (answer = object[keyTarget]);
+  } else {
+    return (answer = object[cyrrentObjFirstKey]);
+  }
 }
 function randomObject() {
   const selectedObject =
@@ -622,9 +670,13 @@ let game = setInterval(startDrow, 300);
 //     : `${Math.floor(secCount / 60)} : ${(secCount % 60)
 //         .toString()
 //         .padStart(2, "0")}`;
+let now = 0;
 function getTime(num) {
-  //128
   let seconds = parseInt(num);
   let minutes = Math.floor(seconds / 60);
+  now++;
   return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
 }
+setInterval(() => {
+  headerTimer.textContent = getTime(now);
+}, 700);
