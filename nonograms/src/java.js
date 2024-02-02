@@ -1,23 +1,28 @@
 const onlyEasy = Object.values(easy);
+const chest = new Audio("muz/chest.mp3");
+const cross = new Audio("muz/cross.mp3");
+const lose = new Audio("muz/lose.mp3");
+const win = new Audio("muz/win.mp3");
+const myKey = "bestOfTheBestPlayer_denissova";
+// const audioName = ["chest.mp3", "cross.mp3", "lose.mp3", "win.mp3"];
 let random = Math.floor(Math.random() * onlyEasy.length);
 let key = onlyEasy[random];
 const allObjects = [easy, normal, hard];
-// const objectKeys = Object.keys(allObjects);
-// const selectedKey = objectKeys[0];
-// console.log(objectKeys);
+let timeStart = 0;
+let saveTime = 0;
+let startTimer;
+let firstClick = false;
+let isMuted = false;
 //fill active field
 let answer = key;
-// console.log(answer);
 let customerAnswer = buildField();
-// console.log(customerAnswer);
 let showAnswer = false;
-// console.log(customerAnswer);
 let cell_size = 30;
 let font_size = cell_size === 20 ? 20 : 28;
 let screen_width = answer[0].length * cell_size;
 let screen_height = answer.length * cell_size;
 const startGameField = cell_size * 5;
-//create elements
+//create html elements
 class BuildPage {
   constructor() {}
   createElement(tag, classes = "", innerText = "") {
@@ -36,7 +41,9 @@ class BuildPage {
     //create first list
     const div1 = this.createElement("div", ["div_1"]);
     const div2 = this.createElement("div", ["div_2"]);
+    const div3 = this.createElement("div", ["div_3"]);
     const themesBtn = this.createElement("button", ["themes_btn"]);
+    const muzBtn = this.createElement("button", ["muz_btn"]);
     const tableBtn = this.createElement("button", ["table_btn"]);
     const randomBtn = this.createElement("button", ["random_btn"]);
     const lastGameBtn = this.createElement("button", ["lastGame_btn"]);
@@ -44,8 +51,10 @@ class BuildPage {
     const randomWrap2 = this.createElement("div", ["random_wrap"]);
     const randomWrap3 = this.createElement("div", ["random_wrap"]);
     const randomWrap4 = this.createElement("div", ["random_wrap"]);
+    const randomWrap5 = this.createElement("div", ["random_wrap"]);
     const h2First_1 = this.createElement("h2", "", "themes");
     const h2First_2 = this.createElement("h2", "", "best results");
+    const h2First_3 = this.createElement("h2", "", "sound");
     const h2Last_1 = this.createElement("h2", "", "random");
     const h2Last_2 = this.createElement("h2", "", "saved game");
     //create containerList
@@ -57,12 +66,14 @@ class BuildPage {
     list4.append(h2Last_1, randomWrap3, h2Last_2, randomWrap4);
     randomWrap3.append(randomBtn);
     randomWrap4.append(lastGameBtn);
+    randomWrap5.append(muzBtn);
     containerList.append(list1, list2, list3, list4);
     randomWrap1.append(themesBtn);
     randomWrap2.append(tableBtn);
     div1.append(h2First_1, randomWrap1);
     div2.append(h2First_2, randomWrap2);
-    firstList.append(div1, div2);
+    div3.append(h2First_3, randomWrap5);
+    firstList.append(div3, div1, div2);
     //
     coverFirst.append(coverSecond);
     coverSecond.append(innerContainer);
@@ -93,7 +104,7 @@ class BuildPage {
     const h3ModalWin = this.createElement(
       "h3",
       ["win_title"],
-      "Great! You have solved the nonogram",
+      `Great! You have solved the nonogram in ${saveTime} seconds!" `,
     );
     const imgModalWin = document.createElement("img");
     imgModalWin.className = "win_img";
@@ -131,7 +142,7 @@ class BuildPage {
     const header = this.createElement("div", ["header"]);
     const timeWrapp = this.createElement("div", ["time_wrapp"]);
     const buttonsWrap = this.createElement("div", ["buttons_wrap"]);
-    const headerTimer = this.createElement("div", ["header_timer"], "24:66");
+    const headerTimer = this.createElement("div", ["header_timer"], "0:00");
     const imgHeader = document.createElement("img");
     const saveBtn = this.createElement("button", ["save_btn"], "save");
     const decisionBtn = this.createElement(
@@ -152,9 +163,10 @@ class BuildPage {
     return header;
   }
   showAnswer() {
-    soundlose();
+    soundMuz(lose);
     canvas2.style.display = "none";
     showAnswer = true;
+    clearInterval(startTimer);
   }
   resetGame() {
     // console.log(showAnswer);
@@ -495,28 +507,38 @@ const headerTimer = document.querySelector(".header_timer");
 const listEasy = document.querySelector(".list_easy");
 const listNormal = document.querySelector(".list_normal");
 const listHard = document.querySelector(".list_hard");
-let chest = new Audio("muz/chest.mp3");
-function soundLeft() {
-  chest.play();
-  chest.volume = 0.3;
+const saveBtn = document.querySelector(".save_btn");
+const muzBtn = document.querySelector(".muz_btn");
+const h3ModalWin = document.querySelector(".win_title");
+muzBtn.addEventListener("click", clickMuz);
+
+//isMuted
+function clickMuz() {
+  if (isMuted) {
+    cross.volume = 1;
+    win.volume = 1;
+    lose.volume = 1;
+    chest.volume = 1;
+    muzBtn.style.cssText =
+      " background-image: url(img/so.png);  border: 4px solid var(--dark-brawn);";
+  } else {
+    cross.volume = 0;
+    win.volume = 0;
+    lose.volume = 0;
+    chest.volume = 0;
+    muzBtn.style.cssText =
+      " background-image: url(img/so_m.png);  border: 4px solid var(--ligth-brawn);";
+  }
+  isMuted = !isMuted;
 }
-let cross = new Audio("muz/cross.mp3");
-function soundRigth() {
-  cross.play();
-  cross.volume = 0.3;
-}
-let lose = new Audio("muz/lose.mp3");
-function soundlose() {
-  lose.play();
-  lose.volume = 0.3;
-}
-let win = new Audio("muz/win.mp3");
-function soundWin() {
-  win.play();
-  win.volume = 0.3;
+function soundMuz(truck) {
+  truck.play();
 }
 function youWin() {
-  soundWin();
+  soundMuz(win);
+  endGame();
+  h3ModalWin.textContent = `Great! You have solved the nonogram in ${saveTime} seconds!" `;
+  console.log(saveTime);
   modals.classList.add("active");
   modalWin.classList.add("active");
 }
@@ -536,20 +558,27 @@ function clickRight(row, col) {
   }
 }
 canvas2.addEventListener("mousedown", (e) => {
+  if (!firstClick) {
+    startTimer = setInterval(() => {
+      headerTimer.textContent = getTime(timeStart);
+    }, 700);
+    firstClick = true;
+  }
   let col = Math.floor(e.offsetX / cell_size);
   let row = Math.floor(e.offsetY / cell_size);
   switch (e.buttons) {
     case 1:
       clickLeft(row, col);
-      soundLeft();
+      soundMuz(chest);
+
       break;
     case 2:
-      soundRigth();
+      soundMuz(cross);
       clickRight(row, col);
       break;
     default:
       clickLeft(row, col);
-      soundLeft();
+      soundMuz(chest);
   }
 });
 listEasy.addEventListener("click", function (e) {
@@ -569,29 +598,16 @@ tableBtn.addEventListener("click", clickBestGAme);
 randomBtn.addEventListener("click", startNewRandomGAme);
 function startNewRandomGAme() {
   endGame();
-  if (game) {
-    clearInterval(game);
-  }
   let ramdomObj = randomObject();
   answer = Object.values(ramdomObj);
-  customerAnswer = buildField();
-  // startDrow();
-  game = setInterval(startDrow, 300);
+  startGame();
   clickClose();
-  // console.log(ramdomObj);
 }
 function clickEasy(e, object) {
   endGame();
-  if (game) {
-    clearInterval(game);
-  }
-  let ramdomObj = randomObject();
   whichAnswer(e, object);
-  customerAnswer = buildField();
-  // startDrow();
-  game = setInterval(startDrow, 300);
+  startGame();
   clickClose();
-  // console.log(ramdomObj);
 }
 function whichAnswer(e, object) {
   const cyrrentObjFirstKey = Object.keys(object)[0];
@@ -643,40 +659,39 @@ function startGame() {
   if (game) {
     clearInterval(game);
   }
-  const random = Math.floor(Math.random() * onlyEasy.length);
-  const keyNew = onlyEasy[random];
-  answer = keyNew;
-  // console.log(keyNew);
+  firstClick = false;
   customerAnswer = buildField();
-  // console.log(customerAnswer);
   game = setInterval(startDrow, 300);
 }
 function endGame() {
-  // answer = buildField();
-  // fillColor(ctx, answer, startGameField);
   ctx.fillStyle = "#c7c9c6";
   ctx.fillRect(startGameField, startGameField, screen_width, screen_height);
   if (showAnswer) {
     canvas2.style.display = "block";
     showAnswer = false;
   }
+  clearInterval(startTimer);
+  saveTime = timeStart;
+  timeStart = 0;
+  headerTimer.textContent = "0:00";
 }
 let game = setInterval(startDrow, 300);
 
-///
-// const showTimeInMinutes = (secCount) =>
-//   secCount < 0
-//     ? "--:--"
-//     : `${Math.floor(secCount / 60)} : ${(secCount % 60)
-//         .toString()
-//         .padStart(2, "0")}`;
-let now = 0;
 function getTime(num) {
   let seconds = parseInt(num);
   let minutes = Math.floor(seconds / 60);
-  now++;
+  timeStart++;
   return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
 }
-setInterval(() => {
-  headerTimer.textContent = getTime(now);
-}, 700);
+
+// for (let i = 0; i < radioButtons.length; i++) {
+//   if (radioButtons[i].checked) {
+//     boxes[i].classList.add("section_favorites_book_shelf_checked");
+//   }
+//   radioButtons[i].addEventListener("change", () => {
+//     boxes.forEach((el) =>
+//       el.classList.remove("section_favorites_book_shelf_checked"),
+//     );
+//     boxes[i].classList.add("section_favorites_book_shelf_checked");
+//   });
+// }
