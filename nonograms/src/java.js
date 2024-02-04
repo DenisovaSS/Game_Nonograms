@@ -1,12 +1,12 @@
-const onlyEasy = Object.values(easy);
+const onlyEasy = Object.entries(easy);
 const chest = new Audio("muz/chest.mp3");
 const cross = new Audio("muz/cross.mp3");
 const lose = new Audio("muz/lose.mp3");
 const win = new Audio("muz/win.mp3");
 const myKey = "bestOfTheBestPlayer_denissova";
-// const audioName = ["chest.mp3", "cross.mp3", "lose.mp3", "win.mp3"];
 let random = Math.floor(Math.random() * onlyEasy.length);
-let key = onlyEasy[random];
+let key = onlyEasy[random][1];
+let nameGame = onlyEasy[random][0];
 const allObjects = [easy, normal, hard];
 let timeStart = 0;
 let saveTime = 0;
@@ -15,6 +15,9 @@ let firstClick = false;
 let isMuted = false;
 //fill active field
 let answer = key;
+let levelGame =
+  answer.length < 6 ? "easy" : answer.length > 12 ? "hard" : "normal";
+console.log(levelGame);
 let customerAnswer = buildField();
 let showAnswer = false;
 let cell_size = 30;
@@ -121,8 +124,12 @@ class BuildPage {
     const buttonClose = this.createElement("button", ["modal_close"]);
     const coverFirst = this.createElement("div", ["cover_first"]);
     const coverSecond = this.createElement("div", ["cover_second"]);
-    const innerContainer = this.createElement("div", ["inner_container_table"]);
-    const ulModalTAble = this.createElement("ul", ["best_game"], "Best game");
+    const innerContainer = this.createElement(
+      "div",
+      ["inner_container_table"],
+      "Best game",
+    );
+    const ulModalTAble = this.createElement("ul", ["best_game"]);
     coverFirst.append(coverSecond);
     coverSecond.append(innerContainer);
     innerContainer.append(ulModalTAble);
@@ -538,9 +545,33 @@ function youWin() {
   soundMuz(win);
   endGame();
   h3ModalWin.textContent = `Great! You have solved the nonogram in ${saveTime} seconds!" `;
-  console.log(saveTime);
+  infoAboutWinGAme(finalArray);
+  finalArray = JSON.parse(localStorage.getItem(myKey)) || [];
+  modalTableInner(finalArray);
   modals.classList.add("active");
   modalWin.classList.add("active");
+}
+function infoAboutWinGAme(array) {
+  if (array.length > 0) {
+    levelGame =
+      answer.length < 6 ? "easy" : answer.length > 12 ? "hard" : "normal";
+    let hight = JSON.parse(localStorage.getItem(myKey));
+    hight.push({ nameGame, levelGame, saveTime });
+    // localStorage.setItem(myKey, JSON.stringify(hight));
+    hight.sort((a, b) => (a.saveTime > b.saveTime ? 1 : -1));
+    hight = hight.slice(0, 5);
+    localStorage.setItem(myKey, JSON.stringify(hight));
+  }
+}
+
+function modalTableInner(array) {
+  ulModalTAble.innerHTML = "";
+  array.forEach((oneObJ) => {
+    const list = `
+          <li class = "bestOfYheBest"> " <b>${oneObJ.nameGame}</b>" - level <b>${oneObJ.levelGame}</b> in <b>${oneObJ.saveTime}</b> sec</li>
+  `;
+    ulModalTAble.insertAdjacentHTML("beforeend", list);
+  });
 }
 function clickLeft(row, col) {
   if (customerAnswer[row][col] !== 1) {
@@ -599,7 +630,9 @@ randomBtn.addEventListener("click", startNewRandomGAme);
 function startNewRandomGAme() {
   endGame();
   let ramdomObj = randomObject();
-  answer = Object.values(ramdomObj);
+  answer = ramdomObj.values;
+  nameGame = ramdomObj.key;
+  // console.log(ramdomObj);
   startGame();
   clickClose();
 }
@@ -632,8 +665,13 @@ function randomObject() {
     allObjects[Math.floor(Math.random() * allObjects.length)];
   const objectKeys = Object.keys(selectedObject);
   const selectedKey = objectKeys[Math.floor(Math.random() * objectKeys.length)];
-  return selectedObject[selectedKey];
+  // return selectedObject[selectedKey];
+  return {
+    key: selectedKey,
+    values: selectedObject[selectedKey],
+  };
 }
+
 function clickBestGAme() {
   closeAllModals();
   modalTable.classList.add("active");
@@ -683,22 +721,25 @@ function getTime(num) {
   timeStart++;
   return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
 }
-let info = { time: 11, level: "hard", gameName: "horse" };
-let info2 = { time: 12, level: "normal", gameName: "blow" };
-let info3 = { time: 5, level: "easy", gameName: "sky" };
-let arry = JSON.parse(localStorage.getItem(myKey)) || [];
-arry.push(info);
-arry.push(info2);
-localStorage.setItem(myKey, JSON.stringify(arry));
-let arraSave = JSON.parse(localStorage.getItem(myKey));
-arraSave.push(info3);
-localStorage.setItem(myKey, JSON.stringify(arraSave));
-let lastArray = JSON.parse(localStorage.getItem(myKey));
-lastArray.sort((a, b) => (a.time > b.time ? 1 : -1));
-lastArray = lastArray.slice(0, 5);
-lastArray.forEach((oneObJ) => {
-  const list = `
-        <li class = "bestOfYheBest"> "${oneObJ.gameName}" - level ${oneObJ.level} in ${oneObJ.time} sec</li>  
-`;
-  ulModalTAble.insertAdjacentHTML("beforeend", list);
-});
+let finalArray = JSON.parse(localStorage.getItem(myKey)) || [];
+modalTableInner(finalArray);
+
+// let info = { time: 11, level: "hard", gameName: "horse" };
+// let info2 = { time: 12, level: "normal", gameName: "blow" };
+// let info3 = { time: 5, level: "easy", gameName: "sky" };
+// let arry = JSON.parse(localStorage.getItem(myKey)) || [];
+// arry.push(info);
+// arry.push(info2);
+// localStorage.setItem(myKey, JSON.stringify(arry));
+// let arraSave = JSON.parse(localStorage.getItem(myKey));
+// arraSave.push(info3);
+// localStorage.setItem(myKey, JSON.stringify(arraSave));
+// let lastArray = JSON.parse(localStorage.getItem(myKey));
+// lastArray.sort((a, b) => (a.time > b.time ? 1 : -1));
+// lastArray = lastArray.slice(0, 5);
+// lastArray.forEach((oneObJ) => {
+//   const list = `
+//         <li class = "bestOfYheBest"> "${oneObJ.gameName}" - level ${oneObJ.level} in ${oneObJ.time} sec</li>
+// `;
+//   ulModalTAble.insertAdjacentHTML("beforeend", list);
+// });
