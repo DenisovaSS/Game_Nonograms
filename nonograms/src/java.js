@@ -125,7 +125,7 @@ class BuildPage {
     );
     const imgModalWin = document.createElement("img");
     imgModalWin.className = "win_img";
-    imgModalWin.src = "/img/dog_smile_50.png";
+    imgModalWin.src = "img/dog_smile_50.png";
     imgModalWin.alt = "dog";
     coverFirst.append(coverSecond);
     coverSecond.append(innerContainer);
@@ -779,7 +779,7 @@ function saveGame() {
   localStorage.setItem(myKeySave, JSON.stringify(infoSave));
 }
 function lastSavedGame() {
-  let arraySave = JSON.parse(localStorage.getItem(myKeySave)) || [];
+  let arraySave = JSON.parse(localStorage.getItem(myKeySave));
   if (arraySave) {
     endGame();
     answer = arraySave[1];
