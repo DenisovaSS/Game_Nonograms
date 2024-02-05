@@ -141,14 +141,6 @@ body {
   border: 4px solid var(--dark-brawn);
 }
 
-.reset_btn:disabled {
-  border: 2px solid #999999;
-  color: #666666;
-}
-.reset_btn:hover:disabled {
-  border: 2px solid #999999;
-  color: #666666;
-}
 .settings_btn {
   width: 100px;
   height: 100px;
@@ -178,6 +170,19 @@ body {
   height: 100px;
   border-radius: 10px;
 } */
+.decision_btn:disabled,
+.save_btn:disabled,
+.reset_btn:disabled {
+  border: 2px solid #999999;
+  color: #666666;
+}
+.decision_btn:hover:disabled,
+.save_btn:hover:disabled,
+.reset_btn:hover:disabled {
+  border: 2px solid #999999;
+  color: #666666;
+  cursor: auto;
+}
 .modals {
   display: none;
   position: fixed;

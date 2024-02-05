@@ -310,7 +310,6 @@ let matrixClueColumn = countCluesColumn(answer);
 function startDrow() {
   matrixClueRow = countCluesRow(answer);
   matrixClueColumn = countCluesColumn(answer);
-
   startGameField = cell_size * 5;
   screen_width = answer[0].length * cell_size;
   screen_height = answer.length * cell_size;
@@ -544,11 +543,14 @@ const listNormal = document.querySelector(".list_normal");
 const listHard = document.querySelector(".list_hard");
 const saveBtn = document.querySelector(".save_btn");
 const muzBtn = document.querySelector(".muz_btn");
+const decisionBtn = document.querySelector(".decision_btn");
 const h3ModalWin = document.querySelector(".win_title");
 const ulModalTAble = document.querySelector(".best_game");
 const themesBtn = document.querySelector(".themes_btn");
 const resetBtn = document.querySelector(".reset_btn");
-
+const lastSaveGameBtn = document.querySelector(".lastGame_btn");
+saveBtn.addEventListener("click", saveGame);
+lastSaveGameBtn.addEventListener("click", lastSavedGame);
 muzBtn.addEventListener("click", clickMuz);
 //change color
 themesBtn.addEventListener("click", toggletheme);
@@ -591,6 +593,8 @@ function youWin() {
   canvas2.style.display = "none";
   showAnswer = true;
   resetBtn.disabled = true;
+  decisionBtn.disabled = true;
+  saveBtn.disabled = true;
   modals.classList.add("active");
   modalWin.classList.add("active");
 }
@@ -673,19 +677,20 @@ function startNewRandomGAme() {
   let ramdomObj = randomObject();
   answer = ramdomObj.values;
   nameGame = ramdomObj.key;
-  // console.log(ramdomObj);
+  customerAnswer = buildField();
   startGame();
   clickClose();
 }
 function clickEasy(e, object) {
   endGame();
   whichAnswer(e, object);
-
+  customerAnswer = buildField();
   startGame();
   clickClose();
 }
 function whichAnswer(e, object) {
   const cyrrentObjFirstKey = Object.keys(object)[0];
+  // console.log(cyrrentObjFirstKey);
   let keyTarget = null;
   if (e.target.tagName === "SPAN") {
     keyTarget = e.target.innerText;
@@ -696,9 +701,10 @@ function whichAnswer(e, object) {
     }
   }
   if (keyTarget) {
-    // console.log(easy.test);
+    nameGame = keyTarget;
     return (answer = object[keyTarget]);
   } else {
+    nameGame = cyrrentObjFirstKey;
     return (answer = object[cyrrentObjFirstKey]);
   }
 }
@@ -744,10 +750,12 @@ function startGame() {
     showAnswer = false;
   }
   resetBtn.disabled = false;
+  decisionBtn.disabled = false;
+  saveBtn.disabled = false;
   firstClick = false;
   cell_size = cellSize();
   font_size = cell_size === 18 ? 17 : 28;
-  customerAnswer = buildField();
+
   game = setInterval(startDrow, 300);
 }
 function endGame() {
@@ -767,11 +775,27 @@ function getTime(num) {
   return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
 }
 let finalArray = JSON.parse(localStorage.getItem(myKey)) || [];
+// let arraySave = JSON.parse(localStorage.getItem(myKeySave)) || [];
 modalTableInner(finalArray);
-
+function saveGame() {
+  let infoSave = [nameGame, answer, customerAnswer, timeStart];
+  localStorage.setItem(myKeySave, JSON.stringify(infoSave));
+}
+function lastSavedGame() {
+  let arraySave = JSON.parse(localStorage.getItem(myKeySave)) || [];
+  if (arraySave) {
+    endGame();
+    answer = arraySave[1];
+    nameGame = arraySave[0];
+    customerAnswer = arraySave[2];
+    timeStart = arraySave[3];
+    // console.log(ramdomObj);
+    startGame();
+    clickClose();
+  }
+}
 // let info = { time: 11, level: "hard", gameName: "horse" };
-let info = [customerAnswer, answer, timeStart];
-console.log(info);
+
 // let arry = JSON.parse(localStorage.getItem(myKeySave)) || [];
 // arry.push(info);
 // customerAnswer;
