@@ -1,10 +1,10 @@
-:root {
+/* :root {
   --color-field: #c7c9c6;
   --brith-color: #71bbd6;
   --ligth-brawn: #9b643b;
   --dark-brawn: #4b4239;
   --stroke-color: #a6a498;
-}
+} */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -21,6 +21,7 @@
   --imgTableHover: url(img/menu_l.png);
   --bestImgHover: url(img/best_l.png);
   --backgroundBody: url(img/backq.jpg);
+  --imgTheme: url(img/schem_c.png);
 }
 .dark-theme {
   --color-field: #f8f9fb;
@@ -33,6 +34,7 @@
   --imgTableHover: url(img/menu_b.png);
   --bestImgHover: url(img/best_b.png);
   --backgroundBody: url(img/backq_b.jpg);
+  --imgTheme: url(img/schem_b.png);
 }
 body {
   display: flex;
@@ -276,7 +278,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   border: 4px solid var(--dark-brawn);
-  background-image: url(img/schem_c.png);
+  background-image: var(--imgTheme);
   background-position: center;
   background-repeat: no-repeat;
   background-color: var(--brith-color);
@@ -308,10 +310,10 @@ body {
   background-color: var(--color-field);
   background-image: url(img/schem_c.png);
 }
-.themes_btn_balck {
+/* .themes_btn_balck {
   background-color: var(--color-field);
   background-image: url(img/schem_b.png);
-}
+} */
 .random_wrap {
   color: var(--ligth-brawn);
   margin: 4px 0;

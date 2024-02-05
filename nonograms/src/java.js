@@ -1,5 +1,4 @@
 const onlyEasy = Object.entries(easy);
-
 const chest = new Audio("muz/chest.mp3");
 const cross = new Audio("muz/cross.mp3");
 const lose = new Audio("muz/lose.mp3");
@@ -37,7 +36,7 @@ let screen_width = answer[0].length * cell_size;
 let screen_height = answer.length * cell_size;
 let startGameField = cell_size * 5;
 function initialThemeColor(themeName) {
-  localStorage.setItem("theme", themeName);
+  localStorage.setItem("theme_den", themeName);
   document.documentElement.className = themeName;
 }
 initialThemeColor("color-theme");
@@ -94,11 +93,9 @@ class BuildPage {
     div2.append(h2First_2, randomWrap2);
     div3.append(h2First_3, randomWrap5);
     firstList.append(div3, div1, div2);
-    //
     coverFirst.append(coverSecond);
     coverSecond.append(innerContainer);
     innerContainer.append(firstList, containerList);
-
     modalMenu.append(coverFirst, buttonClose);
     return modalMenu;
   }
@@ -189,6 +186,9 @@ class BuildPage {
     soundMuz(lose);
     canvas2.style.display = "none";
     showAnswer = true;
+    resetBtn.disabled = true;
+    decisionBtn.disabled = true;
+    saveBtn.disabled = true;
     clearInterval(startTimer);
   }
   resetGame() {
@@ -227,6 +227,7 @@ class BuildPage {
 }
 const builder = new BuildPage();
 builder.createPage();
+
 const gamePart = document.querySelector(".game_part");
 const canvas = document.createElement("canvas");
 const canvas2 = document.createElement("canvas");
@@ -256,7 +257,6 @@ function buildField() {
   }
   return field;
 }
-
 //count clues in answer
 function countCluesRow(matrix) {
   let matrixClueRow = [];
@@ -295,7 +295,6 @@ function transpose(matrix) {
   }
   return grid;
 }
-
 function countCluesColumn(matrix) {
   let transMatrix = transpose(matrix);
   let matrixCluColumn = countCluesRow(transMatrix);
@@ -305,35 +304,6 @@ function countCluesColumn(matrix) {
   return matrixCluColumn;
 }
 let matrixClueColumn = countCluesColumn(answer);
-// console.log("matrixClueColumn", matrixClueColumn);
-//drow this array-answer
-function startDrow() {
-  matrixClueRow = countCluesRow(answer);
-  matrixClueColumn = countCluesColumn(answer);
-  startGameField = cell_size * 5;
-  screen_width = answer[0].length * cell_size;
-  screen_height = answer.length * cell_size;
-  gamePart.style.width = screen_width + startGameField + "px";
-  gamePart.style.height = screen_height + startGameField + "px";
-  canvas.width = screen_width + startGameField;
-  canvas.height = screen_height + startGameField;
-  canvas2.width = screen_width;
-  canvas2.height = screen_height;
-  gamePart.style.width = screen_width + startGameField + "px";
-  gamePart.style.height = screen_height + startGameField + "px";
-  canvas2.style.left = startGameField + "px";
-  canvas2.style.top = startGameField + "px";
-  buildField();
-  ctx2.fillStyle = "#ffffff";
-  ctx2.fillRect(0, 0, screen_width, screen_height);
-  fillColor(ctx, answer, startGameField);
-  fillColor(ctx2, customerAnswer, 0);
-  // console.log(answer);
-  fillFiled();
-  fillFiledActive();
-  fillText();
-}
-
 function drawLine(startx, starty, endx, endy, color, line_width, ctx) {
   ctx.strokeStyle = color;
   ctx.lineWidth = line_width;
@@ -342,7 +312,6 @@ function drawLine(startx, starty, endx, endy, color, line_width, ctx) {
   ctx.lineTo(endx, endy);
   ctx.stroke();
 }
-// console.log(matrixClueColumn.length);
 ///drow line in filed
 function fillFiled() {
   //row
@@ -511,6 +480,34 @@ function fillColor(ctx, matirix, start) {
     }
   }
 }
+// console.log("matrixClueColumn", matrixClueColumn);
+//drow this array-answer
+function startDrow() {
+  matrixClueRow = countCluesRow(answer);
+  matrixClueColumn = countCluesColumn(answer);
+  startGameField = cell_size * 5;
+  screen_width = answer[0].length * cell_size;
+  screen_height = answer.length * cell_size;
+  gamePart.style.width = screen_width + startGameField + "px";
+  gamePart.style.height = screen_height + startGameField + "px";
+  canvas.width = screen_width + startGameField;
+  canvas.height = screen_height + startGameField;
+  canvas2.width = screen_width;
+  canvas2.height = screen_height;
+  gamePart.style.width = screen_width + startGameField + "px";
+  gamePart.style.height = screen_height + startGameField + "px";
+  canvas2.style.left = startGameField + "px";
+  canvas2.style.top = startGameField + "px";
+  buildField();
+  ctx2.fillStyle = "#ffffff";
+  ctx2.fillRect(0, 0, screen_width, screen_height);
+  fillColor(ctx, answer, startGameField);
+  fillColor(ctx2, customerAnswer, 0);
+  // console.log(answer);
+  fillFiled();
+  fillFiledActive();
+  fillText();
+}
 
 function compareMatrix() {
   for (let i = 0; i < customerAnswer.length; i++) {
@@ -552,10 +549,49 @@ const lastSaveGameBtn = document.querySelector(".lastGame_btn");
 saveBtn.addEventListener("click", saveGame);
 lastSaveGameBtn.addEventListener("click", lastSavedGame);
 muzBtn.addEventListener("click", clickMuz);
-//change color
 themesBtn.addEventListener("click", toggletheme);
+
+canvas2.addEventListener("mousedown", (e) => {
+  if (!firstClick) {
+    startTimer = setInterval(() => {
+      headerTimer.textContent = getTime(timeStart);
+    }, 700);
+    firstClick = true;
+  }
+  let col = Math.floor(e.offsetX / cell_size);
+  let row = Math.floor(e.offsetY / cell_size);
+  switch (e.buttons) {
+    case 1:
+      soundMuz(chest);
+      clickLeft(row, col);
+
+      break;
+    case 2:
+      soundMuz(cross);
+      clickRight(row, col);
+      break;
+    default:
+      soundMuz(chest);
+      clickLeft(row, col);
+  }
+});
+listEasy.addEventListener("click", function (e) {
+  clickEasy(e, easy);
+});
+listNormal.addEventListener("click", function (e) {
+  clickEasy(e, normal);
+});
+listHard.addEventListener("click", function (e) {
+  clickEasy(e, hard);
+});
+settingsBtn.addEventListener("click", clickSetting);
+buttonsClose.forEach((button) => {
+  button.addEventListener("click", clickClose);
+});
+tableBtn.addEventListener("click", clickBestGAme);
+randomBtn.addEventListener("click", startNewRandomGAme);
 function toggletheme() {
-  if (localStorage.getItem("theme") == "dark-theme") {
+  if (localStorage.getItem("theme_den") == "dark-theme") {
     initialThemeColor("color-theme");
   } else {
     initialThemeColor("dark-theme");
@@ -581,6 +617,7 @@ function clickMuz() {
   isMuted = !isMuted;
 }
 function soundMuz(truck) {
+  truck.currentTime = 0;
   truck.play();
 }
 function youWin() {
@@ -633,45 +670,6 @@ function clickRight(row, col) {
     customerAnswer[row][col] = 0;
   }
 }
-canvas2.addEventListener("mousedown", (e) => {
-  if (!firstClick) {
-    startTimer = setInterval(() => {
-      headerTimer.textContent = getTime(timeStart);
-    }, 700);
-    firstClick = true;
-  }
-  let col = Math.floor(e.offsetX / cell_size);
-  let row = Math.floor(e.offsetY / cell_size);
-  switch (e.buttons) {
-    case 1:
-      soundMuz(chest);
-      clickLeft(row, col);
-
-      break;
-    case 2:
-      soundMuz(cross);
-      clickRight(row, col);
-      break;
-    default:
-      soundMuz(chest);
-      clickLeft(row, col);
-  }
-});
-listEasy.addEventListener("click", function (e) {
-  clickEasy(e, easy);
-});
-listNormal.addEventListener("click", function (e) {
-  clickEasy(e, normal);
-});
-listHard.addEventListener("click", function (e) {
-  clickEasy(e, hard);
-});
-settingsBtn.addEventListener("click", clickSetting);
-buttonsClose.forEach((button) => {
-  button.addEventListener("click", clickClose);
-});
-tableBtn.addEventListener("click", clickBestGAme);
-randomBtn.addEventListener("click", startNewRandomGAme);
 function startNewRandomGAme() {
   endGame();
   let ramdomObj = randomObject();
@@ -775,7 +773,6 @@ function getTime(num) {
   return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
 }
 let finalArray = JSON.parse(localStorage.getItem(myKey)) || [];
-// let arraySave = JSON.parse(localStorage.getItem(myKeySave)) || [];
 modalTableInner(finalArray);
 function saveGame() {
   let infoSave = [nameGame, answer, customerAnswer, timeStart];
@@ -789,18 +786,9 @@ function lastSavedGame() {
     nameGame = arraySave[0];
     customerAnswer = arraySave[2];
     timeStart = arraySave[3];
+    headerTimer.textContent = getTime(timeStart);
     // console.log(ramdomObj);
     startGame();
     clickClose();
   }
 }
-// let info = { time: 11, level: "hard", gameName: "horse" };
-
-// let arry = JSON.parse(localStorage.getItem(myKeySave)) || [];
-// arry.push(info);
-// customerAnswer;
-// localStorage.setItem(myKey, JSON.stringify(arry));
-// let arraSave = JSON.parse(localStorage.getItem(myKey));
-// arraSave.push(info3);
-// localStorage.setItem(myKey, JSON.stringify(arraSave));
-// let lastArray = JSON.parse(localStorage.getItem(myKey));
