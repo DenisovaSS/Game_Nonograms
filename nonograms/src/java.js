@@ -1,9 +1,11 @@
 const onlyEasy = Object.entries(easy);
+
 const chest = new Audio("muz/chest.mp3");
 const cross = new Audio("muz/cross.mp3");
 const lose = new Audio("muz/lose.mp3");
 const win = new Audio("muz/win.mp3");
 const myKey = "bestOfTheBestPlayer_denissova";
+const myKeySave = "save_denissova";
 let random = Math.floor(Math.random() * onlyEasy.length);
 let key = onlyEasy[random][1];
 let nameGame = onlyEasy[random][0];
@@ -15,16 +17,31 @@ let firstClick = false;
 let isMuted = false;
 //fill active field
 let answer = key;
+let cell_size = 30;
+function cellSize() {
+  const screen = document.documentElement.clientWidth;
+  if (screen < 1000 && answer.length > 10) {
+    cell_size = 18;
+  } else {
+    cell_size = 30;
+  }
+  return cell_size;
+  // console.log(screen, answer.length);
+}
 let levelGame =
   answer.length < 6 ? "easy" : answer.length > 12 ? "hard" : "normal";
-console.log(levelGame);
 let customerAnswer = buildField();
 let showAnswer = false;
-let cell_size = 30;
-let font_size = cell_size === 20 ? 20 : 28;
+let font_size = cell_size === 18 ? 18 : 28;
 let screen_width = answer[0].length * cell_size;
 let screen_height = answer.length * cell_size;
-const startGameField = cell_size * 5;
+let startGameField = cell_size * 5;
+function initialThemeColor(themeName) {
+  localStorage.setItem("theme", themeName);
+  document.documentElement.className = themeName;
+}
+initialThemeColor("color-theme");
+
 //create html elements
 class BuildPage {
   constructor() {}
@@ -293,6 +310,8 @@ let matrixClueColumn = countCluesColumn(answer);
 function startDrow() {
   matrixClueRow = countCluesRow(answer);
   matrixClueColumn = countCluesColumn(answer);
+
+  startGameField = cell_size * 5;
   screen_width = answer[0].length * cell_size;
   screen_height = answer.length * cell_size;
   gamePart.style.width = screen_width + startGameField + "px";
@@ -315,6 +334,7 @@ function startDrow() {
   fillFiledActive();
   fillText();
 }
+
 function drawLine(startx, starty, endx, endy, color, line_width, ctx) {
   ctx.strokeStyle = color;
   ctx.lineWidth = line_width;
@@ -417,7 +437,9 @@ function fillText() {
   ctx.font = `${font_size}px Times New Roman`;
   ctx.textBaseline = "ideographic";
   ctx.textAlign = "right";
-  ctx.fillStyle = "#9b643b";
+  ctx.fillStyle = document.documentElement.classList.contains("color-theme")
+    ? "#9b643b"
+    : "#171316";
   // Line hints
   for (let i = 0; i < matrixClueRow.length; i++) {
     let string = " ";
@@ -429,7 +451,9 @@ function fillText() {
     }
     ctx.fillText(string, startGameField, cell_size * (i + 1) + startGameField);
   }
-  ctx.fillStyle = "#9b643b";
+  ctx.fillStyle = document.documentElement.classList.contains("color-theme")
+    ? "#9b643b"
+    : "#171316";
   ctx.textAlign = "center";
 
   // Column
@@ -453,7 +477,12 @@ function fillColor(ctx, matirix, start) {
   for (let i = 0; i < matirix.length; i++) {
     for (let j = 0; j < matirix[i].length; j++) {
       if (matirix[i][j] === 1) {
-        ctx.fillStyle = "#c4915e";
+        ctx.fillStyle = document.documentElement.classList.contains(
+          "color-theme",
+        )
+          ? "#c4915e"
+          : "#171316";
+
         ctx.fillRect(
           cell_size * j + start,
           cell_size * i + start,
@@ -517,8 +546,19 @@ const saveBtn = document.querySelector(".save_btn");
 const muzBtn = document.querySelector(".muz_btn");
 const h3ModalWin = document.querySelector(".win_title");
 const ulModalTAble = document.querySelector(".best_game");
-muzBtn.addEventListener("click", clickMuz);
+const themesBtn = document.querySelector(".themes_btn");
+const resetBtn = document.querySelector(".reset_btn");
 
+muzBtn.addEventListener("click", clickMuz);
+//change color
+themesBtn.addEventListener("click", toggletheme);
+function toggletheme() {
+  if (localStorage.getItem("theme") == "dark-theme") {
+    initialThemeColor("color-theme");
+  } else {
+    initialThemeColor("dark-theme");
+  }
+}
 //isMuted
 function clickMuz() {
   if (isMuted) {
@@ -545,23 +585,24 @@ function youWin() {
   soundMuz(win);
   endGame();
   h3ModalWin.textContent = `Great! You have solved the nonogram in ${saveTime} seconds!" `;
-  infoAboutWinGAme(finalArray);
+  infoAboutWinGAme();
   finalArray = JSON.parse(localStorage.getItem(myKey)) || [];
   modalTableInner(finalArray);
+  canvas2.style.display = "none";
+  showAnswer = true;
+  resetBtn.disabled = true;
   modals.classList.add("active");
   modalWin.classList.add("active");
 }
-function infoAboutWinGAme(array) {
-  if (array.length > 0) {
-    levelGame =
-      answer.length < 6 ? "easy" : answer.length > 12 ? "hard" : "normal";
-    let hight = JSON.parse(localStorage.getItem(myKey));
-    hight.push({ nameGame, levelGame, saveTime });
-    // localStorage.setItem(myKey, JSON.stringify(hight));
-    hight.sort((a, b) => (a.saveTime > b.saveTime ? 1 : -1));
-    hight = hight.slice(0, 5);
-    localStorage.setItem(myKey, JSON.stringify(hight));
-  }
+function infoAboutWinGAme() {
+  levelGame =
+    answer.length < 6 ? "easy" : answer.length > 12 ? "hard" : "normal";
+  let hight = JSON.parse(localStorage.getItem(myKey)) || [];
+  hight.push({ nameGame, levelGame, saveTime });
+  // localStorage.setItem(myKey, JSON.stringify(hight));
+  hight.sort((a, b) => (a.saveTime > b.saveTime ? 1 : -1));
+  hight = hight.slice(0, 5);
+  localStorage.setItem(myKey, JSON.stringify(hight));
 }
 
 function modalTableInner(array) {
@@ -599,8 +640,8 @@ canvas2.addEventListener("mousedown", (e) => {
   let row = Math.floor(e.offsetY / cell_size);
   switch (e.buttons) {
     case 1:
-      clickLeft(row, col);
       soundMuz(chest);
+      clickLeft(row, col);
 
       break;
     case 2:
@@ -608,8 +649,8 @@ canvas2.addEventListener("mousedown", (e) => {
       clickRight(row, col);
       break;
     default:
-      clickLeft(row, col);
       soundMuz(chest);
+      clickLeft(row, col);
   }
 });
 listEasy.addEventListener("click", function (e) {
@@ -639,6 +680,7 @@ function startNewRandomGAme() {
 function clickEasy(e, object) {
   endGame();
   whichAnswer(e, object);
+
   startGame();
   clickClose();
 }
@@ -697,17 +739,20 @@ function startGame() {
   if (game) {
     clearInterval(game);
   }
+  if (showAnswer) {
+    canvas2.style.display = "block";
+    showAnswer = false;
+  }
+  resetBtn.disabled = false;
   firstClick = false;
+  cell_size = cellSize();
+  font_size = cell_size === 18 ? 17 : 28;
   customerAnswer = buildField();
   game = setInterval(startDrow, 300);
 }
 function endGame() {
   ctx.fillStyle = "#c7c9c6";
   ctx.fillRect(startGameField, startGameField, screen_width, screen_height);
-  if (showAnswer) {
-    canvas2.style.display = "block";
-    showAnswer = false;
-  }
   clearInterval(startTimer);
   saveTime = timeStart;
   timeStart = 0;
@@ -725,21 +770,13 @@ let finalArray = JSON.parse(localStorage.getItem(myKey)) || [];
 modalTableInner(finalArray);
 
 // let info = { time: 11, level: "hard", gameName: "horse" };
-// let info2 = { time: 12, level: "normal", gameName: "blow" };
-// let info3 = { time: 5, level: "easy", gameName: "sky" };
-// let arry = JSON.parse(localStorage.getItem(myKey)) || [];
+let info = [customerAnswer, answer, timeStart];
+console.log(info);
+// let arry = JSON.parse(localStorage.getItem(myKeySave)) || [];
 // arry.push(info);
-// arry.push(info2);
+// customerAnswer;
 // localStorage.setItem(myKey, JSON.stringify(arry));
 // let arraSave = JSON.parse(localStorage.getItem(myKey));
 // arraSave.push(info3);
 // localStorage.setItem(myKey, JSON.stringify(arraSave));
 // let lastArray = JSON.parse(localStorage.getItem(myKey));
-// lastArray.sort((a, b) => (a.time > b.time ? 1 : -1));
-// lastArray = lastArray.slice(0, 5);
-// lastArray.forEach((oneObJ) => {
-//   const list = `
-//         <li class = "bestOfYheBest"> "${oneObJ.gameName}" - level ${oneObJ.level} in ${oneObJ.time} sec</li>
-// `;
-//   ulModalTAble.insertAdjacentHTML("beforeend", list);
-// });
