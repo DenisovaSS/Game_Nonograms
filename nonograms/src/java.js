@@ -20,8 +20,11 @@ let answer = key;
 let cell_size = 30;
 function cellSize() {
   const screen = document.documentElement.clientWidth;
+  console.log(screen);
   if (screen < 1000 && answer.length > 10) {
     cell_size = 18;
+  } else if (screen < 750 && answer.length === 10) {
+    cell_size = 20;
   } else {
     cell_size = 30;
   }
@@ -32,7 +35,7 @@ let levelGame =
   answer.length < 6 ? "easy" : answer.length > 12 ? "hard" : "normal";
 let customerAnswer = buildField();
 let showAnswer = false;
-let font_size = cell_size === 18 ? 18 : 28;
+let font_size = cell_size === 18 ? 18 : cell_size === 20 ? 20 : 28;
 let screen_width = answer[0].length * cell_size;
 let screen_height = answer.length * cell_size;
 let startGameField = cell_size * 5;
@@ -754,7 +757,7 @@ function startGame() {
   saveBtn.disabled = false;
   firstClick = false;
   cell_size = cellSize();
-  font_size = cell_size === 18 ? 17 : 28;
+  font_size = cell_size === 18 ? 18 : cell_size === 20 ? 20 : 28;
 
   game = setInterval(startDrow, 300);
 }
