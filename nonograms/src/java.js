@@ -2,6 +2,7 @@ const onlyEasy = Object.entries(easy);
 const chest = new Audio("muz/chest.mp3");
 const cross = new Audio("muz/cross.mp3");
 const lose = new Audio("muz/lose.mp3");
+
 const win = new Audio("muz/win.mp3");
 const myKey = "bestOfTheBestPlayer_denissova";
 const myKeySave = "save_denissova";
@@ -518,7 +519,7 @@ function compareMatrix() {
         continue;
       }
       if (value1 !== value2) {
-        return console.log(false);
+        return false;
       }
     }
   }
@@ -552,6 +553,7 @@ muzBtn.addEventListener("click", clickMuz);
 themesBtn.addEventListener("click", toggletheme);
 
 canvas2.addEventListener("mousedown", (e) => {
+  chest.load();
   if (!firstClick) {
     startTimer = setInterval(() => {
       headerTimer.textContent = getTime(timeStart);

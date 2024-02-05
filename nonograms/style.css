@@ -24,7 +24,7 @@
   --imgTheme: url(img/schem_c.png);
 }
 .dark-theme {
-  --color-field: #f8f9fb;
+  --color-field: #d3d6db;
   --brith-color: #8f979a;
   --ligth-brawn: #4e504d;
   --dark-brawn: #171316;
@@ -52,7 +52,7 @@ body {
   justify-content: space-around; */
 }
 .cover_first {
-  border: 8px solid var(--ligth-brawn);
+  border: 8px solid var(--dark-brawn);
   /* background-color: var(--ligth-brawn); */
   border-radius: 20px;
 }
