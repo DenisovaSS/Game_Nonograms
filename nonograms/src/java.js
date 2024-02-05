@@ -654,8 +654,9 @@ function infoAboutWinGAme() {
 function modalTableInner(array) {
   ulModalTAble.innerHTML = "";
   array.forEach((oneObJ) => {
+    const time = getTime(oneObJ.saveTime);
     const list = `
-          <li class = "bestOfYheBest"> " <b>${oneObJ.nameGame}</b>" - level <b>${oneObJ.levelGame}</b> in <b>${oneObJ.saveTime}</b> sec</li>
+          <li class = "bestOfYheBest"> " <b>${oneObJ.nameGame}</b>" - level <b>${oneObJ.levelGame}</b> in <b>${time}</b> sec</li>
   `;
     ulModalTAble.insertAdjacentHTML("beforeend", list);
   });
