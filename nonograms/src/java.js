@@ -10,9 +10,11 @@ let random = Math.floor(Math.random() * onlyEasy.length);
 let key = onlyEasy[random][1];
 let nameGame = onlyEasy[random][0];
 const allObjects = [easy, normal, hard];
-let timeStart = 0;
+let timeStart = -5;
+console.log(timeStart);
 let saveTime = 0;
 let startTimer;
+console.log(startTimer);
 let firstClick = false;
 let isMuted = false;
 //fill active field
@@ -561,9 +563,10 @@ canvas2.addEventListener("mousedown", (e) => {
   if (!firstClick) {
     startTimer = setInterval(() => {
       headerTimer.textContent = getTime(timeStart);
-    }, 700);
+    }, 1000);
     firstClick = true;
   }
+
   let col = Math.floor(e.offsetX / cell_size);
   let row = Math.floor(e.offsetY / cell_size);
   switch (e.buttons) {
@@ -782,6 +785,7 @@ function getTime(num) {
   timeStart++;
   return `${minutes}:${String(seconds % 60).padStart(2, 0)}`;
 }
+
 let finalArray = JSON.parse(localStorage.getItem(myKey)) || [];
 modalTableInner(finalArray);
 function saveGame() {
