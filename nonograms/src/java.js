@@ -10,7 +10,7 @@ let random = Math.floor(Math.random() * onlyEasy.length);
 let key = onlyEasy[random][1];
 let nameGame = onlyEasy[random][0];
 const allObjects = [easy, normal, hard];
-let timeStart = -5;
+let timeStart = 0;
 console.log(timeStart);
 let saveTime = 0;
 let startTimer;
