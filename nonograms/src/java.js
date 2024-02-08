@@ -557,7 +557,7 @@ muzBtn.addEventListener("click", clickMuz);
 themesBtn.addEventListener("click", toggletheme);
 
 canvas2.addEventListener("mousedown", (e) => {
-  chest.load();
+  // chest.load();
   if (!firstClick) {
     startTimer = setInterval(() => {
       headerTimer.textContent = getTime(timeStart);

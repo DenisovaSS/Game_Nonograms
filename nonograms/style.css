@@ -458,8 +458,8 @@ body {
     right: 200px;
   }
   .inner_container {
-    width: 400px;
-    height: 400px;
+    width: 380px;
+    height: 350px;
   }
   .list h2 {
     font-size: 1rem;
@@ -545,5 +545,9 @@ body {
   }
   .header_timer {
     font-size: 30px;
+  }
+  .inner_container_win {
+    width: 250px;
+    height: 350px;
   }
 }
