@@ -17,10 +17,11 @@ let firstClick = false;
 let isMuted = false;
 //fill active field
 let answer = key;
+
 let cell_size = 30;
 function cellSize() {
   const screen = document.documentElement.clientWidth;
-  console.log(screen);
+  // console.log(screen);
   if (screen < 1000 && answer.length > 10) {
     cell_size = 18;
   } else if (screen < 750 && answer.length === 10) {
@@ -644,15 +645,17 @@ function infoAboutWinGAme() {
   levelGame =
     answer.length < 6 ? "easy" : answer.length > 12 ? "hard" : "normal";
   let hight = JSON.parse(localStorage.getItem(myKey)) || [];
+  if (hight.length > 4) {
+    hight = hight.slice(1, 5);
+  }
   hight.push({ nameGame, levelGame, saveTime });
   // localStorage.setItem(myKey, JSON.stringify(hight));
-  hight.sort((a, b) => (a.saveTime > b.saveTime ? 1 : -1));
-  hight = hight.slice(0, 5);
   localStorage.setItem(myKey, JSON.stringify(hight));
 }
 
 function modalTableInner(array) {
   ulModalTAble.innerHTML = "";
+  array.sort((a, b) => (a.saveTime > b.saveTime ? 1 : -1));
   array.forEach((oneObJ) => {
     const time = getTime(oneObJ.saveTime);
     const list = `
@@ -675,6 +678,7 @@ function clickRight(row, col) {
   } else {
     customerAnswer[row][col] = 0;
   }
+  compareMatrix();
 }
 function startNewRandomGAme() {
   endGame();
