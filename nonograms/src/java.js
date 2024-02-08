@@ -490,6 +490,9 @@ function fillColor(ctx, matirix, start) {
 // console.log("matrixClueColumn", matrixClueColumn);
 //drow this array-answer
 function startDrow() {
+  cell_size = cellSize();
+  // console.log(cell_size);
+  font_size = cell_size === 18 ? 18 : cell_size === 20 ? 20 : 28;
   matrixClueRow = countCluesRow(answer);
   matrixClueColumn = countCluesColumn(answer);
   startGameField = cell_size * 5;
@@ -529,7 +532,7 @@ function compareMatrix() {
       }
     }
   }
-  return youWin();
+  return setTimeout(() => youWin(), 500);
 }
 
 //Events listener
@@ -682,6 +685,7 @@ function clickRight(row, col) {
     customerAnswer[row][col] = 0;
   }
   compareMatrix();
+  // setTimeout(compareMatrix(), 5000);
 }
 function startNewRandomGAme() {
   endGame();
@@ -764,8 +768,6 @@ function startGame() {
   decisionBtn.disabled = false;
   saveBtn.disabled = false;
   firstClick = false;
-  cell_size = cellSize();
-  font_size = cell_size === 18 ? 18 : cell_size === 20 ? 20 : 28;
 
   game = setInterval(startDrow, 300);
 }
