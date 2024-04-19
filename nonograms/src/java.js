@@ -11,10 +11,10 @@ let key = onlyEasy[random][1];
 let nameGame = onlyEasy[random][0];
 const allObjects = [easy, normal, hard];
 let timeStart = 0;
-console.log(timeStart);
+// console.log(timeStart);
 let saveTime = 0;
 let startTimer;
-console.log(startTimer);
+// console.log(startTimer);
 let firstClick = false;
 let isMuted = false;
 //fill active field
